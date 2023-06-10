@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Task_6</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title"></h3>
+                <div class="task__condition">
+                    Задача 6. З клавіатури вводяться вартість товару та кількість одиниць 3 товарів. 
+                    Обчислити вартість кожного товару окремо та загальну вартість. Вивести чек (як у супермаркеті) 
+                    використовуючи елементи розмітки.
+                </div>
+                <div class="task__computing">
+                    <script>
+                        //Задача 6. З клавіатури вводяться вартість товару та кількість одиниць 3 товарів. 
+                        //Обчислити вартість кожного товару окремо та загальну вартість. Вивести чек (як у супермаркеті) 
+                        //використовуючи елементи розмітки.
+                        //Задаємо необхідні значення
+
+                        let getGoodsCostOne = parseFloat(prompt('Введіть вартість товару 1', 10));
+                        let getGoodsQuantityOne = parseInt(prompt('Введіть кількість товару 1', 5));
+                        let getGoodsCostTwo = parseFloat(prompt('Введіть вартість товару 2', 10));
+                        let getGoodsQuantityTwo = parseInt(prompt('Введіть кількість товару 2', 5));
+                        let getGoodsCostThree = parseFloat(prompt('Введіть вартість товару 3', 10));
+                        let getGoodsQuantityThree = parseInt(prompt('Введіть кількість товару 3', 5));
+
+
+                        //Здійснюємо розрахунок
+                        let totalCostGoodsOne = getGoodsCostOne * getGoodsQuantityOne;
+                        let totalCostGoodsTwo = getGoodsCostTwo * getGoodsQuantityTwo;
+                        let totalCostGoodsThree = getGoodsCostThree * getGoodsQuantityThree;
+                        let totalCoast = totalCostGoodsOne + totalCostGoodsTwo + totalCostGoodsThree;
+                        
+                        //Виводимо результат
+                        console.log(`Вартість товару 1: ${totalCostGoodsOne} \n 
+                                    Вартість товару 2: ${totalCostGoodsTwo} \n
+                                    Вартість товару 3: ${totalCostGoodsThree} \n
+                                    Загальна вартість товарів: ${totalCoast}`);
+                    
+                        alert(`Результат обчислення: \n
+                        Вартість товару 1: ${totalCostGoodsOne} \n 
+                        Вартість товару 2: ${totalCostGoodsTwo} \n
+                        Вартість товару 3: ${totalCostGoodsThree} \n
+                        Загальна вартість товарів: ${totalCoast}`);
+
+
+                        document.write(`<br>                  
+                        <table border = 1 celpading = 4 celspacing = 1>
+                            <caption border = 1></caption>
+                            <tr>
+                                <td>Загальна вартість товару 1</td>
+                                <td>${totalCostGoodsOne}</td>
+                            </tr>
+                            <tr>     
+                                <td>Загальна вартість товару 2</td>
+                                <td>${totalCostGoodsTwo}</td>                       
+                            </tr>
+                            <tr>  
+                                <td>Загальна вартість товару 3</td>
+                                <td>${totalCostGoodsThree}</td>
+                            </tr>  
+                            <tr>
+                                <th colspan = "2">Загальна вартість всіх товарів: ${totalCoast}</th>
+                            </tr>
+                        </table>`);
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

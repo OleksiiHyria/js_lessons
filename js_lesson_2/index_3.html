@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Task_3</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title"></h3>
+                <div class="task__condition">
+                    Задача 3. Дано вартість одиниці товару і кількість. Знайти загальну вартість та ПДВ (5% від загальної вартості).
+                </div>
+                <div class="task__computing">
+                    <script>
+                        //Задача 3. Дано вартість одиниці товару і кількість. Знайти загальну вартість та ПДВ (5% від загальної вартості).
+                        //Задаємо необхідні значення
+                        const PDV_TAX = 0.05;
+                        let goodsQuantity = parseInt(prompt('Введіть вартість товару з ПДВ', 10));
+                        let goodsPrice = parseFloat(prompt('Введіть вартість одиниці товару', 20.54))
+                    
+                        //Здійснюємо розрахунок
+                        let realCost = goodsQuantity * goodsPrice;
+                        let goodsTax = realCost * PDV_TAX;
+                        let goodsCost = realCost - goodsTax;
+                    
+                        //Виводимо результат
+                        console.log(`Загальна вартість товару становить: ${realCost} грн.`);
+                        console.log(`ПДВ 5% становить: ${goodsTax} грн.`);
+                        console.log(`Вартість товару без ПДВ: ${goodsCost} грн.`);
+                    
+                        alert(`Результат обчислення: \n
+                        Вартість одиниці товару з ПДВ: ${goodsPrice} \n
+                        Кількість товар (шт): ${goodsQuantity} \n
+                        Вартість товару з ПДВ: ${realCost} грн. \n
+                        Вартість товару без ПДВ: ${goodsCost} грн. \n
+                        ПДВ 5%: ${goodsTax}`);
+                        document.write(` <br>                  
+                        <table border = 1 celpading = 4 celspacing = 1>
+                            <caption border = 1>Обчислення вартості товару та ПДВ</caption>
+                            <tr>
+                                <th>Вартість одиниці товару з ПДВ</th>
+                                <th>Кількість товару</th>
+                                <th>Загальна вартість товару з ПДВ</th>
+                                <th>Загальна вартість товару без ПДВ</th>
+                                <th>ПДВ 5%</th>
+                            </tr>
+                            <tr>     
+                                <th>${goodsPrice}</th>
+                                <th>${goodsQuantity}</th>                       
+                                <th>${realCost}</th>
+                                <th>${goodsCost}</th>
+                                <th>${goodsTax}</th>
+                            </tr>
+                        </table>`);
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

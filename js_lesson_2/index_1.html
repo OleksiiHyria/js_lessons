@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Task_0</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title"></h3>
+                <div class="task__condition">
+                    Задача 1. Знайти суму, добуток та частку двох дійсних чисел. Результат вивести у формі таблиці.
+                </div>
+                <div class="task__computing">
+                    <script>
+                        // Задача 1. Знайти суму, добуток та частку двох дійсних чисел. Результат вивести у формі таблиці
+                        //Задаємо необхідні значення
+                        let firstNumber = parseInt(prompt('Приклад №1 - введіть значення "а"', 0));
+                        let secondNumber = parseInt(prompt('Приклад №1 - введіть значення "b"', 0));
+                    
+                        //Здійснюємо розрахунок
+                        let result_sum = firstNumber + secondNumber;
+                        let result_multiplication = firstNumber * secondNumber;
+                        let result_division = firstNumber / secondNumber;
+                    
+                        //Виводимо результат
+                        console.log(`Результат додавання: = ${result_sum}`);
+                        console.log(`Результат множення: = ${result_multiplication}`);
+                        console.log(`Результат ділення = ${result_division}`);
+                    
+                        alert(` Результат обчислення: \n Сума = ${result_sum} \n Множення = ${result_multiplication} \n Ділення = ${result_division}`);
+                        document.write(` <br>                  
+                        <table border = 1 celpading = 4 celspacing = 1>
+                            <caption border = 1>Результат розрахунків</caption>
+                            <tr>
+                                <th>Здійснювана операція</th>
+                                <th>Результат операції</th>
+                            </tr>
+                            <tr>                            
+                                <th>Додавання</th>
+                                <th>${result_sum}</th>
+                            </tr>
+                            <tr>
+                                <th>Множення</th>
+                                <th>${result_multiplication}</th>
+                            </tr>
+                            <tr>
+                                <th>Ділення</th>
+                                <th>${result_division}</th>
+                            </tr>
+                        </table>`);
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

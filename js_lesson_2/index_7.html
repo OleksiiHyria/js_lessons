@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Task_6</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title"></h3>
+                <div class="task__condition">
+                    Задача 7. Знайти суму випадкового номера місяця (від 1 до 12) та випадкового номера дня (від 0 до 6).
+                </div>
+                <div class="task__computing">
+                    <script>
+                        //Задача 7. Знайти суму випадкового номера місяця (від 1 до 12) та випадкового номера дня (від 0 до 6).
+                        
+                        alert('Зараз будк згенерована сума випадкового дня та місяця');
+                        
+                        //Задаємо необхідні значення
+                        let minMonth, maxMonth, minDay, maxDay;
+
+                        minMonth = 1;
+                        maxMonth = 12;
+                        minDay = 0;
+                        maxDay = 6;
+
+                        //Здійснюємо розрахунок
+
+                        let randomMonth = Math.floor(Math.random() * (maxMonth - minMonth + 1));
+                        let randomDay = Math.floor(Math.random() * (maxDay - minDay + 1));
+                        let randomDayMonthSum = randomMonth + randomDay;
+                        
+                        //Виводимо результат
+                        console.log(`Вартість товару 1: ${randomDayMonthSum}`);
+                    
+                        alert(`Сума випадкового номера місяця (${randomMonth}) та випадкового номера дня (${randomDay}) становить: ${randomDayMonthSum}`);
+
+                        document.write(`<br>                  
+                        <table border = 1 celpading = 4 celspacing = 1>
+                            <caption border = 1></caption>
+                            <tr>
+                                <td>Випадкових день</td>
+                                <td>${randomDay}</td>
+                            </tr>
+                            <tr>
+                                <td>Випадкових місяць</td>
+                                <td>${randomMonth}</td>
+                            </tr>
+                            <tr>
+                                <td>Сума випадкових місяця та дня</td>
+                                <td>${randomDayMonthSum}</td>
+                            </tr>
+                        </table>`);
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

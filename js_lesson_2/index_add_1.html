@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Additional task 1</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Додаткове завдання 1</h3>
+                <div class="task__condition">
+                    Дано ширину екрана та кількість елементів, які повинні бути відображені у рядку. Визначити ширину елементів, які повинні бути відображені у цьому рядку. 
+                </div>
+                <div class="task__computing">
+                    <script>
+                    // Дано ширину екрана та кількість елементів, які повинні бути відображені у рядку. 
+                    // Визначити ширину елементів, які повинні бути відображені у цьому рядку. 
+
+                        //Задаємо необхідні значення
+                        let getWidthWievport = parseInt(prompt('Введіть ширину екрану', 320));
+                        let getQuantityElements = parseInt(prompt('Введіть кількість елементів у рядку'));
+
+                        //Здійснюємо розрахунок
+
+                        let elementsWidth = getWidthWievport / getQuantityElements;
+                        
+                        //Виводимо результат
+                        console.log(`Ширина елементів на сторінці: ${elementsWidth}`);
+                    
+                        alert(`Ширина елементів на сторінці: ${elementsWidth}`);
+
+                        document.write(`<br>                  
+                        <table border = 1 celpading = 4 celspacing = 1>
+                            <caption border = 1></caption>
+                            <tr>
+                                <td>Ширина елементів на сторінці:</td>
+                                <td>${elementsWidth}</td>
+                            </tr>
+                        </table>`);
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

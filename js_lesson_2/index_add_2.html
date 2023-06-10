@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Additional task 2</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Додаткове завдання 2</h3>
+                <div class="task__condition">
+                    З клавіатури вводиться розмір заробітної плати та розмір прожиткового мінімуму. Визначити розмір соціальної допомоги (ввжаємо, що заробітна плата є меншою).
+                </div>
+                <div class="task__computing">
+                    <script>
+                    // З клавіатури вводиться розмір заробітної плати та розмір прожиткового мінімуму. 
+                    //Визначити розмір соціальної допомоги (ввжаємо, що заробітна плата є меншою). 
+                    
+                        //Задаємо необхідні значення
+                        let getSallary = parseInt(prompt('Введіть розмір заробітної платні:' , 16500));
+                        let getSubsistanceMinimum = parseInt(prompt('Введіть розмір прожиткового мінімуму: ', 6400));
+                        let socialHelp;
+
+                        //Здійснюємо розрахунок та виводимо результат
+                        if (getSallary < getSubsistanceMinimum) {
+                            socialHelp = getSubsistanceMinimum - getSallary;
+                            console.log(`Соціальна допомога становить:  ${socialHelp} грн.`);
+                            alert(`Розмір соціальної виплати становить: ${socialHelp}`);
+
+                            document.write(`<br>                  
+                            <table border = 1 celpading = 4 celspacing = 1>
+                                <caption border = 1></caption>
+                                <tr>
+                                    <td>Розмір заробітної платні становить:</td>
+                                    <td>${getSallary}</td>
+                                </tr>
+                                <tr>
+                                    <td>Розмір прожиткового мінімуму становить:</td>
+                                    <td>${getSubsistanceMinimum}</td>
+                                </tr>
+                                <tr>
+                                    <td>Розмір соціальної виплати становить:</td>
+                                    <td>${socialHelp}</td>
+                                </tr>    
+                            </table>`);
+                        } else {
+                            console.log('Заробітня платня більша ніж прожитковий мінімум - соціальна виплата не призначена.');
+                            alert(`Заробітня платня більша ніж прожитковий мінімум - соціальна виплата не призначена.`);
+                            document.write(`
+                            <br>
+                            <div>
+                                Заробітня платня більша ніж прожитковий мінімум - соціальна виплата не призначена.
+                            </div>
+                            `);
+                        }
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

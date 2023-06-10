@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Additional task 3</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Додаткове завдання 3</h3>
+                <div class="task__condition">
+                    З клавіатури вводяться вартість одиниці та кількість одиниць двох товарів. 
+                    Вивести на екран вартість кожного з видів товарів окремо і загальну вартість.
+                </div>
+                <div class="task__computing">
+                    <script>
+                        //З клавіатури вводяться вартість одиниці та кількість одиниць двох товарів. 
+                        //Вивести на екран вартість кожного з видів товарів окремо і загальну вартість.
+                        //Задаємо необхідні значення
+
+                        let getGoodsCostOne = parseFloat(prompt('Введіть вартість товару 1', 100));
+                        let getGoodsQuantityOne = parseInt(prompt('Введіть кількість товару 1', 5));
+                        let getGoodsCostTwo = parseFloat(prompt('Введіть вартість товару 2', 100));
+                        let getGoodsQuantityTwo = parseInt(prompt('Введіть кількість товару 2', 5));
+
+                        //Здійснюємо розрахунок
+                        let totalCostGoodsOne = getGoodsCostOne * getGoodsQuantityOne;
+                        let totalCostGoodsTwo = getGoodsCostTwo * getGoodsQuantityTwo;
+                        let totalCoast = totalCostGoodsOne + totalCostGoodsTwo;
+                        
+                        //Виводимо результат
+                        console.log(`Вартість товару 1: ${totalCostGoodsOne} \n 
+                                    Вартість товару 2: ${totalCostGoodsTwo} \n
+                                    Загальна вартість товарів: ${totalCoast}`);
+                        alert(`Результат обчислення: \n
+                        Вартість товару 1: ${totalCostGoodsOne} \n 
+                        Вартість товару 2: ${totalCostGoodsTwo} \n
+                        Загальна вартість товарів: ${totalCoast}`);
+
+
+                        document.write(`<br>                  
+                        <table border = 1 celpading = 4 celspacing = 1>
+                            <caption border = 1></caption>
+                            <tr>
+                                <td>Загальна вартість товару 1</td>
+                                <td>${totalCostGoodsOne}</td>
+                            </tr>
+                            <tr>     
+                                <td>Загальна вартість товару 2</td>
+                                <td>${totalCostGoodsTwo}</td>                       
+                            </tr>
+                            <tr>
+                                <th colspan = "2">Загальна вартість всіх товарів: ${totalCoast}</th>
+                            </tr>
+                        </table>`);
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

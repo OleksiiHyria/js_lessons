@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Task_5</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title"></h3>
+                <div class="task__condition">
+                    Задача 5. Дано кількість секунд, що пройшла від початку доби. Визначити скільки це годин і хвилин.
+                </div>
+                <div class="task__computing">
+                    <script>
+                        //Задача 5. Дано кількість секунд, що пройшла від початку доби. Визначити скільки це годин і хвилин.
+                        //Задаємо необхідні значення
+                        const ONE_MINUTE = 60;
+                        const ONE_HOUR = 60;
+                        let getSeconds = parseInt(prompt('Введіть кількість секунд', 10));
+                    
+                        //Здійснюємо розрахунок
+                        let getMinutes = getSeconds / ONE_MINUTE;
+                        let getHours = getMinutes / ONE_HOUR;
+                        
+                        //Виводимо результат
+                        console.log(`Всього секунд: ${getSeconds}`);
+                        console.log(`Всього хвилин: ${getMinutes}`);
+                        console.log(`Всього годин: ${getHours}`);
+                    
+                        alert(`Результат обчислення: \n
+                        Всього секунд: ${getSeconds.toFixed(5)} \n
+                        Всього хвилин: ${getMinutes.toFixed(5)} \n
+                        Всього годин: ${getHours.toFixed(5)}`);
+                        document.write(` <br>                  
+                        <table border = 1 celpading = 4 celspacing = 1>
+                            <caption border = 1>Скільки годин і хвилин</caption>
+                            <tr>
+                                <th>Всього секунд</th>
+                                <th>Всього хвилин</th>
+                                <th>Всього годин</th>
+                            </tr>
+                            <tr>     
+                                <th>${getSeconds}</th>
+                                <th>${getMinutes.toFixed(5)}</th>                       
+                                <th>${getHours.toFixed(5)}</th>
+                            </tr>
+                        </table>`);
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

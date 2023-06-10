@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Task_4</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title"></h3>
+                <div class="task__condition">
+                    Задача 4. Дано довжину у сантиметрах. Визначати скільки це метрів і кілометрів.
+                </div>
+                <div class="task__computing">
+                    <script>
+                        //Задача 4. Дано довжину у сантиметрах. Визначати скільки це метрів і кілометрів.
+                        //Задаємо необхідні значення
+                        const ONE_METER = 100;
+                        const ONE_KILOMETER = 1000;
+                        let getCentimeters = parseFloat(prompt('Введіть кількість сантиметрів', 10));
+                    
+                        //Здійснюємо розрахунок
+                        let getMeters = getCentimeters / ONE_METER;
+                        let getKilometers = getCentimeters / ONE_KILOMETER;
+                        
+                        //Виводимо результат
+                        console.log(`Всього сантиметрів: ${getCentimeters}`);
+                        console.log(`Всього метрів: ${getMeters}`);
+                        console.log(`Всього кілометрів: ${getKilometers}`);
+                    
+                        alert(`Результат обчислення: \n
+                        Всього сантиметрів: ${getCentimeters} \n
+                        Всього метрів: ${getMeters} \n
+                        Всього кілометрів: ${getKilometers}`);
+                        document.write(` <br>                  
+                        <table border = 1 celpading = 4 celspacing = 1>
+                            <caption border = 1>Скільки це метрів і кілометрів</caption>
+                            <tr>
+                                <th>Всього сантиметрів</th>
+                                <th>Всього метрів</th>
+                                <th>Всього кілометрів</th>
+                            </tr>
+                            <tr>     
+                                <th>${getCentimeters}</th>
+                                <th>${getMeters}</th>                       
+                                <th>${getKilometers}</th>
+                            </tr>
+                        </table>`);
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
