@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 3 - home task 5</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 3 - Домашнє завдання 5</h3>
+                <div class="task__condition">
+                    З клавіатури вводиться назва категорії водія (А-мотоцикл, В-легковий автомобіль, С-вантажний автомобіль). 
+                    Вивести на екран назву транспортного засобу, яким він може керувати.
+                </div>
+                <div class="task__computing">
+                    <script>
+                        //Задача 4. З клавіатури вводиться назва категорії водія (А-мотоцикл, В-легковий автомобіль, С-вантажний автомобіль). 
+                        //Вивести на екран назву транспортного засобу, яким він може керувати.
+                        //Задаємо необхідні значення
+                        let getCategory = prompt('Введіть категорію водійського посвідчення (A, В, С).')
+
+                        const CATEGORY_A = 'А';
+                        const CATEGORY_B = 'В';
+                        const CATEGORY_C = 'С';
+                        
+                        //Здійснюємо розрахунок
+                        if (getCategory === CATEGORY_A) {
+                            alert('Мотоцикл');
+                            document.write()
+                        } else if (getCategory === CATEGORY_B) {
+                            alert ('Легковий автомобіль');
+                        } else if (getCategory === CATEGORY_C) {
+                            alert('Bантажний автомобіль');
+                        } else {
+                            alert('Категорія введена невірно. Ведіть допустимі значення - А, В чи С');
+                        };
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

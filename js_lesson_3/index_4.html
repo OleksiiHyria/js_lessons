@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 3 - home task 4</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 3 - Домашнє завдання 4</h3>
+                <div class="task__condition">
+                    Задача 4. З клавіатури вводиться вік людини. Вивести на екран ким він є (дитиною у садочку, школярем, студентом, працівником, пенсіонером).
+                </div>
+                <div class="task__computing">
+                    <script>
+                        //Задача 4. З клавіатури вводиться вік людини. Вивести на екран ким він є (дитиною у садочку, школярем, студентом, працівником, пенсіонером).
+                        //Задаємо необхідні значення
+                        let yearsOld = parseInt(prompt('Введіть вік людини!'));
+
+                        const KINDERGARDEN = 6;
+                        const SCHOOL = 18;
+                        const UNIVERSITY = 23;
+                        const WORKER = 60;
+                                
+                        //Здійснюємо розрахунок
+                        if (yearsOld < KINDERGARDEN) {
+                            alert('Це дитина');
+                        } else if (yearsOld < SCHOOL) {
+                            alert('Це школяр');
+                        } else if (yearsOld < UNIVERSITY) {
+                            alert('Це робітник');
+                        } else if(yearsOld < WORKER) {
+                            alert('Це робітник');
+                        } else { 
+                            alert('Це пенсіонер');
+                        }
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 2 - home task 2</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 2 - Домашнє завдання 2</h3>
+                <div class="task__condition">
+                    З клавіатури вводиться ціна товару і кількість грошей. 
+                    Якщо грошей не вистачає то відмовляємо у покупці, інакше, якщо ще залишаються гроші, то пропонуємо купити лотерею за 4 грн.
+                </div>
+                <div class="task__computing">
+                    <script>
+                        //З клавіатури вводиться ціна товару і кількість грошей. 
+                        //Якщо грошей не вистачає то відмовляємо у покупці, інакше, якщо ще залишаються гроші, то пропонуємо купити лотерею за 4 грн.
+                        let costOfGoods = prompt('Введіть вартість товару.');
+                        let moneyQuantity = prompt('Введіть кількість грошей.');
+                        let balance;
+                    
+                        //Здійснюємо розрахунок
+                        if (moneyQuantity > costOfGoods) {
+                            balance = moneyQuantity - costOfGoods;
+                            const TICKET_PRICE = 4;
+                            let ticketQuantity = balance / TICKET_PRICE;
+                            alert(`Покупка здійснена успішно. Ваш залишок складає ${balance} грн. 
+                            \n Ви можете придбати лотерейний квиток за 4 грн. 
+                            \n Всього ви может придбати: ${Math.floor(ticketQuantity)} квитки.
+                            `);
+                            document.write(`
+                                            <br>
+                                            <table> 
+                                                <tr>
+                                                    <td>Вартість покупки</td>
+                                                    <td>Залишок грошей</td>
+                                                    <td>Вартість лотерейного білету</td>
+                                                    <td>Кількість білетів які можно придбати</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>${costOfGoods}</td>
+                                                    <td>${balance}</td>
+                                                    <td>${TICKET_PRICE}</td>
+                                                    <td>${floor(ticketQuantity) }</td>
+                                                </tr>
+                                            </table>
+                            `);
+                        } else {
+                            alert (`Вибачте, але у Вас не достатньо грошей для здійснення покупки.`);
+                            document.write(
+                                `<div>
+                                    Вибачте, але у Вас не достатньо грошей для здійснення покупки.
+                                </div>`
+                            )
+                            }
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

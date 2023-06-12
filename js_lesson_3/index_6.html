@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 3 - home task 6</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Lesson 3 - home task 6</h3>
+                <div class="task__condition">
+                    З клавіатури вводиться номер дня тижня. Вивести на екран назву дня.
+                </div>
+                <div class="task__computing">
+                    <script>
+                        //З клавіатури вводиться номер дня тижня. Вивести на екран назву дня.
+                        let getDay = parseInt(prompt('Введіть номер дня тижня'));
+
+                        switch (getDay) {
+                            case 1: 
+                                alert('понеділок');
+                                break;
+                            case 2:
+                                alert('вівторок');
+                                break;
+                            case 3:
+                                alert('середа');
+                                break;
+                            case 4:
+                                alert('четверг');
+                                break;
+                            case 5:
+                                alert('п’ятниця');
+                            case 6: 
+                                alert('субота');
+                            case 7:
+                                alert('неділя');
+                                default:
+                                alert('Номер дня тижня указано невірно.')
+                        }
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

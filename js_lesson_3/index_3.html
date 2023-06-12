@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 3 - home task 3</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 3 - Домашнє завдання 3</h3>
+                <div class="task__condition">
+                    Задача 3. Випадковим чином генерується число від 1 до 5. Спробуйте вгадати число за 2 спроби.
+                </div>
+                <div class="task__computing">
+                    <script>
+                        // Задача 3. Випадковим чином генерується число від 1 до 5. 
+                        //Спробуйте вгадати число за 2 спроби. 
+                        let min = 1, max = 5;
+                        let someRandomNumber = Math.floor(min + Math.random() * (max - min + 1));
+                        alert('Спробуйте вгадати число від 1 до 5 за 2 спроби.');
+                        let tryToGuess = parseInt(prompt('Перша спроба! Введіть Ваше число від 1 до 5'));
+                    
+                        //Здійснюємо розрахунок
+                        if (tryToGuess === someRandomNumber) {
+                            alert(`Вітаю! Ви вгадали число ${someRandomNumber}.`);
+                        } else if(tryToGuess !== someRandomNumber) {
+                            alert('Нажаль ви не вгадали! Спробуєм ще!');
+                            tryToGuessOne = parseInt(prompt('Друга спроба! Введіть Ваше число від 1 до 5'));
+                            if (tryToGuess === someRandomNumber){
+                                alert(`Вітаю! Ви вгадали число ${someRandomNumber}.`);
+                            } else {
+                                alert('Нажаль ви не вгадали! Пощастить наступного разу!');}
+                                document.write(`<br>
+                                                    <div>
+                                                        Було загадане число ${someRandomNumber}
+                                                    </div>
+                                                    `)
+                        };
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
