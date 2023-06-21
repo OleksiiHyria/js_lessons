@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 5 - home task 1</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 5 - Домашнє завдання 1</h3>
+                <div class="task__condition">
+                    Задача 16. Користувач поступово вводить прибуток магазину за кожен день протягом N тижнів. 
+                    Знайти загальну величину прибутку та вивести величину прибутку протягом кожного окремого тижня.
+                </div>
+                <div class="task__computing">
+                    <script>
+                        let getWeeks = parseFloat(prompt('Введіть кількість звітних тижнів.', 4))
+                        let getWeekIncome = 0
+                        let sumWeekIncome = 0
+
+                        document.write('<table border = 1px>')
+                        for (let i = 1; i <= getWeeks; i++) {
+                            getWeekIncome = parseFloat(prompt(`Введіть дохід тижня ${i}`))
+                            document.write(`<tr>
+                                    <td>Дохід за ${i} тиждень</td>
+                                    <td>${getWeekIncome}</td>
+                                </tr>`)
+
+                                sumWeekIncome = sumWeekIncome + getWeekIncome
+                        }
+                        document.write(`<tr>
+                            <td> Всього тижнів: ${getWeeks}</td>
+                            <td> Загальний прибуток: ${getWeekIncome}</td>
+                            </tr>`)
+                        document.write('</table>')
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

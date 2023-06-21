@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 5 - home task 4</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 5 - Домашнє завдання 4</h3>
+                <div class="task__condition">
+                    Задача 1. Вивести з використанням циклів маркований список з випадковими числами (1-100). 
+                    Кількість випадкових чисел вводиться користувачем.                
+                </div>
+                <div class="task__computing">
+                    <ul>
+                        <script>
+                            let min = 1, max = 100
+    
+                            let getNumberOfRandom = parseInt(prompt('Введіть кількість необхідних рендомних чисел', 5))
+                            
+                            for (; getNumberOfRandom > 0; --getNumberOfRandom) {
+                                let getRandom = Math.floor(min + Math.random() * (max - min + 1))
+                                document.write(`
+                                <li>${getRandom}</li>`)
+                            }
+                        </script>
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

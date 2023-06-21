@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 5 - home task 15</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 5 - Домашнє завдання 15</h3>
+                <div class="task__condition">
+                    Задача 12. Ігровий автомат. Випадково вибираємо зображення у 3 позиціях. 
+                    Вибір у кожній позиції вибирається як одне з чотирьох зображень. 
+                    Вивести ці зображення і повідомити виграш користувача (три перших зображення 100 грн, три других – 200, 
+                    три третіх – 500, три четвертих зображення – 1000грн). 
+                    Використати цикли і switch (для вибору зображення за номером).
+                </div>
+                <div class="task__computing">
+                    <script>
+                        
+                        let minRange = 1, maxRange = 4, sum = 0
+
+                        for (let i = 0; i < 3; i++) {
+                            let getRandomImgNumber = minRange + Math.floor( Math.random() * (maxRange - minRange + 1))
+                            document.write(`<img src="./img/img${getRandomImgNumber}.jpg">`)
+                            sum += Math.pow(10, getRandomImgNumber - 1)
+                        }
+
+                        switch (sum) {
+                            case 3:
+                                alert(`Ви виграли 100 грн`)
+                                break
+
+                            case 30:
+                                alert('Ви виграли 200 грн')
+                                break
+
+                            case 300: 
+                                alert('Ви виграли 500 грн')
+                                break
+
+                            case 3000:
+                                alert('Ви виграли 1000 грн')
+                                break
+
+                            default: alert('Ви програли')
+                        }
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 5 - home task 17</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 5 - Домашнє завдання 17</h3>
+                <div class="task__condition">
+                    14. Каса. Користувачу повідомляють суму, яку йому треба сплатити. 
+                    Користувач поступово вводить суму грошей до тих пір, 
+                    поки суми не буде достатньо для оплати товарів (кожного разу користувачу повідомляють, 
+                    яку ще суму потрібно ввести). 
+                </div>
+                <div class="task__computing">
+                    <script>
+                        let minSum = 1000, maxSum = 10000
+                        let getRandomPrice = Math.floor(minSum + Math.random() * (maxSum - minSum + 1))
+                        let balance = 0
+                        let moneyLeft = 0
+
+                        alert(`Вартість товару становить ${getRandomPrice}`)
+
+                        do {
+                            let getMoney = parseFloat(prompt(`Вартість товару ${getRandomPrice}. Залишок до сплати становить: ${moneyLeft}. Внесіть гроші`))
+                            balance += getMoney
+                            moneyLeft = getRandomPrice - balance
+                        } while (balance <= getRandomPrice)
+
+                        alert(`Вітаю. Товар придбано. Залишок ваших грошей на балансі становить ${balance - getRandomPrice}`)
+
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
