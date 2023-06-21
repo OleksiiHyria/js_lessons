@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 5 - home task 11.2</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 5 - Домашнє завдання 11.2</h3>
+                <div class="task__condition">
+                    Задача 8. Користувач загадує число. 
+                    За 3 спроби комп’ютер намагається вгадати число користувача (використати confirm).
+                </div>
+                <div class="task__computing">
+                    <script>
+                        let count = 1
+
+                        let getMin = parseInt(prompt('Введіть початок проміжку', 1))
+                        let getMax = parseInt(prompt('Введіть кінець проміжку', 5))
+
+                        alert(`Загадайте число на проміжку від ${getMin} до ${getMax}`)
+
+                        letsPlay()
+
+                        function getRandon (getMin, getMax) {
+                            return Math.floor(getMin + Math.random() * (getMax - getMin))
+                        }
+
+                        function letsPlay (){
+                            let getRandomNumber = getRandon (getMin, getMax)
+                            let checkAnswer = confirm(`Число ${getRandomNumber} це те що ви загадали?`)
+                            if (checkAnswer === true){
+                                alert(`Ура! Ми вгадали! Ваше число ${getRandomNumber}.`)
+                            }
+                            else {
+                                do {
+                                    let checkAnswer = confirm(`Число ${getRandon (getMin, getMax)} це те що ви загадали?`)
+                                        if (checkAnswer === true){
+                                    alert(`Ура! Ми вгадали! Ваше число ${getRandomNumber}.`)
+                                } else{
+                                    count++
+                                    if (count === 3){
+                                        alert(`Кількість спроб вичерпана.`)
+                                    }
+                                } 
+                                            } while (count < 3)
+                            }
+                        }
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

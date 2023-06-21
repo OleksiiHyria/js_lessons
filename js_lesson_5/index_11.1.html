@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 5 - home task 11</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 5 - Домашнє завдання 11</h3>
+                <div class="task__condition">
+                    Задача 8. Користувач загадує число. 
+                    За 3 спроби комп’ютер намагається вгадати число користувача (використати confirm).
+                </div>
+                <div class="task__computing">
+                    <script>
+                        // for
+                        let getMin = parseInt(prompt('Введіть цифру початок діапазону', 1))
+                        let getMax = parseInt(prompt('Введіть цифру кінця діапазону', 5))
+                        let count = 1
+                        alert(`Загадайте число від ${getMin} до ${getMax} і ми спробуємо його вгадати`)
+
+                        getRandom(getMin, getMax);
+
+                        function getRandom (getMin, getMax) {
+                            
+                            let getRandomNumber = Math.floor(getMin + Math.random() * (getMax - getMin + 1))
+                            if (count <= 3){
+                                count++
+                                return tryToGuess(getRandomNumber)
+                                } else {
+                                return alert('Спроби вичерпано. Ви перемогли.')
+                            }
+                        }
+                        
+                        function tryToGuess (getRandomNumber){
+                            let getConfirm = confirm(`Ви загадали це число ${getRandomNumber}`)
+                            for (let i = 1; i < 2; i++){
+                            if (getConfirm === true) {
+                                alert(`Ми вгадали ваше число ${getRandomNumber}`)
+                            } else {
+                                alert(`Ми спробуємо ще раз`)
+                                    getRandom(getMin, getMax)
+
+                                }
+                            }
+                        }
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

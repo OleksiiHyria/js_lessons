@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 5 - home task 1</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 5 - Домашнє завдання 1</h3>
+                <div class="task__condition">
+                    Поступово генерувати 100 випадкових чисел від 1 до 1000. Підрахувати яких чисел більше: парних чи непарних.
+                </div>
+                <div class="task__computing">
+                    <script>
+                        //Реалізація через for
+                        alert('Реалізація за допомогою циклу for')
+                        //Задаємо необхідні значення
+                        let countPairNumbers = 1, countUnpeiredNumbers = 1
+                        const min = 1, max = 1000
+
+                        //Здійснюємо розрахунок
+                        for (let i = 1; i < 100; i++){
+                            let getRandomNumber = Math.floor(min + Math.random() * (max - min + 1))
+                            if (getRandomNumber % 2 === 0) 
+                                countPairNumbers = ++countPairNumbers
+                            else countUnpeiredNumbers = ++countUnpeiredNumbers
+                        }
+                        //Вивовдимо результат
+                        if (countPairNumbers > countUnpeiredNumbers)
+                            alert(`Парних чисел більше. Парних ${countPairNumbers}, не парних ${countUnpeiredNumbers}`)
+                        else {
+                            alert(`Непарних чисел більше. Парних ${countPairNumbers}, не парних ${countUnpeiredNumbers}`)
+                        }
+
+                        //================================================================================
+                        //Реалізація через while
+                        alert('Реалізація за допомогою циклу while')
+                        //Задаємо необхідні значення
+                        let count = 1
+                        let countPairNumWhile = 1
+                        let countUnpeiredNumWhile = 1
+
+                        //Здійснюємо розрахунок
+                        while (count < 100) {
+                            count = ++count
+                            let getRandomNumber = Math.floor(min + Math.random() * (max - min + 1))
+                            if (getRandomNumber % 2 === 0)
+                                countPairNumWhile = ++countPairNumWhile
+                            else
+                                countUnpeiredNumWhile = ++countUnpeiredNumWhile
+                        }
+
+                        if (countPairNumWhile > countUnpeiredNumWhile) {
+                            alert(`Парних чисел більше. Парних ${countPairNumWhile}, не парних ${countUnpeiredNumWhile}`)
+                        } else
+                            alert(`Непарних чисел більше. Парних ${countPairNumWhile}, не парних ${countUnpeiredNumWhile}`)
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

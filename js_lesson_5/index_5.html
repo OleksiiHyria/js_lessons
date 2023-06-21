@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 5 - home task 5</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 5 - Домашнє завдання 5</h3>
+                <div class="task__condition">
+                    Задача 2. Створити 10 елементів для введення цін продуктів.
+                </div>
+                <div class="task__computing">
+                    <script>
+                        for (let i = 1; i <= 10; ++i) {
+                            document.write(`
+                                <p>Product # ${i}
+                                    <input></input>
+                                </p>
+                                `)
+                        }
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
