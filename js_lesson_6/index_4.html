@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 6 - home task 2.1.</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 6 - Домашнє завдання 2.1.</h3>
+                <div class="task__condition">
+                    2.1. Відобразити трикутник за допомогою символів «о» (console.log)
+
+                </div>
+                <div class="task__computing">
+                    <script>
+                    let rows = 7
+                    let resultString = "";
+
+                    // цикл відтворює кількість рядків
+                for (let n = 1; n <= rows; n++) {
+                    // цикл відтворює кількість пробілів
+                    for (let spacе = 1; spacе <= rows - n; spacе++) {
+                    resultString += " ";
+                    }
+                    //цикл відтворює кількість "о"
+                    for (let num = 1; num <= 2 * n - 1; num++) {
+                    resultString += "o";
+                    }
+                    resultString += "\n";
+                }
+                    console.log(resultString)
+                    
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

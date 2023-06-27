@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 6 - home task 7</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 6 - Домашнє завдання 7</h3>
+                <div class="task__condition">
+                    7. Інвестор вклав  тис. грн на 20 років під 20% річних, а потім на 17 років під 27% річних.
+                    Визначити за допомогою циклів суму, яку він одержить.
+                </div>
+                <div class="task__computing">
+                    <script>
+                        let getTotalSumOfDeposit = parseFloat(prompt('Введіть початкову суму депозиту'))
+                        const FIRST_DEPOSIT_PERIOD = 20
+                        const SECOND_DEPOSIT_PERIOD = 17
+                        const FIRST_DEPOSIT_PERIOD_PERCENTS = 0.2
+                        const SECOND_DEPOSIT_PERIOD_PERCENTS = 0.27
+                        let percentsSum = 0
+
+                        for (let i = 1; i <= FIRST_DEPOSIT_PERIOD; i++) {
+                            percentsSum = getTotalSumOfDeposit * FIRST_DEPOSIT_PERIOD_PERCENTS
+                            getTotalSumOfDeposit = getTotalSumOfDeposit + percentsSum
+                            document.write(`<p>Рік ${i} - відсотки в рік: ${percentsSum.toFixed(2)} - загальна сума депозиту: ${getTotalSumOfDeposit.toFixed(2)}</p>`)
+                            if (i === FIRST_DEPOSIT_PERIOD) {
+                                for(let j = 1; j <= SECOND_DEPOSIT_PERIOD; j++) {
+                                    percentsSum = getTotalSumOfDeposit * SECOND_DEPOSIT_PERIOD_PERCENTS
+                                    getTotalSumOfDeposit = getTotalSumOfDeposit + percentsSum
+                                    i++
+                                    document.write(`<p>Рік ${i} - відсотки в рік: ${percentsSum.toFixed(2)} - загальна сума депозиту: ${getTotalSumOfDeposit.toFixed(2)}</p>`)
+                                }
+                            }
+                        }
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 6 - home task 5</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 6 - Домашнє завдання 5</h3>
+                <div class="task__condition">
+                    5. Інвестор вклав S тис. грн на 20 років під 20% річних. 
+                    Визначити за допомогою циклів суму, яку він одержить (без оподаткування).
+                </div>
+                <div class="task__computing">
+                    <script>
+                        let getTotalDeposit = parseFloat(prompt('Введіть розмір вкладу'))
+                        let startSumDeposit = getTotalDeposit
+                        const YEARS_PERCENT = 0.2
+                        let totalSumPercentage = 0
+                        let YEARS = 20
+                        
+                        for (; YEARS > 0; YEARS--){
+                            totalSumPercentage = getTotalDeposit * YEARS_PERCENT 
+                            getTotalDeposit += totalSumPercentage
+                        }
+                        
+                        alert(`
+                        Початкова сума депозиту: ${startSumDeposit} 
+                        Річні відсотки: 20% 
+                        Всього років: ${YEARS} 
+                        Загальна сума до виплати з урахуванням 
+                        відсотків ${getTotalDeposit.toFixed(2)}
+                        
+                        `)
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

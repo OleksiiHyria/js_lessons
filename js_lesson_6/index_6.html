@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 6 - home task 6</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 6 - Домашнє завдання 6</h3>
+                <div class="task__condition">
+                Інвестор вклав S тис. грн на 20 років під 20% річних, податок складає 5% від суми прибутку. 
+                Визначити за допомогою циклів суму, яку він одержить.
+                </div>
+                <div class="task__computing">
+                    <script>
+                        let getTotalStartDeposit = parseFloat(prompt('Введіть початкову суму депозиту'))
+                        const DEPOSIT_PERCENTS = 0.2
+                        const DEPOSIT_TAX = 0.05
+                        const DEPOSIT_TERM = 20
+                        let getSumOfDepositPercents = 0
+
+                        for (let i = 1; i <= DEPOSIT_TERM; i++) {
+                            getSumOfDepositPercents = getTotalStartDeposit * DEPOSIT_PERCENTS 
+                            getSumOfDepositPercents = getSumOfDepositPercents - getSumOfDepositPercents * DEPOSIT_TAX
+                            getTotalStartDeposit = getTotalStartDeposit + getSumOfDepositPercents
+                            document.write(`<p>Рік ${i} - відсотків в рік ${getSumOfDepositPercents.toFixed(2)} - загальна сума депозиту (враховуючи зняття податку 5%): ${getTotalStartDeposit.toFixed(2)}</p>`)
+                        }
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
