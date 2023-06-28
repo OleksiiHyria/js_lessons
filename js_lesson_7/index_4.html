@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 7 - home task 4</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 7 - Домашнє завдання 4</h3>
+                <div class="task__condition">
+                    Задача 3. Створити окремі функції, які для 4 чисел знаходять:
+                        1)суму;
+                        2)добуток;
+                        3)середнє арифметичне;
+                        4)мінімальне значення. 
+                </div>
+                <div class="task__computing">
+                    <script>
+                        function getUserNumbers() {
+                            let arr = []
+                            for (let i = 0; i < 4; i++) {
+                                arr[i] = parseInt(prompt(`Введіть число ${i + 1}`))
+                            }
+                            return arr
+                        }
+                            
+                        function getSum(userNumbers) {
+                            let sumResult = 0
+                            for(let i = 0; i < userNumbers.length; i++){
+                                sumResult += userNumbers[i] 
+                            }
+                            return sumResult
+                        }
+
+                        function getMultiplication (userNumbers) {
+                            let multiplicationResult = 1
+                            for(let i = 0; i < userNumbers.length; i++){
+                                multiplicationResult *= userNumbers[i] 
+                            }
+                            return multiplicationResult
+                        } 
+
+                        function getAverage (userNumbers){
+                            let averageResult = 0
+                            let counter = 0
+                            for(let i = 0; i < userNumbers.length; i++) {
+                                averageResult += userNumbers[i]
+                                counter++
+                            }
+                            return averageResult = averageResult / counter
+                        }
+
+                        function getMinimum (userNumbers) {
+                            let minimumResult = userNumbers[0]
+                            for (let i = 0; i < userNumbers.length; i++) {
+                                if ( minimumResult > userNumbers[i]) 
+                                    minimumResult = userNumbers[i]
+                            }
+                            return minimumResult
+                        }
+
+                        let userNumbers = getUserNumbers()
+                        let sumResult = getSum(userNumbers)
+                        let multiplicationResult = getMultiplication(userNumbers)
+                        let minimal = getMinimum(userNumbers)
+                        let averageResult = getAverage(userNumbers)
+
+                        alert(`
+                        Sum = ${sumResult}
+                        Multiplication = ${multiplicationResult}
+                        Average = ${averageResult}
+                        Minimal = ${minimal}
+                        `)
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

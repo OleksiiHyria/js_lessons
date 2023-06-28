@@ -1,0 +1,71 @@
+
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:regular,700&display=swap);
+
+/* ----------------------------------------------------- */
+
+body {
+    font-family: Roboto, sans-serif ;
+    background-color: rgb(234, 231, 231);
+}
+
+.wrapper {
+    min-height: 100%;
+    overflow: clip;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.wrapper > main {
+    flex-grow: 1;
+}
+
+.home {
+}
+
+.home__container {
+    max-width: 1230px;
+    padding: 30px 15px;
+    margin: 0 auto;
+}
+
+
+.home__homework {
+}
+
+.homework {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(198, 225, 241);
+    border-radius: 1%;
+}
+
+.homework__header {
+}
+
+.homework__title {
+    color: #fff;
+
+    min-height: 100%;
+}
+
+.homework__author {
+    text-decoration: underline;
+}
+
+.homework__item {
+}
+
+.homework__content {
+    padding: 20px 0;
+    font-weight: 700;
+}
+
+.active {}
+
+.active::before {
+    content: '+';
+    color: red;
+}

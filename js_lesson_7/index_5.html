@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 7 - home task 5</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 7 - Домашнє завдання 5</h3>
+                <div class="task__condition">
+                    Задача 4. Створити функцію, яка для 3 заданих чисел знаходить одночасно декілька результатів: 
+                    кількість парних, кількість додатних, кількість більших за 100.
+                </div>
+                <div class="task__computing">
+                    <script>
+                        function getUserNumbers() {
+                            let arr = []
+                            let someNumber = 0
+                                
+                            for (let i = 0; i < 3; i++){
+                                someNumber = parseInt(prompt(`Введіть число ${i + 1}`))
+                                arr.push(someNumber)
+                            }
+                            return arr
+                        }
+
+                        function findNumbers (arrNumbers) {
+                            let numberOfOdd = 0
+                            let positiveNumbers = 0
+                            let moreOneHundredNumbers = 0
+
+                            for (let i = 0; i < arrNumbers.length; i++) {
+                                if (arrNumbers[i] % 2 === 0) 
+                                    numberOfOdd++
+                                
+                                if (arrNumbers[i] > 0)
+                                    positiveNumbers++
+
+                                if (arrNumbers[i] > 100)
+                                    moreOneHundredNumbers++
+                            }
+
+                            return alert(`
+                            odds numbers = ${numberOfOdd}
+                            positive numbers = ${positiveNumbers}
+                            more one hundred numbers = ${moreOneHundredNumbers}
+                            `)
+                        }
+
+                        let arrNumbers = getUserNumbers()
+
+                        findNumbers(arrNumbers)
+
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

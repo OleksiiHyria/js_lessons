@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 7 - home task 9</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 7 - Домашнє завдання 9</h3>
+                <div class="task__condition">
+                    Задача 8. Створити функцію, яка виводить банер (у функцію передаються: зображення, заголовок та посилання,
+                    куди переходимо при кліку на зображення 
+                    (тег img повине знаходитись у середині тега a: <a> <img src=”шлях”> </a>
+                </div>
+                <div class="task__computing">
+                    <script>
+
+                        let imageAddress = '../js_lesson_7/img/img1.jpg'
+                        let imageHeader = 'Happy smile'
+                        let imageLink = 'https://ru.piliapp.com/emoji/list/happy/'
+
+                        function showBaner (imageAddress, imageHeader, imageLink) {
+                            document.write(`
+                            <div width = 200px>
+                                <a href="${imageLink}">
+                                    <h3>${imageHeader}</h3>
+                                    <img src="${imageAddress}" alt="Happy smile">
+                                    </a>
+                                </div>
+                            `)
+                        }
+                        showBaner (imageAddress, imageHeader, imageLink)
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

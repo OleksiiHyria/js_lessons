@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 7 - home task 1</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 7 - Домашнє завдання 1</h3>
+                <div class="task__condition">
+                    Задача 1. Створити функцію, яка за номером місяця повертає його назву.
+                </div>
+                <div class="task__computing">
+                    <script>
+                        let numberOfMonth = 0
+
+                        function getNumberOfMonth() {
+                            numberOfMonth = parseInt(prompt('Введіть номер місяця'))
+                            return getMonthName(numberOfMonth)
+                        }
+
+                        function getMonthName(numberOfMonth) {
+                            switch (numberOfMonth){
+                                case 1: alert('January')
+                                break;
+                                case 2: alert('February')
+                                break;
+                                case 3: alert('March')
+                                break;
+                                case 4: alert('April')
+                                break;
+                                case 5: alert('May')
+                                break;
+                                case 6: alert('June')
+                                break;
+                                case 7: alert('July')
+                                break;
+                                case 8: alert('August')
+                                break;
+                                case 9: alert('September')
+                                break;
+                                case 10: alert('October')
+                                break;
+                                case 11: alert('November')
+                                break;
+                                case 12: alert('December')
+                                break;
+                                
+                                default: alert('Номер місяця введено не вірно. Введіть значення від 1 до 12')
+                            }
+                        }
+
+                        getNumberOfMonth()
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

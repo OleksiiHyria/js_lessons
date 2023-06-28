@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 7 - home task 6</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 7 - Домашнє завдання 6</h3>
+                <div class="task__condition">
+                    Задача 5. Створити окремі функції, які переводять:
+                        Сантиметри у дюйми;
+                        Кілограми у фунти;
+                        Кілометри у милі.
+                </div>
+                <div class="task__computing">
+                    <script>
+                        const CENTIMETERS_IN_INCH = 0.393701
+                        const KILOGRAMS_IN_POUND = 2.20462
+                        const KILOMETERS_IN_MILES = 0.621371
+
+                        function getInch() {
+                            let getCentimeters = parseFloat(prompt('Введіть кількість сантиметрів для конвертації в дюйми'))
+                            let inchResult = getCentimeters * CENTIMETERS_IN_INCH
+                            return alert(`${getCentimeters} сантиметрів - це ${inchResult.toFixed(2)} дюймів`)
+                        }
+
+                        function getPounds() {
+                            let getKilograms = parseFloat(prompt('Введіть кількість кілограмів для конвертації в фунти'))
+                            let poundsResult = getKilograms * KILOGRAMS_IN_POUND
+                            return alert(`${getKilograms} кілограмів - це ${poundsResult.toFixed(2)} фунтів`)
+                        }
+
+                        function getMiles() {
+                            let getKilometers = parseFloat(prompt('Введіть кількість кілометрів для конвертації в милі'))
+                            let getMiles = getKilometers * KILOMETERS_IN_MILES
+                            return alert(`${getKilometers} кілометрів - це ${getMiles.toFixed(2)} миль`)
+                        }
+
+                        getInch()
+                        getPounds()
+                        getMiles()
+
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

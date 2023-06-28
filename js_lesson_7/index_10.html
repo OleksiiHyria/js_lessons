@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 7 - home task 10</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 7 - Домашнє завдання 10</h3>
+                <div class="task__condition">
+                    Задача 9. Дано покази температур (довільна кількість). 
+                    Розробити функцію, яка дозволить підрахувати кількість від’ємних показів температури.
+                </div>
+                <div class="task__computing">
+                    <script>
+                        let arrayOfTemprature = [3, 14, 12, 7, -2, -1, 3, -4, -7, -6, -2, -1, 0, 2, -1, -5, -13, -27, -20, -10, -4, -1, 0, 3, 5, 12, 17]
+
+                        function getMinusTempDays (arr){
+                            let daysWithMinusTemp = 0
+                            for (let i = 0; i < arrayOfTemprature.length; i++ ){
+                                if (arr[i] < 0) daysWithMinusTemp++ 
+                            }
+                            return alert(`Всього виявлено ${daysWithMinusTemp} днів з мінусовою температурою`)
+                        }
+                        
+                        getMinusTempDays(arrayOfTemprature)
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
