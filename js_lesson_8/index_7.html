@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 8 - home task 7</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 8 - Домашнє завдання 7</h3>
+                <div class="task__condition">
+                    Задача 7. Дано послідовність платіжок протягом року. Знайти сумарну кількість грошей за:
+                        за весь рік;
+                        у першій половині року;
+                        у другій половині року;
+                        за літо;
+                        за ІІ квартал;
+                        за парні місяці (з парними номерами);
+                        за місяці, які є початковими у сезоні (весна, літо, осінь, зима).
+                </div>
+                <div class="task__computing">
+                    <script>
+                        let arrPayments = [1320, 1460, 2570, 2221, 2407, 2503, 1217, 780, 1650, 1370, 3356]
+                        console.log(arrPayments)
+
+                        // ---------------------- Функція знаходження сумарноі кількості грошей за весь рік ------------------
+                        function allYear (arrPayments) {
+                            let sum = 0
+                            arrPayments.forEach(
+                                (element, index) => {
+                                    sum += element
+                            });
+                            return sum
+                        }
+
+                        document.write(`Cумарна кількість грошей за рік: ${allYear(arrPayments)} <br>`)
+
+
+                        // ---------------------- Функція знаходження сумарноі кількості грошей за перші пів року ------------------
+                        function firstPartOfYear (arrPayments) {
+                            let sum = 0
+                            arrPayments.forEach(
+                                (element, index) => {
+                                    (index < 6) ? sum += element : ''
+                            });
+                            return sum
+                        }
+
+                        document.write(`Cумарна кількість грошей за першу половиу року: ${firstPartOfYear(arrPayments)} <br>`)
+
+
+                        // ---------------------- Функція знаходження сумарноі кількості грошей за другу половину року ------------------
+                        function secondPartOfYear (arrPayments) {
+                            let sum = 0
+                            arrPayments.forEach(
+                                (element, index) => {
+                                    (index > 5 && index < 11) ? sum += element : ''
+                            });
+                            return sum
+                        }
+
+                        document.write(`Cумарна кількість грошей за другу половиу року: ${secondPartOfYear(arrPayments)} <br>`)
+
+
+                        // ---------------------- Функція знаходження сумарноі кількості грошей за літо ------------------
+                        function summerPayments (arrPayments) {
+                            let sum = 0
+                            arrPayments.forEach(
+                                (element, index) => {
+                                    (index > 5 && index < 9) ? sum += element : ''
+                            });
+                            return sum
+                        }
+
+                        document.write(`Cумарна кількість грошей за літо: ${summerPayments(arrPayments)} <br>`)
+
+
+                        // ---------------------- Функція знаходження сумарноі кількості грошей за ІІ квартал; ------------------
+                        function secondQuarter (arrPayments) {
+                            let sum = 0
+                            arrPayments.forEach(
+                                (element, index) => {
+                                    (index > 3 && index < 7) ? sum += element : ''
+                            });
+                            return sum
+                        }
+
+                        document.write(`Cумарна кількість грошей за ІІ квартал: ${secondQuarter(arrPayments)} <br>`)
+
+
+                        // ---------------------- Функція знаходження сумарноі кількості грошей за парні місяці (з парними номерами) ------------------
+
+                        function oddMonth (arrPayments) {
+                            let sum = 0
+                            arrPayments.forEach(
+                                (element, index) => {
+                                    ((index + 1) % 2 === 0) ? sum += element : ''
+                            });
+                            return sum
+                        }
+
+                        document.write(`Cумарна кількість грошей за парні місяці (з парними номерами): ${oddMonth(arrPayments)} <br>`)
+
+
+                        // ---------------------- Функція знаходження сумарноі кількості грошей за місяці, які є початковими у сезоні (весна, літо, осінь, зима). ------------------
+                        function firstMonthSeasons (arrPayments){
+                            let sum = 0
+                            for (let i = 0; i < arrPayments.length; i += 3) {
+                                sum += arrPayments[i]
+                            }
+                            return sum
+                        }
+
+                        document.write(`Cумарна кількість грошей за місяці, які є початковими у сезоні (весна, літо, осінь, зима): ${firstMonthSeasons(arrPayments)} <br>`)
+
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

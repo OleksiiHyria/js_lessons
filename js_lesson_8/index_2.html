@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 8 - home task 2</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 8 - Домашнє завдання 2</h3>
+                <div class="task__condition">
+                    Задача 2. Дано масив, який зберігає кількість відвідувачів магазину протягом тижня. Вивести на екран:
+                                номери днів, протягом яких кількість відвідувачів була меншою за 20;
+                                номери днів, коли кількість відвідувачів була мінімальною;
+                                номери днів, коли кількість відвідувачів була мінімальною;
+                                загальну кількість клієнтів у робочі дні та окремо загальну кількість днів на вихідних.
+                </div>
+                <br>
+                <br>
+                <div class="task__computing">
+                    <script>
+                        function arrShow (){
+                            let arrCustomers = [22, 11, 43, 14, 80, 93, 1] // базовий масив для перевірки
+                            console.log(arrCustomers) // перевіряємо масив
+                            document.write(`Масив з яким працюємо: ${arrCustomers} <br>`)
+                            return arrCustomers
+                        }
+
+                        let arrCustomers = arrShow()
+
+                        //_____________________________________________________________________________________
+
+
+                        // функція наповнення масиву значеннями від користувача
+                        // function getDayClients () {
+                        //     let arrCustomers = []
+
+                        // for (let i = 0; i < 7; i++) {
+                        //     let dayCustomers =  parseInt(prompt(`Введіть кількість клієнтів в ${i + 1} день`))
+                        //     arrCustomers.push(dayCustomers)
+                        //     }
+                        //     return arrCustomers 
+                        // }
+
+                        // let arrCustomers = getDayClients()
+                        //_____________________________________________________________________________________
+
+
+
+                        //-----------функція в якій номери днів, протягом яких кількість відвідувачів була меншою за 20 збираємо в окремий масив ----------------
+                        function lowerThenTwenty (arrCustomers) {
+                            let lowerCuctomersThen_20 = []
+                            let numberOfDaysLower_20 = []
+                            let temp = 0
+                            arrCustomers.forEach(
+                                (element, id, arrCustomers) => {
+                                if (element < 20){
+                                    numberOfDaysLower_20.push(arrCustomers.indexOf(element) + 1)
+                                    lowerCuctomersThen_20.push(element) 
+                                } 
+                                }
+                            );
+
+                            console.log(`Номера днів в яких було покупців менше 20-ти: ${numberOfDaysLower_20}`); // перевірка масиву мінімальних значень 
+                            console.log(`Дні в яких покупців було менше 20-ти: ${lowerCuctomersThen_20}`); // перевірка масиву мінімальних значень 
+
+                            document.write(`Номера днів в яких було покупців менше 20-ти: ${numberOfDaysLower_20} <br>`)
+                            document.write(`Дні в яких покупців було менше 20-ти: ${lowerCuctomersThen_20} <br>`)
+
+                                return lowerCuctomersThen_20
+                        }
+
+                        lowerThenTwenty(arrCustomers) //тестовий виклик функції
+                        //_____________________________________________________________________________________
+
+
+                        //Вивести на екран номери днів, коли кількість відвідувачів була мінімальною.
+                        //(Реалізація шляхом:
+                        //   -- створення окремої функції сортування масиву та виводу перших трьох мінімальних значень тижня в окремий масив. 
+                        //   -- порівняння масиву з отриманними данними з масивом який був сформований спочатку та визначення порядкових номерів цих елементів в початковому масиві.
+
+                        //---------------- функція сортування масиву ------------------------
+
+                        function arrCustomersSort(arrCustomers) {
+                            let arrSortCustomerDays = Array.from(arrCustomers)
+                            arrSortCustomerDays.sort()
+
+                            return arrSortCustomerDays
+                        }
+
+                        document.write(`Відсортований масив у порядку зростання: ${arrCustomersSort(arrCustomers)} <br>`)
+
+                        let arrSortCustomers = arrCustomersSort(arrCustomers) //тестовий виклик функції
+
+
+                        //---------------- функція знаходження номерів днів тижня з мінімальними продажами (3) --------------------
+                        
+                        function getMinNumberOfCustomers(arrSortCustomerDay, arrCustomers) {
+                            let  arrMinCustomerDays = arrCustomersSort(arrCustomers)
+                            arrMinCustomerDays.length = 3
+                            let numberOfMinCustomerDays = []
+                            let indexOfDay = 0
+
+                                for (let i = 0; i < arrCustomers.length; ++i) {
+                                    for(var j= 0; j < arrMinCustomerDays.length; ++j) {
+                                        if(arrCustomers[i] === arrMinCustomerDays[j]){
+                                            indexOfDay = arrCustomers.indexOf(arrCustomers[i])
+                                            numberOfMinCustomerDays.push(indexOfDay + 1)
+                                        }
+                                    }
+                                }
+
+                            console.log(`Кількість продажі (шт) в дні тижня з мінімальними продажами (три дні): ${arrMinCustomerDays}`); // перевірка масиву мінімальних значень 
+                            console.log(`Номера днів тижня з мінімальними продажами (три дні): ${numberOfMinCustomerDays}`) // перевірка масиву індексів мінімальних значень 
+
+                            document.write(`Кількість продажі (шт) в дні тижня з мінімальними продажами (три дні): ${arrMinCustomerDays} <br>`)
+                            document.write(`Номера днів тижня з мінімальними продажами (три дні): ${numberOfMinCustomerDays} <br>`)
+
+                            return arrMinCustomerDays, numberOfMinCustomerDays
+                        }
+
+                        getMinNumberOfCustomers(arrCustomersSort(arrCustomers), arrCustomers) //тестовий виклик функції
+                        //_____________________________________________________________________________________
+
+
+                        function getMaxNumberOfCustomers (arrSortCustomerDay, arrCustomers) {
+                            let getMaxCustomerDays = arrCustomersSort(arrCustomers)
+                            getMaxCustomerDays.reverse()
+                            getMaxCustomerDays.length = 3
+                            let numberOfMaxCustomerDays = []
+                            let indexOfDay = 0
+
+                            for(let i = 0; i < arrCustomers.length; i++ ){
+                                for(let j = 0; j < getMaxCustomerDays.length; j++) {
+                                    if (arrCustomers[i] === getMaxCustomerDays[j]) {
+                                        indexOfDay = arrCustomers.indexOf(arrCustomers[i])
+                                        numberOfMaxCustomerDays.push(indexOfDay + 1)
+                                    }
+                                }
+                            }
+
+                            console.log(`Кількість продажі (шт) в дні тижня з максимальними продажами (три дні): ${getMaxCustomerDays}`); // перевірка масиву мінімальних значень 
+                            console.log(`Номера днів тижня з максимальними продажами (три дні): ${numberOfMaxCustomerDays}`) // перевірка масиву індексів мінімальних значень 
+
+                            document.write(`Кількість продажі (шт) в дні тижня з максимальними продажами (три дні): ${getMaxCustomerDays} <br>`)
+                            document.write(`Номера днів тижня з максимальними продажами (три дні): ${numberOfMaxCustomerDays} <br>`)
+
+                            return getMaxCustomerDays, numberOfMaxCustomerDays
+                        }
+
+                        getMaxNumberOfCustomers(arrCustomersSort(arrCustomers), arrCustomers) //тестовий виклик функції
+
+                        //---------------- вираз знаходження загальної кількості клієнтів (splice + lambda) --------------------
+
+                        let totalWeekClients = arrCustomers.reduce((elem1, elem2) => elem1 + elem2)
+                        console.log(`Загальна кількість клієнтів за тиждень cтановить (splice + lambda): ${totalWeekClients}`)
+
+
+                        //---------------- функція знаходження загальної кількості клієнтів (for) --------------------
+
+                        function getTotalCustomers (arrCustomers) {
+                            let totalSumOfCustomers = arrCustomers[0]
+                            for(let i = 1; i < arrCustomers.length; i++) {
+                                totalSumOfCustomers = totalSumOfCustomers + arrCustomers [i]
+                            }
+                            console.log(`Загальна кількість клієнтів за тиждень cтановить (for): ${totalSumOfCustomers} <br>`)
+
+                            document.write(`Загальна кількість клієнтів за тиждень cтановить (for): ${totalSumOfCustomers} <br>`)
+                        }
+
+                        getTotalCustomers(arrCustomers) //тестовий виклик функції
+
+                        //---------------- функція знаходження загальної кількості клієнтів у робочі дні та окремо загальну кількість днів на вихідних. --------------------
+
+                        function getTotalCustomersWeekdays (arrCustomers) {
+                            let totalSumWeekdays = 0
+                            let totalSumWeekend = 0
+
+                            arrCustomers.forEach(
+                                (element, index, arrCustomers) => {
+                                    (index < 5) ? totalSumWeekdays += element : totalSumWeekend +=element
+                                }
+                            )
+                                console.log(`Загальна кількість клієнтів у робочі дні: ${totalSumWeekdays}`);
+                                console.log(`Загальна кількість клієнтів у вихідні дні: ${totalSumWeekend}`);
+
+                                document.write(`Загальна кількість клієнтів у робочі дні: ${totalSumWeekdays} <br>`)
+                                document.write(`Загальна кількість клієнтів у вихідні дні: ${totalSumWeekend} <br>`)
+
+                            return totalSumWeekdays, totalSumWeekend
+                        }
+
+                        getTotalCustomersWeekdays(arrCustomers) //тестовий виклик функції
+
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

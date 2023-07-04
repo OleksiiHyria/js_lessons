@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 8 - home task 9</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 8 - Домашнє завдання 9</h3>
+                <div class="task__condition">
+                    Задача 9. Морський бій. Користувач вводить кількість клітинок одновимірного масиву та кількість одиночних кораблів.
+                    Комп’ютер довільно розміщує ці одиночні кораблі у масиві по один у клітинці (якщо у клітинці 0, то клітинка пуста, 
+                    якщо 1 – то це означає, що там є корабель. 
+                    Користувач вводить номер клітинки, куди стріляє. Гра продовжується до тих пір, поки не будуть потоплені усі кораблі.
+                </div>
+                <div class="task__computing">
+                    <script>
+                        let shipsNumber = parseInt(prompt('Введіть кількість кораблів'))
+                        let cellNumber = parseInt(prompt('Введіть розмір поля'))
+
+                        // -------------------- функція формування ігрового поля -----------------------
+                        function getGameTable (shipsNumber, cellNumber) {
+                            let gameTable = []
+
+                            for(let i = 0; i < cellNumber; i++){
+                                gameTable.push(0)
+                            }
+
+                            for (let i = 0; i < shipsNumber; ) {
+                                let randomIndex = Math.floor(Math.random() * cellNumber)
+                                if (gameTable[randomIndex] === 0)
+                                gameTable[randomIndex] = 1
+                                i++
+                            }
+
+                            return gameTable
+                        }
+
+                        let gameTable = getGameTable(shipsNumber, cellNumber)
+                        document.write(gameTable);
+
+                        // ----------------------- функція перевірки ігрового поля -----------------------
+                        function playGame (shipsNumber, gameTable) {
+                            do {
+                                let userIndex = parseInt(prompt(`Введіть номер клітинки куди стріляємо (від 1го ${cellNumber}`))
+                                if (gameTable[userIndex - 1] === 1) {
+                                    shipsNumber--
+                                    gameTable[userIndex - 1] = 0
+                                    alert(`Попав! Залишилось ${shipsNumber} кораблів`)
+                                } else {
+                                    alert('Не попав!')
+                                }
+                            }
+                            while (shipsNumber > 0)
+                        }
+
+                        playGame(shipsNumber, gameTable)
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

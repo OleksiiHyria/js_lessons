@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 8 - home task 3</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 8 - Домашнє завдання 3</h3>
+                <div class="task__condition">
+                    Задача 3. Дано масив імен учнів. З’ясувати скільки разів зустрічається ім’я «Іван».
+                </div>
+                <div class="task__computing">
+                    <script>
+                        //------------------ функція передачі параметрів пошуку ----------------------
+                        function getName (){
+                            let getName = 'Іван'
+                            let arrNames = ['Іван', 'Олексій', 'Олена', 'Іра', 'Аліна', 'Іван','Інга', 'Іван']
+                            return [getName, arrNames]
+                        }
+
+                        let searchData = getName()
+
+                        //------------------ функція пошуку ім'я та підрахунку кількості повторів данного ім'я в масиві ----------------------
+                        function findName (searchData) {
+                            let [findName, arrNames] = searchData
+                            let count = 0
+
+                            arrNames.forEach(
+                                element => 
+                                    (element === findName) ? count++ : ''
+                            );
+
+                            // аналог пошуку по масиву через for
+                            // for (let i = 0; i < arrNames.length; i++) {
+                            //     if (arrNames[i] === findName) {
+                            //         count++
+                            //     }
+                            // }
+                                
+                            return [findName, count]
+                        }
+
+                        let searchResult = findName (searchData)
+                        
+                        // --------------------------- функція виводу результатів пошуку на екран -------------------
+                        function printName (searchResult) {
+                            let [findName, count] = searchResult
+                            document.write(`Ім'я ${findName} зустрічається ${count} рази.`)
+                        }
+
+                        printName(searchResult)
+
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

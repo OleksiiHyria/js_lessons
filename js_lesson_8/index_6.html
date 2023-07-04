@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 8 - home task 6</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 8 - Домашнє завдання 6</h3>
+                <div class="task__condition">
+                    Задача 6. Дано послідовність цін товарів та назв (у окремих масивах). 
+                    Вивести на екран ті, які може собі дозволити користувач (кількість грошей задається).
+                </div>
+                <div class="task__computing">
+                    <script> 
+
+                        let listOfGoods = ['Iphone 6', 'Iphone 7', 'Iphone 8', 'Iphone X', 'Iphone XS', 'Iphone 11', 'Iphone 12', 'Iphone 13', 'Iphone 14']
+                        let listOfPrices = [5000, 8000, 9000, 10000, 11000, 12000, 14000, 20000, 30000 ]
+                        let getMomey = parseFloat(prompt('Введіть скільки грошей доступно для покупки для відображення товарів в рамках доступного бюджкету (від 5000 до 30000)', 5000))
+
+                        // -------------- реалізація через for -----------------------------------------
+                        function analizeGoodsAndPrices_1 (getMomey, listOfGoods, listOfPrices) {
+                            let counter = 0
+
+                            document.write('<br> Товари доступні для купівлі в рамках бюджету: <br>')
+
+                            for (let i = 0; i < listOfPrices.length; i++) {
+                                
+                                if (listOfPrices[i] <= getMomey){
+                                    counter++
+                                    console.log(`${counter} - ${listOfGoods[i]} - ${listOfPrices[i]} грн <br>`)
+                                    document.write(`${counter} - ${listOfGoods[i]} - ${listOfPrices[i]} грн <br>`)
+                                } else {
+                                    console.log('Більше товарів не знайдено. Недостатньо грошей.')
+                                    document.write('Більше товарів не знайдено. Недостатньо грошей. <br>')
+                                    break
+                                }
+                        }
+                    }
+
+                        analizeGoodsAndPrices_1 (getMomey, listOfGoods, listOfPrices)
+
+
+                        //--------------------- реалізація через for of ----------------------------
+
+                        function analizeGoodsAndPrices_2 (getMomey, listOfGoods, listOfPrices) {
+                            let counter = 0
+
+                            document.write('<br> Товари доступні для купівлі в рамках бюджету: ')
+
+                            for (let element of listOfPrices) {
+                                if (getMomey >= element) {
+                                    document.write(`<br>${counter + 1} - ${listOfGoods[counter]} - ${listOfPrices[counter]}`) 
+                                    counter++
+                                } else {
+                                    document.write('<br> Більше товарів не знайдено. Недостатньо грошей.')
+                                    break
+                            }      
+                        }}
+
+                        analizeGoodsAndPrices_2 (getMomey, listOfGoods, listOfPrices)
+
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 8 - home task 8</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 8 - Домашнє завдання 8</h3>
+                <div class="task__condition">
+                    Задача 8. Дано одновимірний масив, у якому зберігається певна виграшна сума 
+                    (елементи заповнюються випадковим чином значеннями від -500 до 500). 
+                    Надаючи користувачу можливість вибирати номери елементів  (поки він не відмовиться). Знаходити сумарний виграш.
+                </div>
+                <div class="task__computing">
+                    <script>
+
+                        //------------------- функція генерації ігрового поля --------------
+                        function generateGameTable () {
+                            let gameField = new Array(10)
+
+                            for (let i = 0; i < gameField.length; i++) {
+                                gameField[i] = -500 + Math.floor(Math.random() * 1001)
+                        }
+                            return gameField
+                        }
+
+                        let gameField = generateGameTable()
+
+
+                        //------------------- функція отримання параметрів від ігрока  --------------------------
+                        function getUserNumber () {
+                            let getUserNumber = parseInt(prompt(`Введіть номер від одного до 10`))
+                            return getUserNumber
+                        }
+                        
+                        //------------------- функція генерації ігрового поля -----------------------------------
+                        function playGame(gameField){
+                            let sum = 0
+
+                            for (let i = 0;;){
+                                let userNumber = getUserNumber()
+                                if (userNumber) {
+                                    sum += gameField[userNumber - 1]
+                                } else {
+                                    break
+                                }
+                            }
+                            return document.write(`Ваш виграш становить ${sum}`)
+                        }
+
+                        playGame(gameField)
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

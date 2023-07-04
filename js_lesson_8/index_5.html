@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 8 - home task 5</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 8 - Домашнє завдання 5</h3>
+                <div class="task__condition">
+                    Задача 5. Дано послідовність оцінок учня. Підрахувати кількість:
+                        1)	двійок
+                        2)	кількість хороших оцінок (добре, відмінно);
+                        3)	кількість оцінок, які нижче середнього.
+                </div>
+                <div class="task__computing">
+                    <script>
+                        // let testArray = [5, 3, 5, 4, 5]
+
+                        //----------- функція формування масиву рендомних оцінок від 2 до 5 ----------------
+                        function generateArrRandonMarks () {
+                            let min = 2, max = 5
+                            let marksArray = []
+
+                            //чому данний запис не працює?
+                            // marksArray.forEach(
+                            //     element => marksArray.push(min + Math.floor(Math.random() * (max - min + 1)))
+                            // );
+
+                            for (let i = 0; i < 10; i++) {
+                                let getRandom = min + Math.floor(Math.random() * (max - min + 1))
+                                marksArray.push(getRandom)
+                            }
+
+                            console.log(`Масив оцінок учня: ${marksArray}`)
+                            document.write(`Масив оцінок учня: ${marksArray} <br>`)
+
+                            return marksArray
+                        }
+
+                        let newArr = generateArrRandonMarks()
+                        
+                        
+
+                        //----------- функція повертає середню оцінку ----------------
+                        function getAverage(newArr) {
+                            averageMark = 0
+
+                            for(let i = 0; i < newArr.length; i++) {
+                                averageMark = (averageMark + newArr[i])
+
+                            } 
+                            averageMark = averageMark / newArr.length
+                            console.log(`Середня оцінка цього учня становить ${averageMark}`)
+                            document.write(`Середня оцінка цього учня становить ${averageMark} <br>`)
+
+                            return averageMark
+                            
+                        }
+
+                        let getAverageNumber = getAverage(newArr)
+
+
+                        //----------- функція повертає кількість оцінок, які нижче середнього. ----------------
+
+                        function getAverageAssesments (newArr, getAverage) {
+                            let countAverageAssesments = 0
+                            
+
+                            newArr.forEach(
+                                element => 
+                                    (element < getAverage) ? countAverageAssesments++ : ''
+                            )
+
+                            console.log(`Кількість оцінок менших за середній бал становить: ${countAverageAssesments}`)
+                            document.write(`Кількість оцінок менших за середній бал становить: ${countAverageAssesments} <br>`)
+
+                            return countAverageAssesments
+                        }
+                        
+                        getAverageAssesments(newArr, getAverageNumber)
+
+                        //----------- функція повертає кількість двійок ----------------
+                        function badMarks (newArr) {
+
+                            let countBadMarks = 0
+
+                            newArr.forEach(
+                                element => 
+                                    (element === 2) ? countBadMarks++ : ''
+                            )
+
+                            console.log(`Кількість двійок у цього учня становить: ${countBadMarks}`)
+                            document.write(`Кількість двійок у цього учня становить: ${countBadMarks} <br>`)
+                        }
+
+                        badMarks (newArr)
+                        
+
+                        //----------- функція повертає кількість хороших оцінок (добре, відмінно) ----------------
+                        function goodMarks(newArr){
+
+                            let counter = 0
+
+                            for (let element of newArr) {
+                                if (element >= 4) counter++
+                            }
+
+                            console.log(`Кількість хороших оцінок (добре, відмінно) становить: ${counter}`)
+                            document.write(`Кількість хороших оцінок (добре, відмінно) становить: ${counter}`)
+
+                            return counter
+                        }
+                        
+                        goodMarks(newArr)
+
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

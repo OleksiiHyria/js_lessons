@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 8 - home task 1</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 8 - Домашнє завдання 1</h3>
+                <div class="task__condition">
+                    Задача 1. Дано масив, який містить оцінки з К предметів. 
+                    Знайти середній бал і з’ясувати до якої категорії він відноситься 
+                    (відмінник, двійочник (має хоча би одну двійку), хорошист (оцінки добре і відмінно), 
+                    трійочник(є хоча би одна трійка)).
+                </div>
+                <div class="task__computing">
+                    <script>
+                        // ------------------------ функція передачі вхідних параметрів ----------------
+                        function getScaleOfAssesment () {
+                            let getMinAssesment = 2
+                            let getMaxAssesment = 5
+
+                            alert(`
+Зараз буде згенерований довільний масив оцінок студента. 
+Оцінюванння результативності студента буде здійснено по шкаль від ${getMinAssesment} до ${getMaxAssesment}
+Відмінник, двійочник (має хоча би одну двійку), хорошист (оцінки добре і відмінно), трійочник(є хоча би одна трійка)
+                            `)
+                        
+                            let getNumberOfAssesments = parseInt(prompt('Введіть скільки оцінок буде згенеровано', 10))
+                            let arr = [getMinAssesment, getMaxAssesment, getNumberOfAssesments]
+                            return arr
+                        }
+
+                        // ------------------------ функція генерації рандомного числа ----------------
+                        function getRandom (min, max) {
+                            let getRandomNumber = 0
+                            return getRandomNumber = min + Math.floor(Math.random() * (max - min +1))
+                        }
+
+                        // ------------------------ функція генерації масиву оцінок ----------------
+                        function generateAssesments(arrOfScaleAssesment) {
+                            let [min, max, count] = arrOfScaleAssesment
+                            let arrAssesments = new Array(count)
+                            for (let i = 0; i < arrAssesments.length; i++) {
+                                arrAssesments[i] = getRandom(min, max)
+                            }
+                            return arrAssesments
+                        }
+                        
+                        // ------------------------ функція розрахунку середньої оцінки ----------------
+                        function averageMark (arrAssesments) {
+                            let studentMark = 0
+
+                            arrAssesments.forEach(element =>{
+                                studentMark = studentMark + element
+                            })
+                            studentMark = studentMark / arrAssesments.length
+                            console.log(studentMark); 
+                            return studentMark
+                        }
+
+                        // ------------------------ функція підрахунку результативності учня ----------------
+                        function studentAverageAssesment () {
+                            let getScale = getScaleOfAssesment()
+                            let arrAssesments = generateAssesments(getScale)
+                            console.log(arrAssesments)
+                            let studentAverageMark = averageMark (arrAssesments) 
+                            let counterBadMarks_2 = 0
+                            let counterBadMarks_3 = 0
+
+                            arrAssesments.forEach (
+                                (assesment, index) => {
+                                    if (assesment === 2)  {
+                                        counterBadMarks_2++
+                                    } else if (assesment === 3)
+                                    counterBadMarks_3++
+                                }
+                            )
+
+                            if (counterBadMarks_2 > 0) {
+                                alert(`Даний студен двійочник! Його середня оцінка ${studentAverageMark}`)
+                            } else if (counterBadMarks_3 > 0) {
+                                alert(`Даний студен трійочник! Його середня оцінка ${studentAverageMark}`)
+                            } else if (studentAverageMark === 5) {
+                                alert(`Даний студен відмінник! Його середня оцінка ${studentAverageMark}`)
+                            } else {
+                                alert(`Даний студен хорошист! Його середня оцінка ${studentAverageMark}`)
+                            }
+                        }
+
+                        studentAverageAssesment()
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
