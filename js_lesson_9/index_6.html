@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 9 - home task 6</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 9 - Домашнє завдання 6</h3>
+                <div class="task__condition">
+                    6.Дано масив елементів. Усі елементи, які більші за перший елемент помножити на 2
+                </div>
+                <div class="task__computing">
+                    <script>
+                    let someArr = [13, 56, 93, 12, 7, 105, 43, 14, 21, 27]
+
+                    function multiplySomeNumbers (arr) {
+                        let firstElem = arr[0]
+                        let transformArr = arr.slice(0)
+                        for (let i = 1; i < arr.length; i++) {
+                            (arr[i] > firstElem) ? transformArr[i] = transformArr[i] * 2 : ''            
+                        }
+                        return transformArr
+                    }
+
+                    function compareArr (arr1, arr2) {
+                        document.write(`<br> Базовий масив: ${arr1}`)
+                        document.write(`<br> Масив після трансформації: ${arr2}`)
+                    }
+
+                    compareArr(someArr, multiplySomeNumbers(someArr))
+
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

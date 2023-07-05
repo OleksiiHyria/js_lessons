@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 9 - home task 7</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 9 - Домашнє завдання 7</h3>
+                <div class="task__condition">
+                    7.Дано масив цін. Змінити цей масив так, що на ціни товарів, які більші за 1000 грн. дати 30% знижки.
+                </div>
+                <div class="task__computing">
+                    <script>
+                        let prices = [1270, 5340, 4390, 7820, 950, 1800, 780, 3600, 520, 900]
+
+                        function arrDiscountChange (prices) {
+                            let discount = 0.3
+                            let discountPrice = 0
+                            let arrWithDiscount = []
+                            prices.forEach(
+                                (element, index) => {
+                                (element > 1000) ? arrWithDiscount.push(discountPrice = element - (element * discount)): arrWithDiscount.push(element)
+                            });
+                            return arrWithDiscount
+                        }
+
+                        function displayDiscountPrices (prices) {
+                            let arrWithDiscount = arrDiscountChange(prices)
+                            document.write(` <br> Ціни без знижки: ${prices}`)
+                            document.write(` <br> Ціни з урахуванням знижки: ${arrWithDiscount}`)
+                            
+                        }
+
+                        displayDiscountPrices (prices)
+                        
+
+
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

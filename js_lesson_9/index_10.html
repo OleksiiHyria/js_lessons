@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 9 - home task 10</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 9 - Домашнє завдання 10</h3>
+                <div class="task__condition">
+                    10. Дано масив цін у грн. Податок складає 20%. Сформувати масив, який буде містити величину сплаченого податку у грн.  
+                </div>
+                <div class="task__computing">
+                    <script>
+                        let prices = [1270, 5340, 4390, 7820, 950, 1800, 780, 3600, 520, 900]
+                        const TAX = 0.2
+
+                        function getTax (prices) {
+                            let arrTax = []
+                            let sumTax = 0
+                            prices.forEach(element => {
+                                sumTax = element * TAX
+                                arrTax.push(sumTax)
+                            });
+                            return arrTax
+                        }
+
+                        function printResult (prices) {
+                            let arrTax = getTax(prices)
+                            document.write(`<br> Ціни до оподаткування: ${prices}`)
+                            document.write(`<br> Ціни після оподаткування: ${arrTax}`)
+                        }
+
+                        printResult(prices)
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 9 - home task 3</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 9 - Домашнє завдання 3</h3>
+                <div class="task__condition">
+                    3. Користувач вводить кількість елементів. Створити масив, у якому перші 5 елементів заповнені 1-цями, 
+                    а інші до кінця масиву заповнені 7-ками.
+                </div>
+                <div class="task__computing">
+                    <script>
+
+                        function createArray (){
+                            let getLength = parseInt(prompt('Введіть розмір масиву'))
+                            let newArr = new Array (getLength)
+                            newArr.fill(1, 0, 5).fill(7, 5, getLength - 1)
+                            return newArr
+                        }
+
+                        document.write(createArray ())
+
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
