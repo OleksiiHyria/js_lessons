@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 11 - home task 1</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 11 - Домашнє завдання 1</h3>
+                <div class="task__condition">
+                    Знайти суми елементів у вказаній області (масиви розділені на 4 рівні частини 
+                    Суму парних рядків
+                    Суму непарних стовпців
+                    У парних рядках – непарні стовпці, у непарних – парні.
+                </div>
+                <div class="task__computing">
+                    <script>
+                        let someArr = [
+                    //    0  1  2  3   
+                        [3, 5, 12, 7],     //0 27
+                        [11, 6, 2, 7],     //1 25
+                        [22, 15, 34, 1],   //2 72
+                        [14, 4, 56, 34]]   //3 108
+                    //   50  30 94  49
+                        let rowsStart = 0
+                        let rowsCenter = Math.floor((someArr.length + 1) / 2)
+                        let rowsEnd = someArr.length
+
+                        let columnsStart = 0
+                        let columnsCenter = Math.floor((someArr[0].length + 1)/ 2)
+                        let columnsEnd = someArr[0].length
+
+                        let firstPart = getSum(someArr, rowsStart, rowsCenter, columnsStart, columnsCenter)
+                        let secondPart = getSum(someArr, rowsStart, rowsCenter, columnsCenter, columnsEnd)
+                        let firdPart = getSum(someArr, rowsCenter, rowsEnd, columnsStart, columnsCenter)
+                        let fourthPart = getSum(someArr, rowsCenter, rowsEnd, columnsCenter, columnsEnd)
+                        
+
+                    // ------------------ Знаходження суми елементів у вказаній області ---------------------
+                        function getSum (arr, rowStart, rowEnd, columnStart, columnEnd){
+                            let sumResult = 0
+                            for (let i = rowStart; i < rowEnd; i++) {
+                                for (let j = columnStart; j < columnEnd; j++) {
+                                    sumResult += arr[i][j]
+                                }
+                            }
+                            return sumResult
+                        }
+
+                        console.log(firstPart);
+                        console.log(secondPart);
+                        console.log(firdPart);
+                        console.log(fourthPart);
+
+                    // ------------------ Знаходження суми парних рядків ------------------------------------
+                    function findSumOddRows (arr) {
+                        let sumOddRows = 0
+                        for (let i = 0; i < arr.length; i++) {
+                            if (i % 2 === 0) {
+                                arr[i].reduce(
+                                    (firstElement, element, index, arr) => {
+                                        sumOddRows +=element
+                                    }, 0
+                                )
+                            }
+                        }
+                        return sumOddRows
+                    }
+                
+                    console.log(findSumOddRows(someArr));
+
+                    // ------------------ Знаходження суми непарних стовпців --------------------------------
+                    function findSumEvenColumns(arr) {
+                        let sumOddColumns = 0
+                        for (let i = 0; i < arr.length; i++) {
+                            if (i % 2 !== 0) { 
+                                arr[i].reduce(
+                                    (firstElement, element, index, arr) => {
+                                        sumOddColumns +=element
+                                    }
+                                )
+                            }
+                        }
+                        return sumOddColumns
+                    }
+
+                    console.log(findSumEvenColumns(someArr));
+
+                    // ------ Знаходження суми у парних рядках – непарні стовпці, у непарних – парні --------
+                    function findSumOddRowsEvenColumns (arr) {
+                        let sumEvenColumns = 0
+                        let oddColumns = 0
+                        for (let i = 0; i < arr.length; i++) {
+                            if (i % 2 === 0) { //парні рядки
+                                arr[i].reduce(
+                                    (firstElement, element, index, arr) => {
+                                        if (index % 2 !== 0) sumEvenColumns +=element // сума в парних рядках – непарні стовпців
+                                    }, 0
+                                )
+                            } else {
+                                arr[i].reduce(
+                                    (firstElement, element, index, arr) => {
+                                        if (index % 2 === 0 || index === 0) oddColumns += element //сума у непарних рядках – парні стовпці
+                                    }, 0
+                                )
+                            }
+                        }
+                        return [sumEvenColumns, oddColumns]
+                    }
+
+                    console.log(findSumOddRowsEvenColumns(someArr));
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

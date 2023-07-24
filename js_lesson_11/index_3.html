@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 11 - home task 3</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 11 - Домашнє завдання 3 <mark>(відображення результатів в консолі)</mark></h3>
+                <div class="task__condition">
+                    Задача 3. Морський бій. Випадковим чином на двовимірному полі розміром 6*6 розташовується 5 кораблів. 
+                    Користувач стріляє вказуючи координати. 
+                    Гра продовжується поки не потоплено усі кораблі або у користувача не закінчаться снаряди.
+                </div>
+                <div class="task__computing">
+                    <script>
+                        function generateGameField (rowsNumber, colsNumber, shipsNumber) {
+                        //---- Створюємо масив заповнений нулями
+                            let battlefield = []
+                            for (let row = 0; row < rowsNumber; row++) {
+                                let newRow = new Array(colsNumber).fill(0)
+                                battlefield.push(newRow)
+                            }
+                            for (let shipNum = 0; shipNum < shipsNumber;) { //буду збільшувати тільки тоді коли корабель розміщу
+                                  const randRowIndex = Math.floor(Math.random() * rowsNumber)
+                                    const randColumnIndex = Math.floor(Math.random() * colsNumber)
+                                    if (battlefield[randRowIndex][randColumnIndex] !== 1) {
+                                        battlefield[randRowIndex][randColumnIndex] = 1
+                                        shipNum++                           //буду збільшувати тільки тоді коли корабель розміщу
+                                    }
+                            }
+                            return battlefield
+                        }
+
+                        let shipsNumber = 5
+                        let numberOfShoots = 6
+                        let gameTable = generateGameField (6, 6, shipsNumber)
+                        
+                        function checkCoordinats (gameTable) {
+                            do {
+                                let getRow = parseInt(prompt('Введіть номер рядка')) - 1
+                                let getColumn = parseInt(prompt('Введіть номер колонки')) - 1
+                                if (gameTable[getRow][getColumn] === 1) {
+                                    console.log('Влучання');
+                                    shipsNumber--
+                                } else {
+                                    console.log('Промах');
+                                }
+                                numberOfShoots--
+                            } while (numberOfShoots !== 0 && shipsNumber > 0)
+                        }
+
+                        checkCoordinats(gameTable)
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

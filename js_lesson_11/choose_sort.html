@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Choose-sort</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Choose-sort</h3>
+                <div class="task__condition">
+                    
+                </div>
+                <div class="task__computing">
+                    <script>
+                    // Тестовий масив
+                    let arr = [56, -78, 252, 23, -122, 356, 122, 436, -111, 344, 21, 3, -356, 342,]
+
+                    //----- Сортування вибором 1.
+                        // const prevLastIndex = arr.length - 2
+                        // let counter = 0
+                        // for (let i = 0; i <= prevLastIndex; i++) {
+                        //   for (let j = i + 1; j < arr.length; j++) {
+                        //     if (arr[i] < arr[j]) {
+                        //       let temp = arr[i]
+                        //       arr[i] = arr[j]
+                        //       arr[j] = temp
+                        //       counter++
+                        //     }
+                        //   }
+                        // }
+                        // document.write(arr)
+                        // console.log(counter)
+
+                        //----- Сортування вибором 2
+                    const prevLastIndex = arr.length - 2
+                    let counter = 0
+                    for (let i = 0; i <= prevLastIndex; i++) {
+                    let minIndex = i
+                      //----- пошук індекса мінімального елемента від і-до останнього
+                    for (let j = i + 1; j < arr.length; j++) {
+                        if (arr[j] < arr[minIndex]) {
+                            minIndex = j
+                        }
+                    }
+                      //---- якщо мінімлаьний не у позиції "і" то міняємо місцями
+                    if (i !== minIndex) {
+                        let temp = arr[i]
+                        arr[i] = arr[minIndex]
+                        arr[minIndex] = temp
+                        counter++
+                        }
+                    }
+                    document.write(arr)
+                    console.log(counter)
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

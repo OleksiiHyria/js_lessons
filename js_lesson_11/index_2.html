@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 9 - home task 2</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 9 - Домашнє завдання 2 <mark>(результати відповідей відображений в консолі)</mark></h3>
+                <div class="task__condition">
+                    Задача 2. Дано інформацію про прибуток К магазинів протягом тижня. Знайти : <br>
+                        1) загальний прибуток кожного масиву за тиждень; <br>
+                        2) загальний прибуток усіх магазинів по дням (загальний прибуток усіх магазинів за понеділок, за вівторок, і т.д.); <br>
+                        3) загальний прибуток за робочі дні <br>
+                        4) загальний прибуток за вихідні дні <br>
+                        5) максимальний прибуток за середу <br>
+                        6) сформувати загальний список (одновимірний масив) зі значенням, які що більші за 200 <br>
+                        7) відсортувати кожен тиждень за зростанням <br>
+                        8) відсортувати тижні (рядки) за спаданням максимального елементи у цьому тижні (рядку), тобто при порівнянні рядків потрібно порівнювати максимальні елементи у кожному з цих рядків<br>
+                        9) упорядкувати тижні (рядки) за спаданням суми елементів у рядку (тобто при порівнянні двох рядків треба знайти суму кожного з рядків і порівнювати ці суми, на основі цих сум буде зрозуміло, який з елементів повинен іти раніше).<br>
+
+                </div>
+                <div class="task__computing">
+                    <script>
+                        let workDays = 4, weekDay = 2, minIncome = 200
+                        let incomesArr = [
+                            [1005, 2030, 4500, 700, 5400, 150, 120],
+                            [2390, 3460, 70, 950, 1200, 100, 50],
+                            [20500, 20010, 14500, 11700, 14300, 0, 0],
+                            [500, 130, 90, 1750, 4300, 1560, 0],
+                            [50, 0, 1500, 2600, 1520, 1130, 1800]
+                        ]
+
+                        // Задача 2. Завдання 1) загальний прибуток кожного магазину за тиждень; 
+                        // функція підрахунку загального прибутку кожного магазину за тиждень (forEach + reduce);
+                        function weekInkome (incomes) {
+                            let shopsWeekInkome = [] 
+                            incomes.forEach(shop => {
+                                let totalWeek = 0
+                                shop.reduce(
+                                    (firstIncome, income) => totalWeek += income, 0
+                                )
+                                shopsWeekInkome.push(totalWeek)
+                            });
+                            return shopsWeekInkome
+                        }
+                        
+                        let shopWeekIncome = weekInkome(incomesArr)
+                        console.log(`Загальний прибуток кожного магазину за тиждень (forEach + reduce): ${weekInkome(incomesArr)}`);
+
+                        
+                        // функція підрахунку загального прибутку кожного магазину за тиждень (map + reduce);
+                        function weekInkome_2 (incomes) {
+                            let result = incomes.map(
+                                shop => shop.reduce((totalShopIncome, dayShopIncome) => totalShopIncome + dayShopIncome)
+                            )
+                            return result
+                        }
+
+                        console.log(`Загальний прибуток кожного магазину за тиждень (map + reduce): ${weekInkome_2(incomesArr)}`);
+                        // ---------------------------------------------------------------------
+
+                        // Задача 2. Завдання 2) загальний прибуток усіх магазинів по дням (загальний прибуток усіх магазинів за понеділок, за вівторок, і т.д.);
+                        // Функція підрахунку загального прибутку усіх магазинів по дням (загальний прибуток усіх магазинів за понеділок, за вівторок, і т.д.);
+                        function dayIncome (incomes) {
+                            let shopsDayInkome = [], days = 7
+                            for (let i = 0; i < days; i++) { //7
+                                let totalDayIncome = 0
+                                for (let j = 0; j < incomes.length; j++) { //5
+                                    totalDayIncome += incomes[j][i]
+                                }
+                                shopsDayInkome.push(totalDayIncome)
+                            }
+                            return shopsDayInkome
+                        }
+
+                        console.log();
+
+                        // let shopDaysIncome = weekInkome(incomesArr)
+                        console.log(`Загальний прибуток усіх магазинів по дням (загальний прибуток усіх магазинів за понеділок, за вівторок, і т.д.(for)): ${dayIncome(incomesArr)}`);
+                        // ---------------------------------------------------------------------
+
+                        // Задача 2. Завдання 3) загальний прибуток за робочі дні 
+                        //Функція підрахунку загального прибутку за робочі дні 
+                        function workDaysIncome (incomes, workDays) {
+                            let shopWorkDayIncome = 0
+                            let workDaysIncome = []
+                            incomes.forEach(
+                                shops => {shops.reduce(
+                                    (firstDay, day, index, arr) => {
+                                        if (index <= workDays) shopWorkDayIncome += day 
+                                    }
+                                    , 0)
+                                    workDaysIncome.push(shopWorkDayIncome)
+                                })
+                                    return workDaysIncome
+                        }
+
+                        console.log(`Загальний прибуток за робочі дні: ${workDaysIncome(incomesArr, workDays)}`);
+                        // ---------------------------------------------------------------------
+
+                        //Задача 2. Завдання 4) загальний прибуток за вихідні дні
+                        //загальний прибуток за вихідні дні
+                        function getWeekendIncome (incomes, workDays) {
+                            let shopWeekdayIncome = []
+                            let totalWeekIncome = 0
+                            let resultWeelendIncome = incomes.forEach(
+                                shops => {
+                                shops.reduce(
+                                    (firstDay, day, index, arr) => {
+                                        if (index > workDays) {
+                                            totalWeekIncome += day
+                                        }
+                                    }, 0
+                                )
+                            });
+                            return totalWeekIncome
+                        }
+
+                        console.log(`Загальний прибуток за вихідні дні ${getWeekendIncome(incomesArr, workDays)}`);
+                        //-----------------------------------------------------------------------
+
+                        //Задача 2. Завдання 5) максимальний прибуток за середу
+                        //максимальний прибуток за середу 
+                        function getMaxWednesdayIncome (incomes, weekDay) {
+                            let shopsWeekdayIncome = []
+                            incomes.forEach(
+                                shop => shop.filter(
+                                    (day, index) => {
+                                        if (index === weekDay) shopsWeekdayIncome.push(day)
+                                    }
+                                )
+                            )
+                            let maxDayIncome = Math.max(...shopsWeekdayIncome)
+                            return maxDayIncome
+                        }
+
+                        console.log(`Максимальний прибуток за середу:${getMaxWednesdayIncome(incomesArr, weekDay)}`)
+                        //-----------------------------------------------------------------------
+
+                        // Задача 2. Завдання 6) сформувати загальний список (одновимірний масив) зі значенням, які що більші за 200
+                        //Функція яка формує загальний список (одновимірний масив) зі значенням, які що більші за 200 (flat & filter)
+                        function totalSumIncome (incomes, minIncome) {
+                            let allIncomes = incomes.flat(Infinity).filter(income => income > minIncome)
+                            return allIncomes
+                        }
+
+                        console.log(`Сформувати загальний список (одновимірний масив) зі значенням, які що більші за 200 (flat & filter) ${totalSumIncome (incomesArr, minIncome)}`);
+
+                        //Функція яка формує загальний список (одновимірний масив) зі значенням, які що більші за 200 (for & push)
+                        function totalSumIncome_2(incomes, minIncome) {
+                            let allIncomes = []
+                            for (let i = 0; i < incomes.length; i++) {
+                                for (let j = 0; j < incomes[i].length; j++) {
+                                    if (incomes[i][j] > minIncome) {
+                                        allIncomes.push(incomes[i][j])
+                                    }
+                                } 
+                            }
+                            return allIncomes
+                        }
+
+                        console.log(`Сформувати загальний список (одновимірний масив) зі значенням, які що більші за 200 (for & push): ${totalSumIncome_2 (incomesArr, minIncome)}`);
+                        //-----------------------------------------------------------------------
+
+                        //Задача 2. Завдання  7) відсортувати кожен тиждень за зростанням 
+                        // відсортувати кожен тиждень за зростанням (forEach + sort) 
+                        function sortUp (incomes) {
+                            let resultArr = JSON.parse(JSON.stringify(incomes))
+                            resultArr.forEach(
+                                shop => {
+                                    shop.sort(
+                                        function compare(day_1, day_2) {
+                                            return day_1 - day_2
+                                    }
+                                )
+                            });
+                            return resultArr
+                        }
+
+                        console.log(`Відсортувати кожен тиждень за зростанням (forEach + sort): ${sortUp(incomesArr)}`);
+
+                        //-----------------------------------------------------------------------
+                        // відсортувати кожен тиждень за зростанням (map + bubble sort) 
+                        function sortUp_bubble(incomes){
+                            let change = false,  counter = 0
+                            let resultArr = JSON.parse(JSON.stringify(incomes))
+                            resultArr.map(
+                                shop => {
+                                    do {
+                                        for (let i = 1; i < shop[i].length; i++) {
+                                            if (shop[i] < shop[i - 1]) {
+                                                let temp = shop[i]
+                                                shop[i] = shop[i - 1]
+                                                shop[i - 1] = temp
+                                                counter++
+                                    }
+                                }
+                            } while (change)
+                                }
+                            )
+                                return resultArr
+                        }
+
+                        console.log(`Відсортувати кожен тиждень за зростанням (map + bubble sort): ${sortUp_bubble(incomesArr)}`);
+                        
+
+                        //-----------------------------------------------------------------------
+                        // відсортувати кожен тиждень за зростанням (insert sort - сортування включенням) 
+                        function sortUp_insert(incomes) {
+                            let resultArr = JSON.parse(JSON.stringify(incomes))
+                            resultArr.map(
+                                shop => {
+                                    let  compareElement, currentElememt                                             // об'являємо змінні compareElement це попередній елемент / currentElememt це елемент ообраний для порівняння
+                                    for (let i = 1; i < shop.length; i++) {                                         // починаємо проходитись по масиву значень з першого елементу (iндексу 1)
+                                        currentElememt = shop[i]                                                    // в currentElememt записуємо елемент з індексом i  = 1 - запам'ятовуємо елемент
+                                        compareElement = i - 1                                                      // визначаємо попередній елемент(шндекс елементу) для порівнняння item = 0
+                                    }
+                                    while (compareElement >= 0 && compareElement > currentElememt) {                //постійно порівнюємо елемент який запам'ятали(currentElememt) з попередніми якщо попередній елемент item більший за поточний (currentElememt)
+                                        shop[compareElement + 1] = shop[compareElement]                             // compareElement зміщуємо на позицію в право 
+                                        compareElement = compareElement - 1                                          //
+                                    }
+                                    shop[compareElement + 1] = currentElememt                                       // якщо поточний (currentElememt) елемент не більший за (compareElement) просто вставляємо його наступним
+                                }
+                            )
+                                return resultArr
+                        }
+
+                        console.log(`Відсортувати кожен тиждень за зростанням (insert sort - сортування включенням) ${sortUp_insert(incomesArr)}`);
+
+                        //-----------------------------------------------------------------------
+                        // відсортувати кожен тиждень за зростанням (choose sort - сортування вибором) 
+                        function sortChoose (incomes) {
+                            let resultArr = JSON.parse(JSON.stringify(incomes))
+                            let counter = 0
+                            resultArr.forEach(
+                                shop => {
+                                    let endPosition = shop.length - 2
+                                    for (let i = 0; i < endPosition; i++) {
+                                        for (let j = i + 1; j < shop.length; j++) {
+                                            if (shop[i] > shop[j]) {
+                                                let temp = shop[i]
+                                                shop[i] = shop[j]
+                                                shop[j] = temp
+                                                counter++
+                                            }
+                                        }                                        
+                                    }
+                                }
+                            )
+                            return resultArr
+                        }
+
+                        console.log(`Відсортувати кожен тиждень за зростанням (choose sort - сортування вибором): ${sortChoose(incomesArr)}`)
+
+                        //-----------------------------------------------------------------------
+                        // відсортувати кожен тиждень за зростанням (choose sort 2 - сортування вибором) - оптимізований
+                        function sortChoose_2 (incomes) {
+                            let resultArr = JSON.parse(JSON.stringify(incomes))
+                            let counter = 0
+                            resultArr.forEach(
+                                shop => {
+                                    let endPosition = shop.length - 2
+                                    for (let i = 0; i <= endPosition; i++) {  // куди ми хочемо поставити мінімальний елемент
+                                        let minIndex = i
+                                        //пошук мінімального елемента від і до останнього
+                                        for (let j = i + 1; j < shop.length; j++) { // шукаємо мінімальне
+                                            if (shop[j] < shop[minIndex]){
+                                                minIndex = j
+                                            }
+                                            }
+                                            //якщо мінімальний не у позиції і то міняємо місцями
+                                            if (i !== minIndex) {
+                                                let temp = shop[i]
+                                                shop[i] = shop[minIndex]
+                                                shop[minIndex] = temp
+                                                counter++
+                                            }
+                                        }
+                                    }
+                            )
+                            return resultArr
+                        }
+
+                        console.log(`Відсортувати кожен тиждень за зростанням (choose sort 2 - сортування вибором) - оптимізований: ${sortChoose_2(incomesArr)}`);
+                        //-----------------------------------------------------------------------
+
+                        ////Задача 2. Завдання  8) відсортувати тижні (рядки) за спаданням максимального елементи у цьому тижні (рядку), тобто при порівнянні рядків потрібно порівнювати максимальні елементи у кожному з цих рядків
+                        //  функція сортування тижнів (рядків) за спаданням максимального елементи у цьому тижні (рядку), тобто при порівнянні рядків потрібно порівнювати максимальні елементи у кожному з цих рядків<br>
+
+                        function filterMaxRowDown (incomes) {
+                            let resultArr = JSON.parse(JSON.stringify(incomes))
+                            resultArr.sort((shop_1, shop_2) => Math.max(...shop_2) - Math.max(...shop_1)
+                            )
+                            return resultArr
+                        }
+
+                        console.log(`Відсортувати тижні (рядки) за спаданням максимального елементи у цьому тижні (рядку), тобто при порівнянні рядків потрібно порівнювати максимальні елементи у кожному з цих рядків: ${filterMaxRowDown(incomesArr)}`);
+                        //--------------------------------------------------------------------------
+
+                        
+                        // //Задача 2. Завдання 9) упорядкувати тижні (рядки) за спаданням суми елементів у рядку (тобто при порівнянні двох рядків треба знайти суму кожного з рядків і порівнювати ці суми, на основі цих сум буде зрозуміло, який з елементів повинен іти раніше).<br>
+                        function getMaxRowValue (arr) {
+                            return arr.reduce((sum, income) => sum += income)
+                        }
+
+                        function filterSumRowDown (incomes) {
+                            return incomes.sort((shop_1, shop_2) => getMaxRowValue(shop_2) - getMaxRowValue(shop_1))
+                        }
+
+                        console.log(`Упорядкувати тижні (рядки) за спаданням суми елементів у рядку (тобто при порівнянні двох рядків треба знайти суму кожного з рядків і порівнювати ці суми, на основі цих сум буде зрозуміло, який з елементів повинен іти раніше): ${filterSumRowDown(incomesArr)}`);
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

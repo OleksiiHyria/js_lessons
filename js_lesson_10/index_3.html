@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 10 - home task 3</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 10 - Домашнє завдання 3</h3>
+                <div class="task__condition">
+                    3) Сформувати список з тих цін, які більші за попереднє значення
+                </div>
+                <div class="task__computing">
+                    <script>
+                        let someArr = [178, 1450, 956, 3267, 841, 5089, 3045, 717, 23, 1001, 1, 547, 2045, 5689]
+                        const message = 'Результат роботи функції знаходження елементів які більше за попереднє значення (map)'
+
+                        function findBigger (someArr) {
+                            let resultArr = []
+                            someArr.map(
+                                (element, index, arr) => {
+                                    if (index !== 0 && element > arr[index - 1]) {
+                                        resultArr.push(element)
+                                    }
+                                }
+                            )
+                            return resultArr
+                        }
+
+                        let result = findBigger (someArr)
+
+                        function printResult (result, message) {
+                            document.write(`<br> Масив значень: ${someArr}<br>`)
+                            console.log(result)
+                            document.write(`<br> ${message}
+                            <br> Результат: ${result} <br>`)
+                        }
+
+                        printResult(result, message)
+                        
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

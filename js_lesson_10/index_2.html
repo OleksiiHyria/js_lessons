@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 10 - home task 2</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 10 - Домашнє завдання 2</h3>
+                <div class="task__condition">
+                    2) Сформувати новий масив, у якому є номери тільки тих, що більші за 1000 грн.
+                </div>
+                <div class="task__computing">
+                    <script>
+                        let someArr = [178, 1450, 956, 3267, 841, 5089, 3045, 717, 23, 1001, 1, 547, 2045, 5689]
+                        const FIND_NUMBER = 1000, MIN = 1, MAX = 10000, ARR_NUMBER = 14
+                        const message_1 = 'Результат роботи функції знаходження індексів елементів які більше 1000 (reduce)'
+                        const message_2 = 'Результат роботи функції знаходження індексів елементів які більше 1000 (filter)'
+
+                        //--------------------- функція знаходження індексів елементів які більше 1000 (reduce) з існуючого масиву ---------
+                        function getNewPrices (FIND_NUMBER, someArr) {
+                            let resultArr = []
+                            someArr.reduce(
+                                (firstElement, element, index, arr) => {
+                                    if (element > FIND_NUMBER){
+                                        resultArr.push(index)
+                                    }
+                                }
+                            )
+                            return resultArr
+                        }
+
+                        //--------------------- функція знаходження індексів елементів які більше 1000 (filter) з існуючого масиву ---------
+                        function getNewPrices_2 (FIND_NUMBER, someArr) {
+                            let resultArr = []
+                            someArr.filter(
+                                (element, index, arr) => {
+                                    if (element > FIND_NUMBER) {
+                                        resultArr.push(index)
+                                    }
+                                }
+                            )
+                            return resultArr
+                        }
+
+                        //--------------------- функція відображення результату ---------
+                        function printResult (result, message) {
+                            document.write(`<br> Масив значень: ${someArr}`)
+                            console.log(result)
+                            document.write(`<br> ${message}
+                            <br> Результат: ${result} <br>`)
+                        }
+
+                        let result = getNewPrices(FIND_NUMBER, someArr)
+                        let result_2 = getNewPrices_2(FIND_NUMBER, someArr)
+
+                        printResult(result, message_1)
+                        printResult(result_2, message_2)
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
