@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 12 - home task</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 12 - Домашнє завдання 1 - 6 <mark>(Результати виведені в консоль.)</mark></h3>
+                <div class="task__condition">
+                    Задача 1. Дано масив 30 випадкових цілих чисел. Підрахувати скільки було обмінів під час сортування бульбашкою. <br>
+                    Задача 2. Дано масив 30 випадкових цілих чисел. Підрахувати скільки було обмінів під час сортування змішуванням. <br>
+                    Задача 3. Дано масив 30 випадкових цілих чисел. Підрахувати скільки було обмінів під час сортування включеннями. <br>
+                    Задача 4. Для розглянутих методів сортування спробувати вивести етапи сортування шляхом виведення відповідних таблиць за зразком. <br>
+                    Тобто кожного разу після обміну елементів вивести поточний стан масиву на екран. <br>
+                    Задача 5. Дано масив імен. Застосовуючи відповідне сортування та бінарний пошук визначити, чи є у масиві ім’я «Olga» і під яким індексом. <br>
+                    Задача 6. Дано масив імен. Застосовуючи відповідне сортування та бінарний пошук визначити, чи є у масиві ім’я довжиною 5 символів і під яким індексом. <br>
+                    <br>
+                </div>
+                <div class="task__computing">
+                    <script>
+                        //Задача 1. Дано масив 30 випадкових цілих чисел. Підрахувати скільки було обмінів під час сортування бульбашкою
+                        //--------------- функція генерації масива випадкових чисел ---------------------
+                        let arrLength = 30, min = -1000, max = 1000
+                        function generateRandomArr(arrLength, min, max) {
+                            let randomArr = []
+                            for (let i = 0; i < arrLength; i++) {
+                                let generateNumber = Math.floor(min + Math.random() * (max - min +1))
+                                randomArr.push(generateNumber)
+                            }
+                            return randomArr
+                        }
+                        
+                        let getSomeArr = generateRandomArr(arrLength, min, max)
+                        console.log(`Сгенерований масив випадкових чисел: ${getSomeArr}`);
+
+
+                        //----------------- bubble sort -------------
+                        // document.write('------------------- bubbleSort ---------------------')
+                        let bubbleSort_counter = 0, change = false 
+                        function bubbleSort (arr) {
+                            do {
+                                change = false
+                                for (let i = 1; i < arr.length; i++) {
+                                    if (arr[i - 1] > arr[i]) {
+                                        let temp = arr[i]
+                                        arr[i] = arr[i - 1]
+                                        arr[i - 1] = temp
+                                        bubbleSort_counter++
+                                        change = true
+                                        // sortStepTable(arr)
+                                    }
+                                }
+                            } while (change)
+                            return arr
+                    }
+                    console.log('Задача 1. Дано масив 30 випадкових цілих чисел. Підрахувати скільки було обмінів під час сортування бульбашкою');
+                    console.log(`Результат сортування bubble-sort: ${bubbleSort(getSomeArr)}. Кількість обмінів ${bubbleSort_counter}`);
+
+                        //----------------- choose sort -------------
+                        // document.write('------------------- chooseSort ---------------------')
+                        let chooseSort_counter = 0
+                        function chooseSort (arr) {
+                            endPosition = arr.length -2
+                            for (let i = 0; i <= endPosition; i++) {
+                                for (let j = i + 1; j < arr.length; j++) {
+                                    if (arr[i] < arr[j]){
+                                        let temp = arr[i]
+                                        arr[i] = arr[j]
+                                        arr[j] = temp
+                                        chooseSort_counter++
+                                        // sortStepTable(arr)
+                                    }
+                                }
+                            }
+                            return arr
+                        }
+
+                        console.log(`Результат сортування choose-sort: ${chooseSort(getSomeArr)}. Кількість обмінів: ${chooseSort_counter}`);
+
+
+                        // ------------------ shake sort ---------------------
+                        //Задача 2. Дано масив 30 випадкових цілих чисел. Підрахувати скільки було обмінів під час сортування змішуванням.
+                        // document.write('------------------- shakerSort ---------------------')                        
+                        function swap (arr, leftIndex, rightIndex) {
+                            let temp = arr[leftIndex]
+                            arr[leftIndex] = arr[rightIndex]
+                            arr[rightIndex] = temp
+                        }
+
+                        let leftIndex = 0, rightIndex = getSomeArr.length - 1, shakerSortCounter = 0
+
+                        function shakerSort (arr, leftIndex, rightIndex) {
+                            while (leftIndex < rightIndex){
+                                for (let i = leftIndex; i < rightIndex; i++) {
+                                    if (arr[i] > arr[i + 1]) {
+                                        swap(arr, i, i + 1)
+                                            shakerSortCounter++
+                                            // sortStepTable(arr)
+                                    }
+                                }
+                                rightIndex--
+                                for(let i = rightIndex; i > leftIndex; i--) {
+                                    if (arr[i] < arr[i - 1]){
+                                        swap(arr, i, i - 1)
+                                            shakerSortCounter++
+                                            // sortStepTable(arr)
+                                    }
+                                }
+                                leftIndex++
+                            }
+                            return arr
+                        }
+                        console.log('Задача 2. Дано масив 30 випадкових цілих чисел. Підрахувати скільки було обмінів під час сортування змішуванням.');
+                        console.log(`Результат сортування shakerSort: ${shakerSort (getSomeArr, leftIndex, rightIndex)}. Кількість обмінів: ${shakerSortCounter}`);
+
+
+                        // Задача 3. Дано масив 30 випадкових цілих чисел. Підрахувати скільки було обмінів під час сортування включеннями. <br>
+                        document.write('------------------- insertSort ---------------------')                        
+                        let inserSortCounter = 0
+                        function insertSort (arr) {
+                            let compareElement, currentElement
+                            for (let i = 1; i < arr.length; i++) {
+                                currentElement = arr[i]
+                                compareElement = i - 1
+                                inserSortCounter++
+                                sortStepTable(arr)
+                            }
+                            while(compareElement >= 0 && compareElement > currentElement) {
+                                arr[compareElement + 1] = arr[compareElement]
+                                compareElement = compareElement - 1
+                                inserSortCounter++
+                                sortStepTable(arr)    
+                            }
+                            arr[compareElement + 1] = currentElement
+                            return arr
+                        }
+                        console.log('Задача 3. Дано масив 30 випадкових цілих чисел. Підрахувати скільки було обмінів під час сортування включеннями.');
+                        console.log(`Результат сортування insertSort: ${insertSort (getSomeArr)}. Кількість обмінів: ${inserSortCounter}`);
+
+
+                    // Задача 4. Для розглянутих методів сортування спробувати вивести етапи сортування шляхом виведення відповідних таблиць за зразком. 
+                    // Тобто кожного разу після обміну елементів вивести поточний стан масиву на екран. 
+                        function sortStepTable(arr){
+                            document.write('<table border = 1px>')
+                                document.write('<tr>')
+                                    arr.forEach(element => {
+                                        document.write(`<td>${element}</td>`)
+                                    });
+                                document.write('</tr>')
+                            document.write('</table>')
+                        }
+
+                        console.log('Задача 4. Для розглянутих методів сортування спробувати вивести етапи сортування шляхом виведення відповідних таблиць за зразком.');
+                        console.log('Результат виведен на екран як таблиця.');
+
+                    // Задача 5. Дано масив імен. Застосовуючи відповідне сортування та бінарний пошук визначити, чи є у масиві ім’я «Olga» і під яким індексом.
+
+                    let arrayOfNames = ['Galina', 'Djesika', 'Olena', 'Svetlana', 'Antonina', 'Olga', 'Antonina', 'Monika', 'Andgelina', 'Kate']
+                    let searchName = 'Olga'
+                    arrayOfNames.sort()
+
+                    function findName (arr, searchName) {       
+                        let start = 0, end = arr.length - 1
+                        while(start <= end) {
+                            const middle = Math.floor((start + end) / 2)
+                            if (arr[middle] === searchName) return middle
+                            if (arr[middle] < searchName) start = middle + 1
+                            if (arr[middle] > searchName) end = middle - 1
+                        }
+                        return -1
+                    }
+                    console.log('Задача 5. Дано масив імен. Застосовуючи відповідне сортування та бінарний пошук визначити, чи є у масиві ім’я «Olga» і під яким індексом.');
+                    let searchNameIndex = findName(arrayOfNames, searchName)
+                    console.log(`Індекс шьені «Olga»: ${searchNameIndex}`)
+                    let showName = arrayOfNames[searchNameIndex]
+                    console.log(`Відображення ім'я по шуканому індексу: ${showName}`);
+
+                    // Задача 6. Дано масив імен. Застосовуючи відповідне сортування та бінарний пошук визначити, чи є у масиві ім’я довжиною 5 символів і під яким індексом. 
+                    arrayOfNames.sort((a, b)=> a.length - b.length)
+
+                    let searchNameLength = 5
+                    function findName_2 (arr, searchNameLength) {
+                        let start = 0, end = arr.length - 1
+                        
+                        while (start <= end) {
+                            let middle = Math.floor((start + end) / 2)
+                            if (searchNameLength === arr[middle].length) return arr[middle]
+                            if (arr[middle].length < searchNameLength) start = middle + 1
+                            if (arr[middle].length  > searchNameLength) end = middle - 1
+                        }
+                        return false
+                    }
+                    console.log('Задача 6. Дано масив імен. Застосовуючи відповідне сортування та бінарний пошук визначити, чи є у масиві ім’я довжиною 5 символів і під яким індексом.');
+                    console.log(`Відсортований масив по довжині слів - 5 символів: ${arrayOfNames}`);
+                    console.log(`Ім'я довжиною 5 символів: ${findName_2(arrayOfNames, searchNameLength)}`)
+                    let indexName = findName_2(arrayOfNames, searchNameLength)
+                    console.log(`Індекс слова з довжиною 5 символів: ${arrayOfNames.indexOf(indexName)}`);
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
