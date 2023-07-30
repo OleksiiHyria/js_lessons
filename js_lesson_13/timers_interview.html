@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Timers interview</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Timers interview</h3>
+                <div class="task__condition">
+                </div>
+                <div class="task__computing">
+                    <script>
+                        //питання на інтервью - що побачить користувач
+
+                        // ------------------ приклад 1 -----------------------
+                        function whatSeeUser_1() { // 4 рази відобразить значення і (1) в alert
+                            for (let i = 1; i < 5; i++) {
+                            setTimeout(
+                            function () {
+                                alert(i) // i локальна змінна - для кожного setTimeout своя змінна і. Кожен раз створюється окрема змінна
+                                }, 2000)
+                            }
+                        }
+
+                        // whatSeeUser_1()
+
+                        // ------------------ приклад 2 -----------------------
+
+                        function whatSeeUser_2 () { // 4 рази відобразиться змінна із значенням 5 - останнє значення коли ми вийшли з циклу
+                            let i // змінна одна
+
+                            for (i = 1; i < 5; i++) { // цикл швидко відпрацьовує
+                                setTimeout(function () { // set timeout спрацьовую після завершення циклу через 2 с
+                                    alert(i) // змінна одна
+                                }, 2000)
+                            }
+                        }
+
+                        // whatSeeUser_2()
+
+                        // ------------------ приклад 3 -----------------------
+                        function whatSeeUser_3 () { // спочатку буде відображений 0 а потім від 1 до 4
+                            let num = 0
+                            let myTimer = setInterval(
+                                () => {
+                                    if (num === 5) {
+                                        alert('stop')
+                                        clearInterval(myTimer)
+                                    } else {
+                                        alert(num++)
+                                    }
+                                }, 1000
+                            )
+                        } 
+
+                        // whatSeeUser_3()
+                        //--------------------------------------------------------------------
+                        
+                        function whatSeeUser_4 (num) { // рекурсія - 4 рази буде виведен алерт из значеннями від 1 до 4
+                            setTimeout(
+                                () => {
+                                    if (num < 5) {
+                                        alert(num)
+                                        whatSeeUser_4 (num + 1)
+                                    }
+                                }, 1000
+                            )
+                        }
+                        whatSeeUser_4 (1)
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

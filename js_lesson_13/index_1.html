@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 13</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 13 - Домашнє завдання (виконання функцій закоментовано для запобігання накладання іх виконання) </h3>
+                <div class="task__condition">
+                </div>
+                <div class="task__computing">
+                    <script>
+                        //Задача 0. Реалізувати рекурсивну функцію знаходження степеня числа а
+                        function powRecursion (a) {
+                            if (a === 0 || a === 1) return a 
+                            return powRecursion(a - 2) + powRecursion(a - 1)
+                        }
+
+                        // console.log('Задача 0. Реалізувати рекурсивну функцію знаходження степеня числа а')
+                        // console.log(`Результат рекурсивної функції знаходження степеня числа ${powRecursion(7)}`);
+                        //--------------------------------------------------------------------------------------------
+
+
+                        //Задача 1. Нехай , де . Визначити . Розв’язати з використанням рекурсивних і нерекурсивних алгоритмів
+                        function recursionAlgoritm (a){
+                            // let recAllResults = []
+                            if (a === 0) return 1
+                            let result = recursionAlgoritm(a - 1) + 2 * a
+                            // recAllResults.push(result)
+                            console.log(result);
+                            return result
+                        }
+
+                        // console.log(recursionAlgoritm(10)); 
+
+                        //-------------------
+
+                        function notRecursionAlgoritm (a) {
+                            let result = 1
+                            for (let i = 1; i <= a; i++) {
+                                if (a === 0) return 1
+                                result += 2 * i
+                                console.log(result);
+                            }
+                            return result
+                        }
+
+                        // notRecursionAlgoritm(10)
+
+                        //--------------------------------------------------------------------------------------------
+
+                        //Задача 2. Реалізувати бінарний пошук (розглядали на попередніх уроках) з використанням рекурсивного алгоритму.
+                        let someArr = [23, 56, 17, 9, 76, 43, 11, 97, 34, 1]
+                        let searchElement = 43
+
+                        someArr.sort(
+                            (a, b) => a - b
+                        )
+
+                        function notRecursionBinarySearch (arr, searchElement) {
+                            let arrStart = 0, arrEnd = arr.length - 1
+                            while(arrStart <= arrEnd) {
+                                let middle = Math.floor((arrStart + arrEnd) / 2)
+                                if (arr[middle] === searchElement)  return middle
+                                if (arr[middle] < searchElement) arrStart = middle + 1
+                                if (arr[middle] > searchElement) arrEnd = middle - 1
+                            }
+                            return false
+                        }
+
+                        // console.log(someArr);
+                        // console.log(notRecursionBinarySearch(someArr, searchElement)); 
+
+                        function recursionBinarySearch (arr, search, start, end) {
+                            let middle = Math.floor((start + end) / 2)
+                            while (start <= end){
+                                if(arr[middle] === search) return middle
+                                if (arr[middle] < search) return recursionBinarySearch(arr, search, middle + 1, end)
+                                if (arr[middle] > search) return recursionBinarySearch(arr, search, start, middle - 1)
+                            }
+                            return false
+                        }
+
+                        // console.log(someArr);
+                        // console.log(recursionBinarySearch(someArr, 97, 0, someArr.length - 1)); 
+
+                        //--------------------------------------------------------------------------------------------
+
+                        //адача 3.  З використанням замикань розробити ітератор, тобто функцію, що буде поступово за окремими викликами видавати по одне значення 
+                        //від заданого мінімального до заданого максимального. Якщо значення досягне максимального, то наступним буде мінімальне значення. 
+                        //З використанням цієї функції реалізувати перебір номерів місяців. 
+
+                        function getMonth (startMonth, min = 0, max = 12) {
+                            function getNextMonth (){
+                                if (startMonth === 12) startMonth = 1
+                                else ++startMonth
+                                return startMonth
+                            }
+                            return getNextMonth
+                        }
+
+                        function monthIteration (startMonth, iterNumber){
+                            let nextMonth = getMonth(startMonth)
+                            for (let i = 0; i < iterNumber; i++) {
+                                console.log(nextMonth())
+                            }
+                        }
+
+                        // monthIteration(1, 24)
+                        //--------------------------------------------------------------------------------------------
+
+                        //Задача 4. З використанням замикань розробити ітератор, тобто функцію, що буде поступово за окремими викликами видавати по одну букву наперед заданого слова.
+                        // З використанням нього розробити гру «Прекладач». Виводимо для користувача опис цього слова і по одну букву користувач вводить переклад цього слова. Підрахувати кількість вгаданих букв.
+                        // Загадане слово 'iterator'
+
+                        function getUserWord(word) {
+                            let guessWordInfo = alert(`Перекладіть на Англійську - об'єкт, який дозволяє програмісту обходити елементи колекції, зокрема списку. Кількість літер у слові: ${word.length}`)
+                            let userLatter = '',  userword = []
+                            for (let i = 0; i < word.length; i++) {
+                                userLatter = prompt('Введіть букву')
+                                userword.push(userLatter)
+                            }
+                            return [userword, word]
+                        }
+
+                        // let words = getUserWord('iterator')
+
+                        // let words = [['i', 'm', 'a', 'r', 'e', 't', 'o', 'r'], 'iterator']
+
+                        function checkWord(words) {
+                            function checkWordByLatters (){
+                                let counter = 0
+                                for (let i = 0; i < words[1].length; i++) {
+                                    if(words[1][i] === words[0][i]) {
+                                        counter++
+                                    }                                    
+                                }
+                                return counter
+                            }
+                            return checkWordByLatters ()
+                        }
+                            
+                        // document.write(`Кількість вказаних літер при перекладі: ${checkWord(words)}`)
+                        //--------------------------------------------------------------------------------------------
+
+
+                        //Задача 5. Тренажер додавання. Кожні 10 секунд користувачу задають випадковий приклад з додавання двох цифр і робиться перевірка.
+                        function generateRandomNumber (min, max) {
+                            return Math.floor(min + Math.random() * (max - min + 1))
+                        }
+
+                        let generateSample = function () {
+                            let num1 = generateRandomNumber (5, 15) 
+                            let num2 = generateRandomNumber (105, 150) 
+                            sum = num1 + num2
+                            let result = parseInt(prompt(`Який результат виразу: ${num1} + ${num2}`)) 
+                            if (result === sum) {
+                                alert('Все вірно')
+                            } else {
+                                alert('Ви помилилися!')
+                            }
+                        }
+
+                        // setInterval(generateSample, 10000)
+                        //--------------------------------------------------------------------------------------------
+
+
+                        //Задача 6. Через 20 секунд перейти на сайт ukr.net. Для цього через 20 секунд після відкриття треба виконати команду
+                        //window.location.href = 'https://www.ukr.net/'
+
+                        function showPage () {
+                            window.location.href = "https://www.ukr.net/"
+                        }
+
+                        setTimeout(showPage, 20000)
+
+                        //--------------------------------------------------------------------------------------------
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

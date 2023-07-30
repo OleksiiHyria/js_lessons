@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 13 - home task</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 13 - Домашнє завдання <mark>(Результати виведені в консоль.)</mark></h3>
+                <div class="task__condition">
+                    Задача 0. Реалізувати рекурсивну функцію знаходження степеня числа а
+                </div>
+                <div class="task__computing">
+                    <script>
+                        //Послідовність Фібоначчі визначається як ряд чисел, в якому кожне наступне число дорівнює сумі двох попередніх:
+                        //1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765, 10946, 17711, 28657, 46368, 75025, 121393, 196418, 317811, 514229, 832040, …
+                        
+                        //--------------------------------------------------------------------------------------------------
+                        //Проста рекурсивна функція, яка викликає сама себе, поки не дійде до моменту, коли n = 0 або n = 1
+                        //Варіанти знаходження цифр фібоначі (1, 1, 2, 3, 5, 8, 13… ) - вимагає багато ресурсів
+                        function  fibonacciReсursion (n) {
+                            if (n === 0 || n === 1) return n
+                            return fibonacciReсursion(n - 2) + fibonacciReсursion(n - 1)
+                        }
+
+                        console.log(`Результат роботи  рекурсивної функції 1: ${fibonacciReсursion(10)}`)  
+
+
+                            function  fibonacciReсursion_2 (n) {
+                            if (n < 2) return n
+                            return fibonacciReсursion(n - 2) + fibonacciReсursion(n - 1)
+                        }
+
+                        console.log(`Результат роботи рекурсивної функції 2: ${fibonacciReсursion_2(10)}`) 
+
+                        //---------------------------------------------------------------------------------------------------
+                        //Якщо потрібно знайти значення лише один раз, і ми обмежені пам'яттю, необхідно використовувати не рекурсивну функцію
+                        function fibonacciOneIter (n) {
+                            if (n <= 2) return 1 // повертаємо одиницю так як перші два значення послідовності = 11
+                            let x = 1, y = 1, ans = 0 // об'являємо змінні (х та y переші два числа. ans наступне число в послідовності)
+                            for (let i = 2; i < n; i++) { //починаємо  з другої позиції так як перші два числа нам відомі
+                                ans = x + y  // знаходимо наступне число
+                                x = y // міняємо змінні місцями
+                                y = ans // міняємо змінні місцями
+                            }
+                            return ans //
+                        }
+
+                        console.log(`Остання цифра фібоначі: ${fibonacciOneIter(7)}`);
+
+
+                        //---------------------------------------------------------------------------------------------------
+                        //Мемоізація — це підхід, що дозволяє нам зберігати результати проміжних рішень, щоб у наступних розрахунках не повторювати те саме. (повертає останнє число)
+                        function memomization (n) {
+                            let someArr = [0, 1]
+                            if (n === someArr[0] || n === someArr[1]) return n
+                            if (!someArr[n]) {
+                                someArr[n] = memomization(n - 1) + memomization(n - 2)
+                            }
+                            return someArr[n]
+                        }
+
+                        console.log(`Мемоізація - збереження проміжних рішень без повторень: ${memomization(10)}`);
+
+                        //----------------------------------------------------------------------------------------------------
+                        //understandable function (повертає масив всіх значень) - працює швидко
+
+                        function recursionFor (n) { 
+                            let result = [0, 1] // масив в який зберігаємо всі цифри
+                            if (n === 0 || n === 1) return n // перевірка на ввід значень які не корректні чи вже є
+                            for (let i = 2; i <= n; i++) { 
+                                result.push(result[i - 2] + result[i - 1]) // вираховуємо та зберігаємо в масив всі значення
+                            }
+                            return result
+                        }
+
+                        console.log(recursionFor(10));
+
+                        //----------------------------------------------------------------------------------------------------
+                        // fibonacci short (повертає останнє число) - працює швидко
+
+                        function fibonacciShort (n) {
+                            let a = 1, b = 1
+                            for (let i = 3; i <=n; i++) {
+                                [a, b] = [b, a + b]                                
+                            }
+                            return b
+                        }
+
+                        console.log(fibonacciShort(10));
+
+
+                        //----------------------- test --------------------------
+
+                    
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
