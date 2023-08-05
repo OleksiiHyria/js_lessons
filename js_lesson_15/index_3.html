@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 15 - home task 3</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 15 - Домашнє завдання 3 <mark>(Результати виведені в консоль.)</mark></h3>
+                <div class="task__condition">
+                    Задача 2. Створити об’єкт «Авто». 
+                        Поля(властивості)
+                            Марка
+                            Розмір бака
+                            Кількість наявних літрів
+                            Кількість місць
+                            Кількість пасажирів
+                        Методи (дії)
+                            Заправка на вказану кількість літрів
+                            Виведення кількості пасажирів
+                            Додавання пасажирів
+                            Висадка пасажирів
+                </div>
+                <div class="task__computing">
+                    <script>
+                        let auto = {
+                            mark: 'WV',
+                            tank_size: 55,
+                            litters_available: 27,
+                            seats_number: 4,
+                            passangers_number: 2,
+
+                            refuling: function (litters){
+                                let remainder = 0, newRefuling = this.litters_available + litters
+                                if (newRefuling > this.tank_size) {
+                                    remainder = newRefuling - this.tank_size
+                                    this.litters_available = this.tank_size
+                                    console.log(`Ми не змогли заправити авто на ${litters}. Бак повний: ${this.tank_size}!. Залишок складає: ${remainder}`);
+                                } else {
+                                    this.litters_available = this.litters_available + litters
+                                    console.log(`Ми заправили Ваше авто на ${litters}. Бак заправлений на ${this.litters_available}`)
+                                }
+                                return this.litters_available
+                            }, 
+
+                            showNumberOfPassangers: function () {
+                                console.log(`Кількість пасажирів в авто: ${this.passangers_number}`)
+                                return this.passangers_number
+                            }, 
+
+                            addPassangers: function (numPassangers) {
+                                let passangersTotal = numPassangers + this.passangers_number, pasRemainder = 0
+                                    if (passangersTotal > this.seats_number) {
+                                        this.passangers_number = this.seats_number
+                                        pasRemainder = passangersTotal - this.seats_number
+                                        console.log(`Кількість пасажирів перевищує кількість доступних місць на: ${pasRemainder}. Кількість пасажирів в авто: ${this.passangers_number}`)
+                                    } else {
+                                        this.passangers_number = this.passangers_number +  numPassangers
+                                        console.log(`Кількість пасажирів в авто: ${this.passangers_number}`)
+                                    }
+                                    return this.passangers_number
+                            },
+
+                            passangersLanding: function (numPassangers) {
+                                if (numPassangers > this.passangers_number){
+                                    this.passangers_number = 0
+                                    console.log(`Всі пасажири висажені. Кількість доступних пасажирських місць ${this.seats_number}`);
+                                } else { 
+                                    this.passangers_number = this.passangers_number - numPassangers
+                                    console.log(`Пасажирів залишилось в авто: ${this.passangers_number}`);
+                                }
+                                return this.passangers_number
+                            }
+
+                        }
+
+                        console.log(auto.refuling(50));
+                        console.log(auto.showNumberOfPassangers());
+                        console.log(auto.addPassangers(3));
+                        console.log(auto.passangersLanding(3));
+                        
+
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

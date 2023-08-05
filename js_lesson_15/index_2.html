@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 15 - home task 2</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 15 - Домашнє завдання 2 <mark>(Результати виведені в консоль.)</mark></h3>
+                <div class="task__condition">
+                    Задача 1. Створити об’єкт «Тир». У масиві зберігаються 1, якщо у цьому квадраті є заєць і 0 в іншому випадку.
+                </div>
+                <div class="task__computing">
+                    <script>
+
+                    let shootinRange = {
+                        area: new Array(5),
+
+                        generateArea: function() {
+                            this.area.fill(0)
+                            let random = 1 + Math.floor(Math.random() * 4)
+                            this.area[random] = 1
+                            return this.area
+                        }, 
+
+                        checkShoot: function () {
+                            let shoot = prompt(`куди стріляємо? введіть від 1 до 5`)
+                            for (let i = 0; i < this.area.length; i++) {
+                                if (this.area[shoot - 1] === 1) {
+                                    console.log('Влучання!')
+                                    alert('Влучання!') 
+                                    break
+                                } else {
+                                    console.log('Не влучив.')
+                                    alert('Не влучив.') 
+                                    break
+                                }                   
+                            }
+                            this.playAgain()
+                        },
+
+                        playAgain: function () {
+                            let playAgain = confirm('Граємо ще?')
+                            if (playAgain === true) {
+                                this.generateArea();
+                                this.showArea()
+                                this.checkShoot()
+                            }
+                        },
+
+                        showArea: function(){
+                            console.log(this.area);
+                        }
+                    }
+                    
+                    console.log(shootinRange.generateArea());
+                    console.log(shootinRange.checkShoot());
+
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
