@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 16 - home task 3</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 16 - Домашнє завдання 3</h3>
+                <div class="task__condition">
+                    Задача 3. Об’єкт “Фірма” (використати члени-класи)
+                    поля
+                        назва фірми;
+                        дата заснування (рік, місяць);
+                        послуги (назва послуги, вартість, термін виконання);
+                        адреси філіалів (країна, місто, вулиця, номер будинку);
+                    методи
+                        визначення кількості років існування фірми;
+                        виведення всіх філіалів фірми у вказаному місті;
+                        виведення на екран послуг, що можуть бути виконані за вказану суму грошей та вказаний термін часу;
+                </div>
+                <div class="task__computing">
+                    <script>
+                        class Firm {
+
+                            #firmName
+                            #establishmentDate
+                            #services
+                            #branch
+
+                            constructor (firmName, establishmentDate, services, branch) {
+                                this.#firmName = firmName
+                                this.#establishmentDate = establishmentDate
+                                this.#services = services
+                                this.#branch = branch
+                            }
+
+                            get FirmName () {
+                                return this.#firmName
+                            }
+
+                            set FirmName (firmName) {
+                                this.#firmName = firmName
+                            }
+
+                            get EstablishmentDate () {
+                                return this.#establishmentDate
+                            }
+
+                            set EstablishmentDate (establishmentDate) {
+                                this.#establishmentDate = establishmentDate
+                            }
+
+                            get Services () {
+                                return this.#services
+                            }
+
+                            set Services (services) {
+                                this.#services = services
+                            }
+
+                            get Branch () {
+                                return this.#branch
+                            }
+
+                            set Branch (branch) {
+                                this.#branch = branch
+                            }
+
+                            firmYearsOld (currentYear) {
+                                return currentYear - this.#establishmentDate 
+                            }
+
+                            showBranchesInTheCity (city) { 
+                                let searchBranches = []
+                                for (let address of this.#branch){
+                                    if (address.city === city){
+                                        searchBranches.push(address)
+                                    }
+                                }
+                                return searchBranches                                   
+                            }
+
+                            showServices (userSumOfMoney) {
+                                let availableServices = []
+                                for (let service of this.#services) {
+                                    if (service.servicePrice <= userSumOfMoney) {
+                                        availableServices.push(service)
+                                } 
+                            }
+                            return availableServices
+                        }
+                    }
+
+                        class Services {
+                            //послуги (назва послуги, вартість, термін виконання);
+                            constructor (serviceName, servicePrice, deadline) {
+                                this.serviceName = serviceName
+                                this.servicePrice = servicePrice
+                                this.deadline = deadline
+                            }
+
+                            get ServiceName () {
+                                return this.serviceName
+                            }
+
+                            set ServiceName (serviceName) {
+                                this.serviceName = serviceName
+                            }
+
+                            get ServicePrice () {
+                                return this.servicePrice
+                            }
+
+                            set ServicePrice (servicePrice) {
+                                this.servicePrice = servicePrice
+                            }
+
+                            get Deadline () {
+                                return this.deadline
+                            }
+
+                            set Deadline (deadline) {
+                                this.deadline = deadline
+                            }
+
+                            toString() {
+                                return `${this.serviceName} . ${this.servicePrice} . ${this.deadline}`
+                            }
+                        }
+
+                        class NewBranch {
+                            // адреси філіалів (країна, місто, вулиця, номер будинку)
+                                constructor(country, city, street, houseNumber){
+                                    this.country = country
+                                    this.city = city
+                                    this.street = street
+                                    this.houseNumber = houseNumber
+                                }
+
+                                get Country (){
+                                    return this.country
+                                }
+
+                                set Country (country) {
+                                    this.country = country
+                                }
+
+                                get City () {
+                                    return this.city
+                                }
+
+                                set City (city) {
+                                    this.city = city
+                                }
+
+                                get Street () {
+                                    return this.street
+                                }
+
+                                set Street (street) {
+                                    this.street = street
+                                }
+
+                                get HouseNumber () {
+                                    return this.houseNumber
+                                }
+
+                                set HouseNumber (houseNumber) {
+                                    this.houseNumber = houseNumber
+                                }
+
+                                toString () {
+                                    return `${this.country}, ${this.city}, ${this.street}, ${this.houseNumber} `
+                                }
+                            }
+
+                        let firm_1 = new Firm('Adda', 2003, [
+                            new Services('Delivery in Warsaw', 1200, 2),
+                            new Services('Delivery in Praga', 1350, 3),
+                            new Services('Delivery in Bucharest', 1250, 2),
+                            new Services('Delivery in Vilnus', 1450, 4),
+                            new Services('Delivery in London', 1900, 5),
+
+                        ], [
+                            new NewBranch('Ukraine', 'Kyiv', 'Kulibina', 11),
+                            new NewBranch('Ukraine', 'Dnipro', 'Gromova', 27),
+                            new NewBranch('Ukraine', 'Kherson', 'Soborna', 1),
+                            new NewBranch('Ukraine', 'Kharkiv', 'Sonyachna', 111),
+                            new NewBranch('Ukraine', 'Lviv', 'Stara plocha', 19),
+                        ])
+
+                        let firm_2 = new Firm('Candy', 2017, [
+                            new Services('Delivery in Warsaw', 900, 3),
+                            new Services('Delivery in Praga', 1100, 3),
+                            new Services('Delivery in Bucharest', 1200, 4)
+                        ], [
+                            new NewBranch('Ukraine', 'Kyiv', 'Prorizna', 121),
+                            new NewBranch('Ukraine', 'Kyiv', 'Kilceva', 44),
+                            new NewBranch('Ukraine', 'Dnipro', 'Peremogi', 17),
+                            new NewBranch('Ukraine', 'Kherson', 'Svitla', 10),
+                            new NewBranch('Ukraine', 'Lviv', 'Shuchevicha', 33),
+                        ])
+
+                        let firm_3 = new Firm('Flash', 2020, [
+                            new Services('Delivery in Warsaw', 1000, 2),
+                            new Services('Delivery in Praga', 13000, 2),
+                            new Services('Delivery in Bucharest', 1400, 2)
+
+                        ], [
+                            new NewBranch('Ukraine', 'Kyiv', 'Osvoboditeley', 9),
+                            new NewBranch('Ukraine', 'Dnipro', 'Centralna', 17),
+                            new NewBranch('Ukraine', 'Dnipro', 'Trudova', 10),
+                            new NewBranch('Ukraine', 'Lviv', 'Viborzka', 2),
+                            new NewBranch('Ukraine', 'Kyiv', 'Andriivska', 30),
+
+                        ])
+
+                        let firm_4 = new Firm('Flash', 2010, [
+                            new Services('Delivery in Warsaw', 750, 5),
+                            new Services('Delivery in Praga', 900, 4),
+                            new Services('Delivery in Bucharest', 950, 6)
+
+                        ], [
+                            new NewBranch('Ukraine', 'Kyiv', 'Druzhbi', 13),
+                            new NewBranch('Ukraine', 'Dnipro', 'Lisova', 4),
+                            new NewBranch('Ukraine', 'Dnipro', 'Robocha', 10),
+                            new NewBranch('Ukraine', 'Lviv', 'Viborzka', 110),
+                            new NewBranch('Ukraine', 'Lviv', 'Prostora', 25),
+                        ])
+
+
+                        console.log(`Років компанії: ${firm_1.firmYearsOld(2023)}`);
+                        console.log(firm_1.showBranchesInTheCity('Kyiv').toString());
+                        console.log(firm_1.showServices(1300).toString());
+
+                        console.log(`Років компанії: ${firm_2.firmYearsOld(2023)}`);
+                        console.log(firm_2.showBranchesInTheCity('Lviv').toString());
+                        console.log(firm_2.showServices(1300).toString());
+
+                        console.log(`Років компанії: ${firm_3.firmYearsOld(2023)}`);
+                        console.log(firm_3.showBranchesInTheCity('Dnipro').toString());
+                        console.log(firm_3.showServices(1100).toString());
+
+                        console.log(`Років компанії: ${firm_1.firmYearsOld(2023)}`);
+                        console.log(firm_1.showBranchesInTheCity('Kyiv').toString());
+                        console.log(firm_1.showServices(1900).toString());
+
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

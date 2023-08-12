@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 16 - home task 2</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 16 - Домашнє завдання 2</h3>
+                <div class="task__condition">
+                    Задача 2. Створити клас TMoney для роботи з грошовими сумами. Сума повинна зберігатися у вигляді доларового еквіваленту. 
+                    Реалізувати методи додавання/вилучення грошової маси, вказуючи необхідну суму у гривнях, та визначення курсу долара, 
+                    при якому сума у гривнях збільшиться на 100. Курс долара зберігати в окремому полі. 
+                </div>
+                <div class="task__computing">
+                    <script>
+                        class TMoney {
+                            #balance
+                            #cource
+
+                            constructor (balance, cource) {
+                                this.Balance = balance / cource
+                                this.Cource = cource 
+                            }
+
+                            get Balance () {
+                                return this.#balance
+                            }
+
+                            set Balance (balance) {
+                                if (balance > 0) {
+                                    this.#balance = balance
+                                } else {
+                                    throw new Error ('Заданий початковий баланс не може бути меншим за 0')
+                                }
+                            }
+
+                            get Cource () {
+                                return this.#cource
+                            }
+
+                            set Cource (cource) {
+                                this.#cource = cource
+                            }
+
+                            replenishment (replenishment) {
+                                if (replenishment / this.#cource >= 100) {
+                                    this.Balance = this.#balance + replenishment / this.#cource
+                                }
+                                else {
+                                    throw new Error ('Поповнення не може відбутися менше ніж на 100 usd')
+                                }
+                                return this.#balance
+                            }
+
+                            withdraw (withdraw) {
+                                if (withdraw / this.#cource > 10) {
+                                    this.Balance -= withdraw / this.#cource 
+                                } else {
+                                    throw new Error ('Зняття не може відбутися менше ніж 10 usd')
+                                }  
+                                return this.#balance 
+                            }
+
+                            courceIncreaseUah () {
+                                if (this.#cource > 37) {
+                                    this.Balance += 1000 / this.#cource // умова змінена з 100 грн на 1000 так як 100 грн по поточному курсу взагалі ні про що)))
+                                }
+                                return this.#balance
+                            }
+
+                            toString () {
+                                return `Курс USD: ${this.#cource}  Баланс: ${this.#balance}`
+                            }
+                        }
+
+                        let usdKeeper = new TMoney(10000, 37.5)
+                        console.log(usdKeeper);
+                        usdKeeper.replenishment(3800) // поповнення в гривні
+                        // usdKeeper.replenishment(10) // перевірка введення суми поповнення нище 100 usd
+                        console.log(usdKeeper.toString()); // перевірка поточного балансу та курсу
+                        usdKeeper.withdraw(2000) // зняття в гривні
+                        console.log(usdKeeper.toString()); // перевірка поточного балансу та курсу
+                        usdKeeper.courceIncreaseUah() // перевірка курса та збільшення балансу на 1000 грн
+                        console.log(usdKeeper.toString()); // перевірка поточного балансу та курсу              
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

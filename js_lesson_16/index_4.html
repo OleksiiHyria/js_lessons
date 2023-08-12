@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 16 - home task 4</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 16 - Домашнє завдання 4</h3>
+                <div class="task__condition">
+                    Задача. Створити клас TBankomat, який моделює роботу банкомата. 
+                    Клас повинен містити поля для зберігання кількості купюр кожного із номіналів від 5 до 200 гривень.
+                    Реалізувати методи знаходження максимальної та мінімальної сум, які може видати банкомат, та метод зняття деякої суми.
+                </div>
+                <div class="task__computing">
+                    <script>
+                        class TBankomat{
+                            #banknotKeeper
+                            
+                            constructor (banknotes) {
+                                this.#banknotKeeper = banknotes
+                            }
+
+                            maxSum (){
+                                let totalSum = 0
+                                this.#banknotKeeper.forEach(
+                                    banknote => {
+                                    totalSum += banknote.nominal * banknote.quantity
+                                });
+                                return totalSum
+                            }
+
+                            minSum (){
+                                let result = this.#banknotKeeper[0].nominal * this.#banknotKeeper[0].quantity
+                                for (let i = 1; i < this.#banknotKeeper.length; i++) {
+                                    if (result > this.#banknotKeeper[i].nominal * this.#banknotKeeper[i].quantity) {
+                                        result = this.#banknotKeeper[i].nominal * this.#banknotKeeper[i].quantity
+                                    }
+                                }
+                                return result
+                            }
+
+                            nominalSum (banknote) {
+                                return banknote.nominal * banknote.quantity
+                            }
+
+                            withdraw (userAmount) {
+                                if (typeof userAmount !== 'number' || userAmount <= 0) { // перевіряємо які значення вводяться (відсікаємо не числа та значення менші за 0)
+                                    return console.log('Not correct withdrawal amount!'); // інформуємо про некорректне введення користувача
+                                }
+
+                                let availableCash = this.maxSum()
+
+                                if (availableCash < userAmount) {
+                                    return console.log('Exceeds maximum withdrawal amount'); 
+                                }
+
+                                let innerAmount = userAmount // створюємо внутрішню змінну для оперативного використання і можливої зміни
+                                const withdrawalResult = {} // створюємо змінну для фіксування результату видачі банкнот
+
+
+                                for (let banknote of this.#banknotKeeper) { // проходимось по всім номіналам купюр
+                                    const availableBanknote = Math.min(Math.floor(innerAmount / banknote.nominal), banknote.quantity) // підраховуємо яку максимальну кількість банкнот ми можемо видати по номіналу та контролюємо щоб не перевищувати допустиму кількість купюр в банкоматі
+
+                                    if (availableBanknote > 0) { // 
+                                        withdrawalResult[banknote.nominal] = availableBanknote // в результат зняття записуємо кількість банкнот які знімаємо
+                                        innerAmount -=  availableBanknote * banknote.nominal // вираховуємо залишок суми для зняття
+                                        banknote.quantity -= availableBanknote // зменшуємо кількість банкнот по номіналу
+                                    }
+
+                                    if (innerAmount === 0) break // виходимо з циклу коли видали всю суму
+                                }
+
+                                if (innerAmount === 0) {
+                                    console.log(withdrawalResult);
+                                    return withdrawalResult // повертаємо результат зняття 
+                                } else {
+                                    console.log('Cannot dispense requested amount with available banknotes');
+                                }
+                            }
+
+                            toString (){
+                                const atmKeeperString = this.#banknotKeeper.map(note => `Nominal UAH: ${note.nominal},  bancnote quantity: ${note.quantity}`).join(`;\n`)
+                                return `TBankomat:\n${atmKeeperString}`
+                            }
+                        }
+
+                        class Banknote {
+                            constructor (nominal, quantity){
+                                this.nominal = nominal
+                                this.quantity = quantity
+                            }
+                        }
+
+                        let cashPoint = new TBankomat([
+                        new Banknote (200, 100),
+                        new Banknote (100, 100),
+                        new Banknote (50, 100),
+                        new Banknote (20, 100),
+                        new Banknote (10, 100),
+                        new Banknote (5, 100),
+                        ])
+
+                        console.log(`ATM balance: ${cashPoint.maxSum()}`);
+                        cashPoint.withdraw(10000)
+                        console.log(cashPoint.toString());
+                        console.log(`ATM balance: ${cashPoint.maxSum()}`);
+                        cashPoint.withdraw(22000)
+                        console.log(cashPoint.toString());
+                        console.log(`ATM balance: ${cashPoint.maxSum()}`);
+                        cashPoint.withdraw(45000)
+                        console.log(cashPoint.toString());
+                        console.log(`ATM balance: ${cashPoint.maxSum()}`);
+                        console.log(`Amount of min nominal ${cashPoint.minSum()}`);
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
