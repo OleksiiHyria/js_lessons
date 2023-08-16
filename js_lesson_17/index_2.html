@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 17 - home task 2</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 17 - Домашнє завдання 2</h3>
+                <div class="task__condition">
+                    Створити службове авто (водій, марка, номер). 
+                    Створити клас таким чином, щоб можна було створити тільки один екземпляр цього класу.
+                </div>
+                <div class="task__computing">
+                    <script>
+                        class SingletonOfficialAuto {
+                            constructor(driver, mark, number) {
+                                if(!SingletonOfficialAuto.instance) {
+                                    this.dtiver = driver
+                                    this.mark = mark
+                                    this.number = number
+                                    SingletonOfficialAuto.instance = this
+                                } else {
+                                    return SingletonOfficialAuto.instance
+                                }
+                            }
+                        }
+
+                        let newOfficialAuto = new SingletonOfficialAuto('Oleksii Hyria', 'Ford', 'CA 7453 AL')
+                        console.log(newOfficialAuto);
+                        let newOfficialAuto_2 = new SingletonOfficialAuto('John Doe', 'Chevrolet', 'NY 1234 AB')
+                        console.log(newOfficialAuto_2);
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

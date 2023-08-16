@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 17 - home task</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 17 - Домашнє завдання 1 <mark>(Результати виведені в консоль.)</mark></h3>
+                <div class="task__condition">
+                    Створити клас, що дозволяє виконувати такі операції над масивами: знаходження кількості додатних, 
+                    кількості від’ємних, кількість входжень деякого числа (статичні методи)
+                </div>
+                <div class="task__computing">
+                    <script>
+                        class ArrayChecker {
+                            constructor (someArray) {
+                                this.someArray = someArray
+                            }
+
+                            findPositiveNum() {
+                                return this.someArray.filter(
+                                    num => {
+                                        if (num > 0) {
+                                            return num
+                                        }
+                                    })
+                            }
+
+                            findNegativeNumber() {
+                                return this.someArray.filter(
+                                    (num) => {
+                                        if (num < 0){
+                                            return num 
+                                        }
+                                    })
+                            }
+
+                            findNumber(number, arr) {
+                                let counter = 0
+                                this.someArray.reduce((count, num) => {
+                                    if (num === number) {
+                                        counter++
+                                    }
+                                    return counter
+                                }, 0)
+                                return counter
+                            }
+                        }
+
+
+                        class RandomArrCreator {
+                            constructor (min, max){
+                                this.min = min
+                                this.max = max
+                            }
+
+                            createRandom () {
+                                return Math.floor(this.min + Math.floor(Math.random() * (this.max - this.min + 1)))
+                            }
+
+                            createRandomArr (num){
+                                let newArr = []
+                                for (let i = 0; i < num; i++) {
+                                    newArr.push(this.createRandom())
+                                }
+                                return newArr
+                            }
+
+                            static toStringArrCreator (arr) {
+                                return arr.map(elem => ` ${elem}`).join(',')
+                            }
+                        }
+
+                        // ----------------------------------------------------------------------------------
+                        someArr_1 = [-3, 5, 2, 9, -7, 2, -4, 3, -8, 10]
+
+                        let randomArrCreator = new RandomArrCreator(-10, 10)
+                        console.log(RandomArrCreator.toStringArrCreator(someArr_1));
+                        let someRandom = randomArrCreator.createRandom()
+                        someArr_2 = randomArrCreator.createRandomArr(10)
+                        console.log(RandomArrCreator.toStringArrCreator(someArr_2));
+                        console.log(someRandom);
+                        // ----------------------------------------------------------------------------------
+
+                        let checkNumbers_1 = new ArrayChecker(someArr_1)
+                        let checkNumbers_2 = new ArrayChecker(someArr_2)
+
+                        console.log(checkNumbers_1.findPositiveNum());
+                        console.log(checkNumbers_2.findPositiveNum());
+                        console.log(checkNumbers_1.findNegativeNumber());
+                        console.log(checkNumbers_2.findNegativeNumber());
+                        console.log(checkNumbers_1.findNumber(5));
+                        console.log(checkNumbers_2.findNumber(5));
+                        // ----------------------------------------------------------------------------------
+
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

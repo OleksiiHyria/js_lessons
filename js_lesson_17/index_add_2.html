@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Additional task 2</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Додаткове завдання 2</h3>
+                <div class="task__condition">
+                Склад. База товарів, які зберігаються на складі: назва товару, одиниця виміру, кількість, фірма виробник (назва, реєстраційний номер). Організувати реєстрацію/відвантаження товарів, філтрація за назвою товару, фільтрація за назвою фірми
+
+                </div>
+                <div class="task__computing">
+                    <script>
+
+        class Product {
+            constructor(initData) {
+                Object.assign(this, initData)
+        }
+            toString() {
+                let res = ''
+                for (const key in this) {
+                    res += `${key}-${this[key]},  `
+            }
+                return res
+            }
+        }
+      //-------------------
+        class Store {
+            constructor(title, initProductList) {
+                this.title = title
+                 // this.productList = JSON.parse(JSON.stringify(initProductList))
+                this.productList = initProductList
+        }
+        addProduct(product) {
+            this.productList.push(product)
+        }
+        removeProduct(productTitle) {
+            this.productList = this.productList.filter(
+            (product) => product.title !== productTitle
+            )
+        }
+        filterByTitle(productTitle) {
+            return this.productList.filter(
+                (product) => product.title === productTitle
+            )
+          // return this.productList.filter(product=>product.title.includes(productTitle))
+        }
+        filterByManufacturer(manufacturerTitle) {
+            return this.productList.filter(
+                (product) => product.manufacturer === manufacturerTitle
+            )
+          // return this.productList.filter(product=>product.title.includes(pro
+            }
+        }
+
+        let productList = [
+            new Product({
+            title: 'Tea',
+            measureUnit: 'kg',
+            manufacturer: 'Deli',
+            }),
+            new Product({
+            title: 'Milk',
+            measureUnit: 'liter',
+            manufacturer: 'Zorja',
+            }),
+            new Product({
+            title: 'Meat',
+            measureUnit: 'kg',
+            manufacturer: 'Kolos',
+            }),
+        ]
+
+        const store = new Store('Super store', productList)
+        store.addProduct(
+            new Product({
+            title: 'Solt',
+            measureUnit: 'kg',
+            manufacturer: 'Best S',
+            })
+        )
+        console.log(store)
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

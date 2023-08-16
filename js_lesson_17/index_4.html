@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 17 - home task 4</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 17 - Домашнє завдання 4</h3>
+                <div class="task__condition">
+                    Особиста бібліотека. Картотека домашньої бібліотеки: дані книги (автори (піб, рік народження, короткий опис), 
+                    назва книги, жанр, видавництво (назва, реєстраційний номер, рік засування)). Реалізувати розділи бібліотеки організувати додавання/вилучення книг та  
+                    вибір книг за назвою, за ПІБ автора, за видавництвом.
+                </div>
+                <div class="task__computing">
+                    <script>
+                        class HomeLibrary {
+                            #booksKeeper
+
+                            constructor () {
+                                this.#booksKeeper = []
+                            }
+                            
+                            createSection (newSection) {
+                                const checkSectionEsistence = this.#booksKeeper.find(section => section.sectionName === newSection.sectionName)
+                                if (!checkSectionEsistence) {
+                                    this.#booksKeeper.push(newSection)
+                                } else {
+                                    throw new Error(`Section with name ${newSection.sectionName} exists! Please, change the name of new section`)
+                                }   
+                            } 
+
+                            addBook(nameOfSection, newBook) {
+                                const section = this.#booksKeeper.find(section => section.sectionName === nameOfSection); // Find the specified section
+                                if (section) {  // Check if section exists
+                                    const existingBook = section.sectionBookKeper.find(book => book.bookName === newBook.bookName); // Check for existing book
+                                    if (!existingBook) {
+                                        section.sectionBookKeper.push(newBook); // Add book to the specified section
+                                        console.log(`Book "${newBook.bookName}" was added to the Home Library in the section "${nameOfSection}".`);
+                                    } else {
+                                        throw new Error(`Book "${newBook.bookName}" already exists in the Home Library.`);
+                                    }
+                                } else {
+                                    console.log(`Section "${nameOfSection}" not found.`);
+                                }
+                            }
+
+                            removeBook (bookName) {
+                                for (let section of this.#booksKeeper) {
+                                    for (let i = 0; i < section.sectionBookKeper.length; i++) {
+                                        if (section.sectionBookKeper[i].bookName === bookName) {
+                                            section.sectionBookKeper.splice(i, 1)
+                                            console.log(`Book "${bookName}" was deleted.`);
+                                            break
+                                        }                                 
+                                    }
+                                }
+                            }
+
+                            findBookByName(bookName) {
+                                for (let section of this.#booksKeeper) {
+                                    let foundBook = section.sectionBookKeper.find(
+                                        book => book.bookName === bookName
+                                    )
+                                    if (foundBook) {
+                                        return foundBook;
+                                        }
+                                    }
+                                    return null // return null if nothing found
+                                } 
+
+
+                            findBookByAuthorName (authorName) {
+                                let resultOfSearch = []
+                                for (let section of this.#booksKeeper){
+                                    let bookByAuthor = section.sectionBookKeper.filter(book => 
+                                        book.author.name === authorName      
+                                    )
+                                    resultOfSearch.push(...bookByAuthor)
+                                }
+                                if (resultOfSearch.length === 0) {
+                                    throw new Error(`Author name ${authorName} does not exist in Home Library`)
+                                }
+                                return resultOfSearch
+                            }
+
+                            findBookByPublisher (publisherName) {
+                                let resultOfSearch = []
+                                for (let section of this.#booksKeeper) {
+                                    let findBookByPublisher = section.sectionBookKeper.filter(
+                                        book => book.publisher.pubisherName === publisherName
+                                    )
+                                    resultOfSearch.push(...findBookByPublisher)
+                                }
+                                if (resultOfSearch.length === 0) {
+                                    throw new Error(`No books found from publisher "${publisherName}" in the Home Library.`)
+                                }
+                                return resultOfSearch
+                            }
+
+                            showAllBooksBySection() {
+                                for (let section of this.#booksKeeper) {
+                                    console.log(`All books which consist in Home Library of genre "${section.sectionName}":`);
+                                    for (let book of section.sectionBookKeper) {
+                                        console.log(book.bookName);
+                                    }
+                                }
+                            }
+
+                            showSections () {
+                                console.log('All ganres of Home Library:');
+                                for (let section of this.#booksKeeper) {
+                                    console.log(`${section.sectionName}`);
+                                }
+                            }
+                            }
+                        
+                        // ---------------------
+                        class Section {
+                            constructor (sectionName) {
+                                this.sectionName = sectionName
+                                this.sectionBookKeper = []
+                                }
+                            }
+
+                        // ---------------------
+                        class Book {
+                            //дані книги (автори (піб, рік народження, короткий опис), назва книги, жанр, видавництво
+                            constructor(bookName, genre, publisher, author) {
+                                this.bookName = bookName
+                                this.genre = genre
+                                this.publisher = publisher
+                                this.author = author
+                            }
+                        }
+
+                        // ---------------------
+                        class Author {
+                            constructor (name, birthYear, shortDescription) {
+                                // Object.assign(this, objInit) 
+                                this.name = name
+                                this.birthYear = birthYear
+                                this.shortDescription = shortDescription
+                            }
+                        }
+
+                        // ---------------------
+                        class PublishingHouse {
+                            // назва, реєстраційний номер, рік засування)
+                            constructor(pubisherName, registrNumber, establisheDate) {
+                                this.pubisherName = pubisherName
+                                this.registrNumber = registrNumber
+                                this.establisheDate = establisheDate
+                            }
+                        }
+
+                        
+                        // -------------------------------------------------------------
+
+                        let author1 = new Author('Jack Doe', 1989, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis, ut.')
+                        let author2 = new Author('Margaret Nolan', 1758, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis, ut.')
+                        let author3 = new Author('Mick Kalsberg', 1845, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis, ut.')
+                        let author4 = new Author('Karel Edmonton', 1901, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis, ut.')
+                        let author5 = new Author('Mikchael Kargo', 1934, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis, ut.')
+                        let author6 = new Author('Boris Ostrozkiy', 1922, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis, ut.')
+                        let author7 = new Author('Kira Dubitskiy', 1956, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis, ut.')
+
+                        let publishingHouse1 = new PublishingHouse('Emotional Solutions TDP', '4476 BH', 1944)
+                        let publishingHouse2 = new PublishingHouse('Show must go on', '1589 OR', 1954)
+                        let publishingHouse3 = new PublishingHouse('Solyaris', '6785 TR', 1988)
+                        let publishingHouse4 = new PublishingHouse('Skyline Publishment', '6543', 2001)
+
+                        let book1 = new Book('Warlords of Drenor', 'Fantasy', publishingHouse3, author5)
+                        let book2 = new Book('Sunserif', 'Science fiction', publishingHouse4, author3)
+                        let book3 = new Book('Margo', 'Adventure', publishingHouse1, author7)
+                        let book4 = new Book('Mari and Samuel', 'Drama', publishingHouse2, author2)
+                        let book5 = new Book('Dungeons andDragons', 'Fantasy', publishingHouse4, author7)
+                        let book6 = new Book('Magelan', 'Historical', publishingHouse1, author6)
+                        let book7 = new Book('Megapolis', 'Detektive', publishingHouse3, author5)
+                        let book8 = new Book('Zeus', 'Science fiction', publishingHouse4, author6)
+                        let book9 = new Book('Mamamia', 'Adventure', publishingHouse1, author1)
+                        let book10 = new Book('Don Carbon', 'Detektive', publishingHouse2, author4)
+                        let book11 = new Book('Jesika', 'Erotic', publishingHouse1, author2)
+                        let book12 = new Book('Djeck from Geutesburg', 'Fantasy', publishingHouse2, author3)
+
+                        let section1 = new Section('Fantasy')
+                        let section2 = new Section('Science fiction')
+                        let section3 = new Section('Adventure')
+                        let section4 = new Section('Drama')
+                        let section5 = new Section('Historical')
+                        let section6 = new Section('Detektive')
+                        let section7 = new Section('Erotic')
+
+                        let homeLibrary = new HomeLibrary()
+                        homeLibrary.createSection(section1)
+                        homeLibrary.createSection(section2)
+                        homeLibrary.createSection(section3)
+                        homeLibrary.createSection(section4)
+                        homeLibrary.createSection(section5)
+                        homeLibrary.createSection(section6)
+                        homeLibrary.createSection(section7)
+                        // homeLibrary.createSection(section7) // check 
+
+
+                        homeLibrary.addBook('Fantasy', book1)
+                        homeLibrary.addBook('Science fiction', book2)
+                        homeLibrary.addBook('Adventure', book3)
+                        homeLibrary.addBook('Drama', book4)
+                        homeLibrary.addBook('Fantasy', book5)
+                        homeLibrary.addBook('Historical', book6)
+                        homeLibrary.addBook('Detektive', book7)
+                        homeLibrary.addBook('Science fiction', book8)
+                        homeLibrary.addBook('Adventure', book9)
+                        homeLibrary.addBook('Detektive', book10)
+                        homeLibrary.addBook('Erotic', book11)
+                        homeLibrary.addBook('Fantasy', book12)
+                        // homeLibrary.addBook('Detektive', book10) // check
+
+
+                        console.log(homeLibrary.findBookByAuthorName('Mick Kalsberg'));
+                        console.log(homeLibrary.findBookByAuthorName('Margaret Nolan'));
+                        // console.log(homeLibrary.findBookByAuthorName('Mak Gur')); // check
+
+                        
+                        console.log(homeLibrary.findBookByName('Don Carbon'));
+                        console.log(homeLibrary.findBookByName('Margo'));
+                        console.log(homeLibrary.findBookByName('Metis'));
+                        
+                        console.log(homeLibrary.findBookByPublisher('Solyaris'));
+                        console.log(homeLibrary.findBookByPublisher('Skyline Publishment'));
+                        // console.log(homeLibrary.findBookByPublisher('Pixar')); // check
+                        
+                        homeLibrary.removeBook('Warlords of Drenor')
+                        homeLibrary.showSections()
+                        homeLibrary.showAllBooksBySection() 
+
+                        console.log(section6);
+                        
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

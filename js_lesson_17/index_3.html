@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 17 - home task 3</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 17 - Домашнє завдання 3</h3>
+                <div class="task__condition">
+                    Створити клас Нагадувач. Кожні вказані кількості секунд (використати setInterval) програма нагадує про якусь подію (це просто текст) 
+                    і також виводиться порядковий номер скільки раз вже нагадування було. 
+                    Зробити так, щоб неможна було зробити одночасно декілька об’єктів-нагадувачів. Методи зупинки таймера, 
+                    метод зміни повідомлення без зупинки таймера.
+                    
+                </div>
+                <div class="task__computing">
+                    <script>
+                        class Reminder {
+                            constructor (remindTime, message, counter){
+                                if (!Reminder.instance) { // if instance of class remainder does not exist
+                                    this.remindTime = remindTime // value (time) for setinterval
+                                    this.message = message // message in interval, first argument
+                                    this.counter = counter // count amount of messages
+                                    this.startInterval() // starts interval when we creating instance
+                                    Reminder.instance = this // link on it self
+                                } else {
+                                    return Reminder.instance // return the same instance
+                                }
+                            }
+
+                            startInterval () {
+                                    this.interval = setInterval( // set interval
+                                        () => {
+                                            console.log(this.message); // show message
+                                            this.counter++ // increase counter
+                                            console.log(`Remaining was displayed ${this.counter} times.`); // show how many temes was showed the message
+                            }, this.remindTime)
+                        }
+
+
+                            stopInterval () { 
+                                clearInterval(this.interval) // method which stops the interval
+                            }
+
+                            changeMessage (message) {
+                                this.message = message // method which stops interval and clear setinterval
+                            }
+                    }
+
+                        // let newRemainder = new Reminder(2000, 'Hello everebody', 0)
+                        // console.log(newRemainder);
+                        // newRemainder.stopInterval()
+                        // newRemainder.changeMessage('Hello mentors')
+                        // let newRemainder2 = new Reminder(4000, 'Hello everebody', 0)
+
+                        
+                        // -------------------------------------------------------------
+
+                        class Reminder2 {
+                            static intervalTime = 2000
+                            static interval
+
+                            constructor (counter, message) {
+                                if (!Reminder2.instance) {
+                                    this.counter = counter
+                                    this.message = message
+                                    Reminder2.instance = this
+                                } else {
+                                    return Reminder2.instance
+                            }
+                        }
+
+                            run () {
+                                Reminder2.interval = setInterval(() => {
+                                        console.log(this.message);
+                                        console.log(`Remaining was displayed ${this.counter} times.`); // show how many temes was showed the message
+                                        this.counter++
+                                    }, Reminder2.intervalTime)
+                            }
+
+                            stop () {
+                                clearInterval(Reminder2.interval)
+                            }
+
+                            changeMessage (message) {
+                                this.message = message
+                            }
+                        }
+
+                        let newReminder2 = new Reminder2(1, 'hi, there!')
+                        newReminder2.run()
+                        newReminder2.stop()
+                        newReminder2.changeMessage('Hello, here')
+                        newReminder2.run()
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
