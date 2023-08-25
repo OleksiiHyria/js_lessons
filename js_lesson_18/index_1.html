@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 18 - home task</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 18 - Домашнє завдання 1 <mark>(Результати виведені в консоль.)</mark></h3>
+                <div class="task__condition">
+                    Задача 1. Розробити калькулятор
+                </div>
+                <div class="task__computing">
+                    <script>
+
+                        class Calc {
+                            #resultKeeper
+
+                            constructor(numberOne = 1, numberTwo = 5) {
+                                this.numberOne = parseFloat(numberOne)
+                                this.numberTwo = parseFloat(numberTwo)
+                                this.#resultKeeper = []
+                            }
+
+                            updateNumbersFromInputFields () {
+                                this.numberOne = parseFloat(document.querySelector('.input__field1').value) 
+                                this.numberTwo = parseFloat(document.querySelector('.input__field2').value) 
+
+                                if (isNaN(this.numberOne) || isNaN(this.numberTwo))
+                                    throw new Error('Invalid number of value. Please enter valid numbers!')
+                            }
+
+                            getSum () {
+                                this.updateNumbersFromInputFields()
+                                const result = this.numberOne + this.numberTwo
+                                document.getElementById('showResult').value = result
+                                
+                                return this.resultsKeeper({
+                                    numberOne: this.numberOne,
+                                    numberTwo: this.numberTwo, 
+                                    mark: '+',
+                                    result
+                                })
+                            }
+
+                            getMinus (){
+                                this.updateNumbersFromInputFields()
+                                const result = this.numberOne - this.numberTwo
+                                document.getElementById('showResult').value = result
+
+                                return this.resultsKeeper({
+                                    numberOne: this.numberOne,
+                                    numberTwo: this.numberTwo, 
+                                    mark: '-',
+                                    result
+                                })
+                            }
+
+                            getDelay (){
+                                this.updateNumbersFromInputFields()
+                                const result = this.numberOne / this.numberTwo
+                                document.getElementById('showResult').value = result
+                                return this.resultsKeeper({
+                                        numberOne: this.numberOne,
+                                        numberTwo: this.numberTwo, 
+                                        mark: '/',
+                                        result
+                                    })
+                            }
+
+                            getMult(){
+                                this.updateNumbersFromInputFields() 
+                                const result = this.numberOne * this.numberTwo
+                                document.getElementById('showResult').value = result
+                                return this.resultsKeeper({
+                                        numberOne: this.numberOne,
+                                        numberTwo: this.numberTwo, 
+                                        mark: '*',
+                                        result
+                                    }
+                                )
+                            }
+
+                            operationsManager () {
+                                document.addEventListener('DOMContentLoaded', () => {
+                                    this.bindEventListeners()
+                                })
+                            }
+
+                            bindEventListeners () {                                
+                                const addButton1 = document.querySelector('.calc__button1')
+                                addButton1.addEventListener('click', this.getSum.bind(this))
+                                
+                                const addButton2 = document.querySelector('.calc__button2')
+                                addButton2.addEventListener('click', this.getMinus.bind(this))
+
+                                const addButton3 = document.querySelector('.calc__button3')
+                                addButton3.addEventListener('click', this.getDelay.bind(this))
+
+                                const addButton4 = document.querySelector('.calc__button4')
+                                addButton4.addEventListener('click', this.getMult.bind(this))
+                            }
+
+                            resultsKeeper (calculation){
+                                this.#resultKeeper.push(calculation)
+                            }
+
+                            showResults() {
+                                for (const resultRecord of this.#resultKeeper) {
+                                    console.log(`${resultRecord.numberOne} ${resultRecord.mark} ${resultRecord.numberTwo} = ${resultRecord.result}`);
+                                }
+                            }
+
+                            renderForm () {
+                                // ----------------- calc container ---------------
+                                let taskComputing = document.querySelector('.task__computing')
+                                let calcContainer = document.createElement('div')
+                                taskComputing.appendChild(calcContainer)
+                                calcContainer.className = 'calc__container'
+
+                                // --------------- fields ---------------------------
+                                let fieldsContainer = document.createElement('div')
+                                calcContainer.appendChild(fieldsContainer)
+                                fieldsContainer.className = 'fields__container'
+
+                            for (let i = 0; i < 2; i++) { // loop for kreating input fields
+                                let inputField = document.createElement('input') // create new field
+                                let labelInputField = document.createElement('label') // create leables for fields
+                                labelInputField.textContent = 'Enter value' + (i + 1) // set text of label for inputs
+                                inputField.id = 'inputField' + (i + 1) // Set an unique id for each input field
+                                labelInputField.setAttribute('for', 'inputField' + (i + 1)) // connect fields with labels
+                                inputField.type = 'text'
+                                inputField.placeholder = 'Enter value ' + (i + 1)
+                                inputField.className = 'input__field' + (i + 1)
+                                inputField.setAttribute('value', 0)
+                                fieldsContainer.appendChild(labelInputField)
+                                fieldsContainer.appendChild(inputField)                               
+                            }
+
+                                // ------------ buttons container --------------------
+                                let buttonsContainer = document.createElement('div')
+                                calcContainer.appendChild(buttonsContainer)
+                                buttonsContainer.className = 'buttons__container'
+
+                                let buttonsText = ['add', 'minus', 'sublime', 'multiple']
+                            for (let i = 0; i < 4; i++) {
+                                let calcButton = document.createElement('button')
+                                calcButton.className ='calc__button' + (i + 1)
+                                calcButton.type = 'submit'
+                                buttonsContainer.appendChild(calcButton)
+                                calcButton.textContent = buttonsText[i]
+                            }
+
+                                // ------------ result container ----------------------
+                                let resultContainer = document.createElement('div')
+                                resultContainer.classList = 'result__container'
+                                buttonsContainer.after(resultContainer)
+                                let dividingLine = document.createElement('div')
+                                dividingLine.className = 'dividing__line'
+
+                                let labelResult = document.createElement('label')
+                                let resultField = document.createElement('input')
+                                labelResult.textContent = 'Result: '
+                                resultField.id = 'showResult'
+                                labelResult.setAttribute('for', 'showResult')
+                                resultContainer.appendChild(dividingLine)
+                                resultField.placeholder = 'Result: '
+                                resultField.type = 'text'
+                                resultField.className = 'result__field'
+                                resultContainer.append(labelResult)
+                                resultContainer.append(resultField)                        
+                            }
+                        }
+
+                        let newCalc = new Calc
+                        newCalc.renderForm()
+                        newCalc.operationsManager()
+                    </script>
+
+                    <style>
+                        .calc__container {
+                            margin: 20px;
+                            padding: 20px;
+                            border: 1px solid #ccc;
+                            background-color: #f7f7f7;
+                            max-width: 600px;
+                            font-family: Roboto, sans-serif;
+                            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+                            font-weight: 400;
+                            font-size: 14px;
+                            border-radius: 10px;
+                            color: rgb(69, 70, 174);
+                        }
+
+                        .fields__container {
+                            display: flex;
+                            align-items: center;
+                            gap: 20px;
+                            margin-bottom: 20px;
+                            border-radius: 5px;
+                        }
+
+                        .fields__container label {
+                        
+                        }
+
+                        .input__field1,
+                        .input__field2 {
+                            padding: 5px;
+                            background-color: rgb(195, 203, 246);
+                        }
+
+                        .buttons__container {
+                            display: flex;
+                            gap: 20px;
+                            justify-content: center;
+                            margin-bottom: 20px;
+                        }
+
+                        button {
+                            padding: 5px;
+                            box-shadow: 0.1px 0.3px 0.5px rgb(243, 207, 207);
+                            width: 80px;  
+                        }
+
+                        .calc__button1 {
+                            background-color: rgb(246, 221, 221);
+                        }
+
+                        .calc__button2 {
+                            background-color: rgb(245, 207, 207);
+                        }
+
+                        .calc__button3 {
+                            background-color: rgb(249, 191, 191);
+                        }
+
+                        .calc__button4 {
+                            background-color: rgb(246, 169, 169);
+                        }
+
+                        .result__container {
+                            display: flex;
+                            flex-direction: column;
+                        }
+
+                        .dividing__line {
+                            width: 100%;
+                            height: 1px;
+                            background-color: rgb(152, 138, 229);
+                            margin-bottom: 10px;
+                        }
+
+                        .result__field {
+                            padding: 5px;
+                            text-align: center;
+                            max-width: 100px;
+                            background-color: rgb(208, 245, 204);
+                            color: rgb(197, 100, 100);
+                        }
+                    </style>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

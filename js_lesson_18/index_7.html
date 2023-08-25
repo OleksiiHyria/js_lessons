@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 9 - home task 7</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 9 - Домашнє завдання 7</h3>
+                <div class="task__condition">
+                    Задача 7. Подорож складається з 3 етапів. На кожному етапі користувач може вибрати один з видів транспорту 
+                    (авто, автобус, літак - випадаючий список), харчування (сніданок, обід, вечеря – checkbox) та одного 
+                    з 3-х гідів (використати - radio buttons). 
+                    Ціни визначте самі. Підрахувати загальну вартість.                
+                </div>
+                <div class="task__computing">
+                    <script>
+
+                        // поки не вийшло розібратися з цією задачею - не корректно проходить розрахунок Trip ->  createHTML
+
+                        class Stage {
+                        
+                            constructor (stageNumber, transportPrices, foodPrices, guidePrices) {
+                                this.stageNumber = stageNumber
+                                this.transportPrices = transportPrices
+                                this.foodPrices = foodPrices
+                                this.guidePrices = guidePrices
+                            }
+
+                            generateHTML () {
+                                const stageContainer = document.createElement('div')
+                                stageContainer.className = 'stage__container'
+
+                                const stageTitle = document.createElement('h2')
+                                stageTitle.textContent = `Stage ${this.stageNumber}`
+                                stageContainer.appendChild(stageTitle)
+
+                                const labelTransport = document.createElement('label')
+                                labelTransport.textContent = 'Choose transport: '
+                                stageContainer.appendChild(labelTransport)
+
+                                const transportSelect = document.createElement('select')
+                                for(const [transport, price] of Object.entries(this.transportPrices)) {
+                                    const option = document.createElement('option')
+                                    option.value = price
+                                    option.textContent = `${transport} - ${price}`
+                                    transportSelect.appendChild(option)
+                                }
+                                stageContainer.appendChild(transportSelect)
+
+                                const foodLabel = document.createElement('label')
+                                foodLabel.textContent = 'Choose food: '
+                                stageContainer.appendChild(foodLabel)
+
+                                for(const [food, price] of Object.entries(this.foodPrices)) {
+                                    const foodCheckbox = document.createElement('input')
+                                    foodCheckbox.type = 'checkbox'
+                                    foodCheckbox.value = price
+                                    foodCheckbox.id = `food_${this.stageNumber}_${food}`
+                                    stageContainer.appendChild(foodCheckbox)
+                                    
+                                    const foodLabel = document.createElement('label')
+                                    foodLabel.textContent = `${food} - ${price}`
+                                    foodLabel.setAttribute('for', `food_${this.stageNumber}_${food}`)
+                                    stageContainer.appendChild(foodLabel)
+                                }
+                            
+                                const guideLabel = document.createElement('label')
+                                guideLabel.textContent = 'Choose guide: '
+                                stageContainer.appendChild(guideLabel)
+
+                                for (const [guide, price] of Object.entries(this.guidePrices)) {
+                                    const guideRadioButton = document.createElement('input')
+                                    guideRadioButton.type = 'radio'
+                                    guideRadioButton.value = price
+                                    guideRadioButton.name = `guide_${this.stageNumber}` // Unique name for each stage
+                                    guideRadioButton.id = `guide_${this.stageNumber}_${guide}`
+                                    stageContainer.appendChild(guideRadioButton)
+
+                                    const guideLabel = document.createElement('label')
+                                    guideLabel.textContent = `${guide} - ${price}`
+                                    guideLabel.setAttribute('for', `guide_${this.stageNumber}_${guide}`)
+                                    stageContainer.appendChild(guideLabel)
+                                }
+
+                                return stageContainer
+                            }   
+                        }
+
+                        class Trip {
+                            constructor () {
+                                this.stages = [];
+                            }
+
+                            addStage (stage) {
+                                this.stages.push(stage);
+                            }
+
+                            createHTML (container) {
+                                let totalCost = 0;
+
+                                this.stages.forEach((stage) => {
+                                    const stageHTML = stage.generateHTML();
+                                    container.appendChild(stageHTML);
+
+                                    const transportSelect = stageHTML.querySelector('select');
+                                    const foodCheckboxes = stageHTML.querySelectorAll(`input[type="checkbox"]:checked`);
+                                    const guideRadioButton = stageHTML.querySelector(`input[type="radio"]:checked`);
+
+                                    const selectedTransportPrice = parseFloat(transportSelect.value);
+                                    const selectedFoodPrice = Array.from(foodCheckboxes).reduce((sum, checkbox) => {
+                                        return sum + parseFloat(checkbox.value);
+                                    }, 0);
+                                    const selectedGuide = guideRadioButton ? parseFloat(guideRadioButton.value) : 0;
+
+                                    const stageCost = selectedTransportPrice + selectedFoodPrice + selectedGuide;
+
+                                    totalCost += stageCost;
+                                });
+
+                                const calculateButton = document.createElement('button');
+                                calculateButton.textContent = 'Calculate total cost';
+                                calculateButton.addEventListener('click', () => {
+                                    const totalCostDisplay = document.querySelector('.totalCostDisplay');
+                                    totalCostDisplay.innerText = `Total sum = ${totalCost.toFixed(2)}`;
+                                });
+                                container.appendChild(calculateButton);
+
+                                const totalCostDisplay = document.createElement('div');
+                                totalCostDisplay.innerText = 'Total sum = ';
+                                container.appendChild(totalCostDisplay);
+                                totalCostDisplay.className = 'totalCostDisplay';
+                            }
+                        }
+                        
+
+                        const transportPrices = {
+                            car: 270,
+                            bus: 160,
+                            plane: 340
+                        }
+
+                        const foodPrices = {
+                            breakfast: 25, 
+                            lunch: 45,
+                            dinner: 55
+                        }
+
+                        const guidesPrices = {
+                            guide1: 120, 
+                            guide2: 70,
+                            guide3: 95
+                        }
+
+                        const trip = new Trip()
+                        for (let stageNumber = 1; stageNumber <= 3; stageNumber++) {
+                            let newStage = new Stage(stageNumber, transportPrices, foodPrices, guidesPrices) 
+                            trip.addStage(newStage)
+                        }
+
+                        const taskComputing = document.querySelector('.task__computing')
+                        trip.createHTML(taskComputing)
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

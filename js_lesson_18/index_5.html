@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 18 - home task 5</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 18 - Домашнє завдання 5</h3>
+                <div class="task__condition">
+                    Задача 5. Користувач задає кількість рядків і стовпців. 
+                    Відобразити таблицю, у клітинках якої знаходяться числа 1, 2, 3, …                
+                </div>
+                <div class="task__computing">
+                    <script>
+                        class TableBuilder {
+
+                            constructor(rows = 3, columns = 4) {
+                                this.rows = rows
+                                this.columns = columns
+                            }
+
+                            renderTable () {
+                                const taskComputing = document.querySelector('.task__computing')
+                                const table = document.createElement('table')
+                                taskComputing.appendChild(table)
+                                table.className = 'table'
+                                let counter = 1
+
+                                for (let i = 0; i < this.rows; i++) {
+                                    const row = document.createElement('tr')
+                                    for (let j = 0; j < this.columns; j++) {
+                                        const cell = document.createElement('td')
+                                        cell.textContent = counter++ 
+                                        row.appendChild(cell)                                       
+                                    }
+                                    table.appendChild(row)
+                                }
+                            }
+
+                        }
+
+                        let newTable = new TableBuilder(7, 12)
+                        newTable.renderTable()
+                    </script>
+                    <style>
+                        .task__computing {
+                            padding-top: 20px;
+                        }
+
+                        .table {
+                            border: 1px solid rgb(73, 94, 79);
+                        }
+
+                        .table > tr > td {
+                            border: 1px solid rgb(73, 94, 79);
+                        }
+
+                    </style>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

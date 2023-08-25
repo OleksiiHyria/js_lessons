@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 18 - home task 3</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 18 - Домашнє завдання 3</h3>
+                <div class="task__condition">
+                    Задача 3. Користувач задає рік народження. Визначити кількість років користувача.
+                </div>
+                <div class="task__computing">
+                    <script>
+
+                        class YearsOld {
+
+                            constructor (currentYear) {
+                                if (typeof currentYear === 'number' && currentYear >= 2023) {
+                                    this.currentYear = currentYear
+                                } else {
+                                    throw new Error('Invalid correct number of current year.')
+                                }
+                            }
+
+                            getYearOfBirth () {
+                                let userYearOfBirth = parseInt(document.querySelector('.user__birth-year').value) 
+                                if (typeof userYearOfBirth === 'number' && userYearOfBirth > 0 && userYearOfBirth <= this.currentYear) {
+                                    return userYearOfBirth
+                                } else {
+                                    throw new Error('Not correct value of user years. Please, enter correct, positive number!')
+                                }
+                            }
+
+                            findYearsOld () {
+                                const userYearOfBirth = this.getYearOfBirth()
+                                const yearsOld = this.currentYear - userYearOfBirth
+                                let getResultField = document.querySelector('.result__field')
+                                return getResultField.value = yearsOld
+                            }
+
+                            operationsManager () {
+                                const buttonGenerator = document.querySelector('.task__computing')
+                                buttonGenerator.addEventListener('click', (event) => {
+                                    if (event.target.classList.contains('generation__button')){
+                                        this.findYearsOld()
+                                    }
+                                })
+                            }
+
+                            start () {
+                                this.operationsManager()
+                            }
+
+                            renderForm () {
+                                // -------------- form container --------------------
+                                let taskComputing = document.querySelector('.task__computing')
+                                let formContainer = document.createElement('div')
+                                taskComputing.appendChild(formContainer)
+                                formContainer.className = 'form_container'
+
+                                // ------------------ user years old container -------
+                                let userYearsContainer = document.createElement('div')
+                                formContainer.appendChild(userYearsContainer)
+                                userYearsContainer.className = 'user-years__container'
+
+                                // --------------- create label input -----------------
+                                let labelInputUserYearsOld = document.createElement('label')
+                                userYearsContainer.appendChild(labelInputUserYearsOld)
+                                labelInputUserYearsOld.innerText = 'Enter your year of birth:'
+                                labelInputUserYearsOld.setAttribute('for', 'inputYears_id')
+
+                                // -------------- create input ------------------------
+                                let inputUserYearsOld = document.createElement('input')
+                                userYearsContainer.appendChild(inputUserYearsOld)
+                                inputUserYearsOld.className = 'user__birth-year'
+                                inputUserYearsOld.id = 'inputYears_id'
+                                inputUserYearsOld.value = 0
+
+                                // -------------- years generation button -------------
+                                let generationButton = document.createElement('button')
+                                formContainer.appendChild(generationButton)
+                                generationButton.className = 'generation__button'
+                                generationButton.innerText = 'Generate'
+
+                                // -------------- result container --------------------
+                                let resultContainer = document.createElement('div')
+                                formContainer.appendChild(resultContainer)
+                                resultContainer.className = 'result__container'
+
+                                // -------- field with user age (label + input) -------
+                                let labelResultField = document.createElement('label')
+                                resultContainer.appendChild(labelResultField)
+                                labelResultField.setAttribute('for', 'result_field-id')
+
+                                let resultField = document.createElement('input')
+                                resultContainer.appendChild(resultField)
+                                resultField.className = 'result__field'
+                                resultField.id = 'result_field-id'
+                                resultField.setAttribute('value', 0)
+                            }
+                        }
+
+                        const yearsOldGenerator = new YearsOld(2023)
+                        yearsOldGenerator.renderForm()
+                        yearsOldGenerator.start()
+
+                        
+                    </script>
+                    <style>
+                        .task__computing {
+                        }
+
+                        .form_container {
+                            padding: 10px;
+                            margin: 0 auto;
+                            margin-top: 30px;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 10px;
+                            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+                            font-size: 14px;
+                            font-weight: 400;
+                            background-color: rgb(160, 208, 245);
+                            border-radius: 10px;
+                            max-width: 600px;
+                        }
+
+                        .user-years__container {
+                            display: flex;
+                            gap: 10px;
+                            align-items: center;
+                        }
+
+                        .user__birth-year {
+                        }
+
+                        .generation__button {
+                            max-width: 100px;
+                            background-color: rgb(224, 207, 111);
+                            border-radius: 5px;
+                        }
+
+                        .result__container {
+                        }
+                    </style>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

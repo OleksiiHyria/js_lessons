@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 18 - home task 2</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 18 - Домашнє завдання 2</h3>
+                <div class="task__condition">
+                    Задача 2. Зробити конвертер валют (курси валют – константи у скрипті)
+                </div>
+                <div class="task__computing">
+                    <script>
+
+                        class Convertor {
+                            #usd
+                            #eur
+
+                            constructor (usd, eur) {
+                                this.#usd = usd
+                                this.#eur = eur
+                            }
+
+                            get Usd () {
+                                return this.#usd
+                            }
+
+                            set Usd (usd) {
+                                if (typeof usd === 'number' && usd > 0) {
+                                    this.#usd = usd
+                                } else {
+                                    throw new Error('Invalid USD. Pleas write positive number!')
+                                }
+                            } 
+
+                            get Eur () {
+                                return this.#eur
+                            }
+
+                            set Eur (eur) {
+                                if (typeof eur === 'number' && eur > 0) {
+                                    this.#eur = eur
+                                } else {
+                                    throw new Error('Invalid EUR. Pleas write positive number!')
+                                }
+                            }
+
+                            getSumUah () {
+                                let getUahSum = parseFloat(document.querySelector('.user__amount').value) 
+                                if (typeof getUahSum === 'number' && getUahSum > 0) {
+                                    return getUahSum
+                                } else {
+                                    throw new Error('Invalid UAH value! Please enter positive number!')
+                                }       
+                            }
+
+                            convert () {
+                                let amount = this.getSumUah() 
+                                let resultInEuro = 0, resultInUsd = 0
+                                if (typeof amount === 'number' && amount > 0) {
+                                    resultInEuro = amount / this.#usd 
+                                    resultInUsd = amount / this.#eur
+                                } else {
+                                    throw new Error('Not valid amount of UAH. Please add correct number!')
+                                }
+
+                                let getUsdField = document.querySelector('.usd__field')
+                                getUsdField.value = resultInUsd.toFixed(2)
+                                let getEurField = document.querySelector('.eur__field')
+                                getEurField.value = resultInEuro.toFixed(2)
+                                return [resultInUsd, resultInEuro]
+                            }
+
+                            start () {
+                                const buttonConverter = document.querySelector('.task__computing')
+                                buttonConverter.addEventListener('click', (event) => {
+                                    if (event.target.classList.contains('converter__button')){
+                                        this.convert()
+                                    }
+                                })
+                            }
+
+                            render () {
+                                //------------------- converter container -----------------
+                                const taskComputing = document.querySelector('.task__computing')
+                                const converterContainer = document.createElement('div')
+                                taskComputing.appendChild(converterContainer)
+                                converterContainer.className = 'converter__container'
+
+                                // ------------------ uah container -------------------------
+                                const uahContainer = document.createElement('div')
+                                uahContainer.className = 'uah__container'
+                                converterContainer.appendChild(uahContainer)
+
+                                //------------------- uah field (input) ---------------------
+                                const amountLabel = document.createElement('label')
+                                uahContainer.appendChild(amountLabel)
+                                amountLabel.setAttribute('for', 'amount_id')
+                                amountLabel.innerText = 'Sum in UAH'
+                                const userAmountUah = document.createElement('input')
+                                userAmountUah.className = 'user__amount'
+                                userAmountUah.id = 'amount_id'
+                                uahContainer.appendChild(userAmountUah)
+                                userAmountUah.setAttribute('value', 0)
+
+                                // ----------------- converter button -----------------------
+                                const converterButton = document.createElement('button')
+                                converterButton.className = 'converter__button'
+                                converterButton.innerText = 'Convert'
+                                converterContainer.appendChild(converterButton)
+
+                                // ------------------ dividing line -------------------------
+                                const dividingLine = document.createElement('div')
+                                converterContainer.appendChild(dividingLine)
+                                dividingLine.className = 'dividing__line'
+
+                                // ------------------ usd container -------------------------
+                                const usdContainer = document.createElement('div')
+                                usdContainer.className = 'usd__container'
+                                converterContainer.appendChild(usdContainer)
+
+                                // ------------------ usd field -----------------------------
+                                const labelUsdField = document.createElement('label')
+                                usdContainer.appendChild(labelUsdField)
+                                labelUsdField.setAttribute('for', 'usd_id')
+                                labelUsdField.innerText = 'Sum in USD'
+                                const usdField = document.createElement('input')
+                                usdContainer.appendChild(usdField)
+                                usdField.className = 'usd__field'
+                                usdField.id = 'usd_id'
+                                usdField.setAttribute('value', 0)
+
+                                // ------------------- eur container -------------------------
+                                const eurContainer = document.createElement('div')
+                                eurContainer.className = 'eur__container'
+                                converterContainer.appendChild(eurContainer)
+
+                                // ------------------- eur field -----------------------------
+                                const labelEurField = document.createElement('label')
+                                eurContainer.appendChild(labelEurField)
+                                labelEurField.setAttribute('for', 'eur__id')
+                                labelEurField.innerText = 'Sum in EUR'
+                                const eurField = document.createElement('input')
+                                eurContainer.appendChild(eurField)
+                                eurField.className = 'eur__field'
+                                eurField.id = 'eur__id'
+                                eurField.setAttribute('value', 0)
+                            }
+                        }
+
+                        const converter = new Convertor(37.9, 41.5)
+                        converter.render()
+                        converter.start()
+                    </script>
+                    <style>
+                        .converter__container {
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            width: 600px;
+                            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+                            font-weight: 400;
+                            font-size: 14px;
+                            gap: 5px;
+                            background-color: #ccc;
+                            padding: 10px;
+                            margin-top: 20px;
+                            border-radius: 10px;
+                        }
+
+                        .user__amount,
+                        .usd__field,
+                        .eur__field {
+                        margin-left: 20px;
+
+                        }
+
+                        .user__amount {                            
+                        }
+
+                        .converter__button {
+                            width: 100px;
+                            font-size: 14px;
+                            padding: 5px;
+                        }
+
+                        .dividing__line {
+                            width: 100%;
+                            height: 1px;
+                            background-color: black;
+                        }
+
+                        .usd__field {
+                        }
+
+                        .eur__field {
+                        }
+                    </style>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

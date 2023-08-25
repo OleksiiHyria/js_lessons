@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 18 - home task 6</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 18 - Домашнє завдання 6</h3>
+                <div class="task__condition">
+                    Задача 6. Користувач задає кількість оцінок і натискає на кнопку «get table». 
+                    В результаті формується таблиця з input, куди користувач вводить оцінки. Після цього натискає на кнопку “get sum” 
+                    і знаходить середнє значення.                
+                </div>
+                <div class="task__computing">
+                    <script>
+                        class ComputingTable {
+
+                            constructor (){
+                                this.tableCreated = false // check if table created
+                            }
+                            
+                            renderForm () {
+                                const taskComputing = document.querySelector('.task__computing')
+
+                                // --------------------------- generation form -------------------------
+                                const generationForm = document.createElement('div')
+                                generationForm.className = 'generation__form'
+                                taskComputing.appendChild(generationForm)
+
+                                // ------------------ fields number container ----------------
+                                const fieldsNumber_container = document.createElement('div')
+                                fieldsNumber_container.className = 'fields-number__container'
+                                generationForm.appendChild(fieldsNumber_container)
+
+                                // ---------------------------- label -----------------------
+                                let labelUserNumberField = document.createElement('label')
+                                labelUserNumberField.innerText = 'Price number'
+                                labelUserNumberField.setAttribute('for', 'fields_number-id')
+                                fieldsNumber_container.appendChild(labelUserNumberField)
+
+                                // --------------------------- input ------------------------
+                                const inputNumberFields = document.createElement('input')
+                                inputNumberFields.id = 'fields_number-id'
+                                inputNumberFields.setAttribute('type', 'number')
+                                inputNumberFields.setAttribute('value', 0)
+                                fieldsNumber_container.appendChild(inputNumberFields)
+
+                                inputNumberFields.addEventListener('input', function () {
+                                    if (parseInt(this.value) < 0) {
+                                        this.value = 0
+                                    }
+                                })
+
+                                // ------------------------ generation button ----------------
+                                const generationButton = document.createElement('button')
+                                generationButton.className = 'generation__button'
+                                generationButton.textContent = 'Get table'
+                                generationForm.appendChild(generationButton)
+
+                                // ------------------------ dividing line ---------------------
+                                const dividingLine = document.createElement('div')
+                                dividingLine.className = 'dividing-line'
+                                generationForm.appendChild(dividingLine)
+                            }
+
+                            getNumberOfValues () {
+                                let getNumber = document.getElementById('fields_number-id').value
+                                return Math.max(0, parseInt(getNumber))
+                            }
+
+                            renderTable () {
+                                const existingTable = document.querySelector('.generated-table__container')
+                                if (existingTable){ // clarify if table exisrs
+                                    existingTable.remove() // if yes - remove
+                                    this.tableCreated = false // set flag to false
+                                }
+
+                                let numberOfFields = this.getNumberOfValues()
+                                // ------------------ generated table container -----------------
+                                const generationForm = document.querySelector('.generation__form')
+                                const generatedTableContainer = document.createElement('div')
+                                generatedTableContainer.className = 'generated-table__container'
+                                generationForm.appendChild(generatedTableContainer)
+
+                                // --------------------- inputs generation ----------------------
+                                for (let i = 0; i < numberOfFields; i++) {
+                                    const newField = document.createElement('input')
+                                    newField.className = 'generated__input'
+                                    generatedTableContainer.appendChild(newField)
+                                }
+                                // --------------------- dividing line --------------------------
+                                const dividingLine2 = document.createElement('div')
+                                dividingLine2.className = 'dividing-line'
+                                generatedTableContainer.appendChild(dividingLine2)
+
+                                // ---------------------- sum button ----------------------------
+                                const sumButton = document.createElement('button')
+                                sumButton.className = 'sum__button'
+                                sumButton.innerText = 'Get sum'
+                                generatedTableContainer.appendChild(sumButton)
+
+                                // ---------------------- average button ------------------------
+                                const averageButton = document.createElement('button')
+                                averageButton.className = 'average__button'
+                                averageButton.innerText = 'Get average'
+                                generatedTableContainer.appendChild(averageButton)
+
+                                this.tableCreated = true // check if table created
+                            }
+
+                            getSum () {
+                                let getAllValues = document.querySelectorAll('.generated__input')
+                                let sumOfValues = 0
+
+                                for (let i = 0; i < getAllValues.length; i++) {
+                                    const inputValue = getAllValues[i].value
+                                    const numericValue = parseInt(inputValue)
+
+                                    if (!isNaN(numericValue)){ // check on empty fields
+                                        sumOfValues += numericValue
+                                    }
+                                }
+                                return sumOfValues
+                            }
+
+                            getAverage () {
+                                let getAllValues = document.querySelectorAll('.generated__input')
+                                let sumOfValues = 0
+
+                                for (let i = 0; i < getAllValues.length; i++) {
+                                    const inputValue = getAllValues[i].value
+                                    const numericValue = parseInt(inputValue)
+
+                                    if (!isNaN(numericValue)){ // check on empty fields
+                                        sumOfValues += numericValue
+                                    }
+                                }
+
+                                sumOfValues =  sumOfValues / getAllValues.length
+                                return sumOfValues
+                            }
+
+                            renderResult(displayOperation) {
+                                 // ---------------------- result field --------------------------
+                                const generatedTableContainer = document.querySelector('.generated-table__container')
+                                const result = document.createElement('div')
+                                result.className = 'result__field'
+                                generatedTableContainer.append(result)
+
+                                if (displayOperation === 'sum') {
+                                    result.textContent = this.getSum()
+                                } else if (displayOperation === 'average') {
+                                    result.textContent = this.getAverage().toFixed(2)
+                                }
+
+                                let getAllValues = document.querySelectorAll('.generated__input') // clear table from values
+                                for (let i = 0; i < getAllValues.length; i++) {
+                                    getAllValues[i].value = ''
+                                }
+                            }
+
+                            operationsManager () {
+                                this.renderForm()
+                                const taskComputing = document.querySelector('.task__computing')
+                                taskComputing.addEventListener('click', (event)=> {
+                                    if (event.target.classList.contains('generation__button')) {
+                                        this.renderTable()
+                                    }
+                                })
+
+                                taskComputing.addEventListener('click', (event) => {
+                                    if (event.target.classList.contains('sum__button')){
+                                        this.renderResult('sum')
+                                    }
+                                })
+
+                                taskComputing.addEventListener('click', (event) => {
+                                    if (event.target.classList.contains('average__button')){
+                                        this.renderResult('average')
+                                    }
+                                })
+                            }
+                        }
+
+                        let tableGenerator = new ComputingTable()
+                        tableGenerator.operationsManager()
+
+                        //bind
+                        //private fields in constructor
+                    </script>
+                    <style>
+                        .task__computing {
+                        }
+
+                        .generation__form {
+                            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+                                max-width: 835px;
+                                font-weight: 400;
+                                font-size: 14px;
+                                margin: 0 auto;
+                                margin-top: 50px;
+                                background-color: rgb(169, 221, 195);
+                                padding: 10px;
+                                border-radius: 10px;
+                        }
+
+                        .fields-number__container {
+                            display: flex;
+                            gap: 20px;
+                            align-items: center;
+                        }
+
+                        .generation__button,
+                        .sum__button, 
+                        .average__button {
+                            min-width: 80px;
+                            padding: 5px;
+                            margin: 20px 0;
+                            border-radius: 5px;
+                            margin-right: 20px;
+                            background-color: rgb(250, 190, 133);
+                        }
+
+                        .generation__button {
+                        }
+
+                        .dividing-line {
+                            min-width: 100%;
+                            height: 1px;
+                            background-color: rgb(44, 61, 44);                        
+                        }
+
+                        .generated-table__container {
+                            margin-top: 20px;
+                        }
+
+                        .generated__input {
+                            display: inline-block;
+                            margin-bottom: 20px;
+                            margin-right: 20px;
+                        }
+
+                        .sum__button {
+                        
+                        }
+
+                        .result__field {
+
+                        }
+                    </style>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

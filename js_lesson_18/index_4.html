@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 18 - home task 4</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 18 - Домашнє завдання 4</h3>
+                <div class="task__condition">
+                    Задача 4. Наперед задано у скрипті масив зі списком бажань. 
+                    Після завантаження сторінки випадковим чином вибираються 3 і відображаються у окремих div 
+                    (їх треба створити і додати на сторінку)            
+                </div>
+                <div class="task__computing">
+                    <script>
+                        class Wish {
+
+                            constructor (oneWordWishes) {
+                                this.arrayOfWishes = oneWordWishes
+                            }
+
+                            generateRandom () {
+                                const min = 0, max = this.arrayOfWishes.length - 1
+                                const randomIndex = min + Math.floor(Math.random() * (max - min + 1))       
+                                return randomIndex
+                            }
+
+                            addWish (newWish) {
+                                if (this.arrayOfWishes.includes(newWish)) {
+                                    throw new Error(`Wish ${newWish} already exists`)
+                                    return false
+                                }
+                                this.arrayOfWishes.push(newWish)
+                                return true
+                            }
+
+                            deleteWish (numberOfWish) {
+                                if (numberOfWish >= 0 && numberOfWishes < this.arrayOfWishes.length){
+                                    const deletedWish = this.arrayOfWishes.splice(numberOfWish, 1)
+                                    return deletedWish
+                                } else {
+                                    throw new Error('Such index for deletion wish is invalid!')
+                                    return null
+                                }
+                            }
+
+                            deleteWishByName (nameOfWish) {
+                                const findedIndexOfWish = this.arrayOfWishes.indexOf(nameOfWish)
+                                if (findedIndexOfWish === - 1) {
+                                    throw new Error(`Wish ${nameOfWish} not found!`)
+                                }
+                                return this.arrayOfWishes.splice(findedIndexOfWish, 1)
+                            }
+
+                            findRandomWishes () {
+                                let choosenWishes = []
+                                for (let i = 0; i < 3; i++) {
+                                    choosenWishes.push(this.generateRandom())    
+                                }
+                                return choosenWishes
+                            }
+
+                            displayNoWishesMassege () {
+                                this.taskComputing = document.querySelector('.')
+                                const message = document.createElement('p')
+                                message.textContent = 'No wishes to display'
+                                taskComputing.appendChild(message)
+                            }
+
+                            wishManeger () {
+                                const numberOfWishes = this.arrayOfWishes.length
+                                if (numberOfWishes === 0) {
+                                    throw new Error('No wishes to display')
+                                }
+                                const shownWishes = this.findRandomWishes()
+                                for (let i = 0; i < shownWishes.length; i++) {
+                                    let selector = 'wish-span_' + i
+                                    let wish = document.getElementById(selector)
+                                    wish.textContent = this.arrayOfWishes[shownWishes[i]]
+                                }
+                            }
+
+                            static startOnLoad () {
+                                const newWisher = new Wish(oneWordWishes)
+                                newWisher.render()
+                                newWisher.wishManeger() 
+                            }
+
+                            render () {
+                                // ------------------ wish box (container) -------------------
+                                const taskComputing = document.querySelector('.task__computing')
+                                const wishBox = document.createElement('div')
+                                wishBox.className = 'wish__box'
+                                taskComputing.appendChild(wishBox)
+
+                                // ------------------- wish one -------------------------------
+                                for (let i = 0; i < 3; i++) {
+                                    const wish = document.createElement('div')     
+                                    wish.className = 'wish_' + i
+                                    wishBox.append(wish)
+                                    const wishSpan = document.createElement('span')
+                                    wishSpan.id = 'wish-span_' + i
+                                    wish.append(wishSpan)
+                                }
+                            }
+                        }
+
+                        let oneWordWishes = [
+                                "Health", "Happiness", "Success", "Love", "Adventure", "Peace", "Prosperity", "Wisdom",
+                                "Kindness", "Laughter", "Family", "Dreams", "Gratitude", "Courage", "Creativity",
+                                "Learning", "Nature", "Simplicity", "Friendship", "Harmony",
+                            ];
+
+                            window.onload = function() {
+                                Wish.startOnLoad()
+                            }
+                    </script>
+
+                    <style>
+                        .task__computing {
+                            max-width: 600px;
+                            margin: 0 auto;
+                            margin-top: 50px;
+                        }
+
+                        .wish__box {
+                            display: flex;
+                            gap: 30px;
+                            justify-content: center;
+                            align-items: center;
+                        }
+
+                        .wish__box > div > span {
+                            border: 1px solid rgb(77, 38, 38);
+                            padding: 10px;
+                            border-radius: 10px;
+                        }
+
+                        wish_0 { 
+                        }
+
+                        wish_1 {   
+                        }
+
+                        wish_2 {
+                        }
+
+                        #wish-span_0 {
+                            background-color: rgb(236, 197, 197);
+                        }
+
+                        #wish-span_1 {
+                            background-color: rgb(237, 174, 174);
+                        }
+
+                        #wish-span_2 {
+                            background-color: rgb(239, 147, 147);
+                        }
+                    </style>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

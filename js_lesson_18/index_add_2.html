@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Additional task 2</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Додаткове завдання 2</h3>
+                <div class="task__condition">
+
+                </div>
+                <div class="task__computing">
+                    <script>
+                        //Задача. Створити таблицю з 3 ряками і 4 стовпцями з рандомними числами
+                    function createTable(rowNum, colNum) {
+                        const tableEl = document.createElement('table')
+                        for (let i = 0; i < rowNum; i++) {
+                        const trEl = document.createElement('tr')
+                        for (let j = 0; j < colNum; j++) {
+                            const tdEl = document.createElement('td')
+                            tdEl.innerText = Math.floor(Math.random() * 100)
+                            trEl.append(tdEl)
+                        }
+                        tableEl.append(trEl)
+                        }
+                        document.body.append(tableEl)
+                    }
+                    createTable(3, 4)
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
