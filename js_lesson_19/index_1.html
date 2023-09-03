@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 19 - home task</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 19 - Домашнє завдання 1</h3>
+                <div class="task__condition">
+                    Задача 1. Дано 10 рядків тексту «Hello!» у окремих div. 
+                    При кліку на якийсь із них усі наступні повинні бути зафарбовані у червоний колір.
+                    <br>
+                    <br>
+                    Task 1. Given 10 lines of text Hello! in separate div.
+                    When you click on one of them, all subsequent ones should be colored red.
+                </div>
+                <div class="task__computing">
+                    <div id="main-div">
+                        <div>Hello!</div>
+                        <div>Hello!</div>
+                        <div>Hello!</div>
+                        <div>Hello!</div>
+                        <div>Hello!</div>
+                        <div>Hello!</div>
+                        <div>Hello!</div>
+                        <div>Hello!</div>
+                        <div>Hello!</div>
+                        <div>Hello!</div>
+                    </div>
+                    <script>
+                        // Task was modifised by logic of second click. If i click first on the div all fallawing will change the color. 
+                        //But div on which we click will not change color. Wen we do second click on the same div it change color on red  
+                        // and all fallawing will change color on previous
+                        const allDiv = document.querySelectorAll('#main-div > div')
+                        allDiv.forEach((div, index, allDiv) => {
+                            let clickCount = 0
+                            div.addEventListener('click', () => {
+                                clickCount++
+                                if (clickCount % 2 === 1) {
+                                    div.style.backgroundColor = 'rgb(186, 148, 223)'
+                                } else {
+                                    div.style.backgroundColor = 'red'
+                            }
+                            for (let i = index + 1; i < allDiv.length; i++){
+                                if (clickCount % 2 === 1) {
+                                    allDiv[i].style.backgroundColor = 'red'
+                                } else {
+                                    allDiv[i].style.backgroundColor  = 'rgb(186, 148, 223)'
+                                }
+                            }
+                            })
+                        })
+
+
+                    </script>
+                    <style>
+                        #main-div > div {
+                            width: 40px;
+                            background-color: rgb(186, 148, 223);
+                            border-radius: 5px;
+                            border: 2px solid rgb(97, 86, 79);
+                            padding: 10px;
+                            margin-bottom: 10px;
+                        }
+
+                        #main-div {
+                            padding: 10px;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                        }
+
+                        .task__computing {
+                        }
+                
+                    </style>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

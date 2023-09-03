@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 19 - home task 7</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 19 - Домашнє завдання 7</h3>
+                <div class="task__condition">
+                    Задача 7. Відобразити падаючий сніг. Сніжинка з’являється у верхній частині екрану (top = 0) і 
+                    з випадковою швидкістю рухається вниз (у setInterval викликати метод, у якому додавати крок до top). 
+                    Як тільки сніжинка досягає нижньої частини екрану (top>maxTop) вона знову повинна з’явитись у 
+                    верхній частині екрану (top=0).
+                    <br>
+                    <br>
+                    Tusk 7. To depict the falling snow. The snowflake appears at the top of the screen (top = 0) and
+                    moves down at a random speed (in setInterval, call a method to add a step to top).
+                    As soon as the snowflake reaches the bottom of the screen (top>maxTop) it should reappear in
+                    top of the screen (top=0).
+
+                </div>
+                <div class="task__computing">
+                    <script>
+                        function random (min, max) {
+                            return Math.floor(Math.random() * (max - min) + min)
+                        }
+
+                        function createSnowFlake () {
+                            const snowflake = document.createElement('div') // create snowflake
+                            snowflake.className = 'snowflake' // add class for snowflake
+                            document.body.append(snowflake) // insert snowflake in to the body
+                            let top = random(-10, - window.innerHeight) // randomize top position for each snowfall
+                            let left = random(1, window.innerWidth) // randomize left position for each snowfall
+                            const fallSpeed = random(1, 3) // speed ov falling
+                            snowflake.style.top = `${top}px` // add css styles for snowfall
+                            snowflake.style.left = `${left}px` // add css styles for snowfall
+
+                            function snowFall () {
+                            top += fallSpeed // simulation of smooth snowfall - speed of falling on short distance
+                            snowflake.style.top = top + 'px' // update css
+
+                            if (top > window.innerHeight) { // if reach the bottom - atart again from top
+                                top = -10
+                                left = random(0, window.innerWidth)
+                                snowflake.style.left = `${left}px`
+                            }
+
+                            requestAnimationFrame(snowFall) // smooth animation
+                        }
+                            snowFall()
+                        }
+
+                        const snowflakesNumber = 100
+                        for (let i = 0; i < snowflakesNumber; i++) {
+                            createSnowFlake()                            
+                        }
+  
+                    </script>
+                    <style>
+                        body {
+                            margin: 0 auto;
+                            overflow: hidden
+                        }
+                        .snowflake {
+                            position: absolute;
+                            width: 10px;
+                            height: 10px;
+                            background-color: #fff;
+                            border-radius: 50%;
+                           
+                        }
+                    </style>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
