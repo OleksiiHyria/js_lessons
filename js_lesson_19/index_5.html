@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>Lesson 19 - home task 5</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 19 - Домашнє завдання 5</h3>
+                <div class="task__condition">
+                    Задача 5. Відображаємо картки товарів, які користувач може вибирати. 
+                    Вибраний товар має зелену рамку (при кліку робити toogle з класом вибраного елемента).
+                    <br>
+                    Task 5. Display product cards that the user can choose.
+                    The selected product has a green frame (when clicked, make a toogle with the class of the selected item).
+                </div>
+                <div class="task__computing">
+                    <script>
+
+                        class Goods {
+                            constructor (bunner, goodsImage, goodsName, goodsLink, goodsPrice) {
+                                this.bunner = bunner
+                                this.goodsImage = goodsImage
+                                this.goodsName = goodsName
+                                this.goodsLink = goodsLink
+                                this.goodsPrice = goodsPrice
+                            }
+                        }
+                        
+                        class CardsDisplayer {
+
+                            constructor (arrayOfGoods) {
+                                this.arrayOfGoods = arrayOfGoods
+                            }
+
+                            renderCards (arrayOfGoods) { 
+                            const taskCondition = document.querySelector('.task__computing')
+                            const cardsContainer = document.createElement('div')
+                            cardsContainer.className = 'cards__container'
+                            taskCondition.appendChild(cardsContainer)
+
+                            for (let i = 0; i < this.arrayOfGoods.length; i++) {
+                                let currentCard = this.arrayOfGoods[i]
+                                // ----- create and append card -----
+                                const card = document.createElement('div')
+                                card.className = 'card__box' 
+                                cardsContainer.appendChild(card)
+
+                                // ----- create and append bunners  -----
+                                const bunner = document.createElement('span') 
+                                bunner.innerText = currentCard.bunner
+                                //--
+                                card.appendChild(bunner)
+
+                                if (bunner.innerText === 'топ продаж') {    // check if bunner has a specific type = top sales
+                                    bunner.classList.toggle('top__sales')   // !!! if alot of different types of bunner - revrite with switch
+                                }
+
+                                if (bunner.innerText === 'б/у') {           // check if bunner has a specific type = already use 
+                                    bunner.classList.toggle('already__use') // !!! if alot of different types of bunner - revrite with switch
+                                }
+
+                                // ----- create img and append it -----
+                                const cardImageContainer = document.createElement('div')
+                                cardImageContainer.className = 'card-image__container'
+                                card.appendChild(cardImageContainer)
+
+                                const cardImage = document.createElement('img')
+                                cardImage.setAttribute ('src', currentCard.goodsImage)
+                                cardImageContainer.appendChild(cardImage)
+
+                                // ----- create link and name of goods  -----
+                                const goodsLink = document.createElement('a')
+                                goodsLink.innerText = currentCard.goodsName
+                                goodsLink.setAttribute('href', currentCard.goodsLink)
+                                card.appendChild(goodsLink)
+                                
+                                // ----- create price -----
+                                const goodsPrice = document.createElement('div')
+                                const finalPrice = this.numberWithSpaces(currentCard.goodsPrice)
+                                goodsPrice.innerText = finalPrice
+                                goodsPrice.className = 'goods__price'
+                                card.appendChild(goodsPrice)
+                            }
+                        }
+
+                        numberWithSpaces (number) {
+                            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") // separate numbers in price
+                        }
+
+                        chosenCard () {
+                            const allCards = document.querySelectorAll('.card__box')
+
+                            allCards.forEach(card => {
+                                card.addEventListener('click', () => {
+                                    allCards.forEach(clearCard => {                  //check all cards - id they had class 'selected__card'
+                                        clearCard.classList.remove('selected__card') // clear all cards from user chose
+                                    })
+                                    card.classList.toggle('selected__card')
+                                })
+                            })
+                        }
+                        }
+                
+                        let arrayOfGoods = [
+                        new Goods('акция', 'img/LenovoLegion5.webp', 'Ноутбук Lenovo Legion 5 15ITH6H', 'https://rozetka.com.ua/lenovo-82jh00lrra/p358690092/', 49999),
+                        new Goods('-18%', 'img/AcerNitro.webp', 'Ноутбук Acer Nitro 5 AN515-57-53P6', 'https://rozetka.com.ua/acer-nhqeleu00z/p383717991/', 36999),
+                        new Goods('топ продаж', 'img/macBookAirM2.webp', 'Ноутбук Apple MacBook Air 15.3', 'https://rozetka.com.ua/apple-mqkw3ua-a/p382597605/', 62499),
+                        new Goods('топ продаж', 'img/MacBoocProM2.webp', 'Ноутбук Apple MacBook Pro 16 16/512', 'https://rozetka.com.ua/apple-mnwc3ua-a/p364910346/', 124499),
+                        new Goods('б/у', 'img/acerAspire.webp', 'Ноутбук Acer Aspire 7 A715-42G-R0VS', 'https://rozetka.com.ua/acer-nxk80eu003/p391392696/', 18499),
+                    ]
+                        let cardsDisplayer = new CardsDisplayer(arrayOfGoods)
+                        cardsDisplayer.renderCards()
+                        cardsDisplayer.chosenCard()
+
+                    </script>
+                    <style>
+                        body {
+                            background-color: #fff;
+                        }
+
+                        .cards__container {
+                            font-family: 'Roboto';
+                            background-color: #fff;
+                            font-weight: 300;
+                            display: grid;
+                            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                            gap: 20px;
+                            justify-items: center;
+                            padding-bottom: 30px;
+                        }
+
+                        .card__box {
+                            margin-top: 40px;
+                            max-width: 224px;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 10px;
+                            position: relative;
+                            border: 1px solid #e1e1e1;
+                            border-radius: 5px;
+                            box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+                            padding: 30px 10px 10px 10px;
+                            text-align: center;
+                            background-color: #fff;
+                        }
+
+                        .card__box:hover {
+                            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+                        }
+                        
+                        .card__box span {
+                            position: absolute;
+                            display: block;
+                            top: 8px;
+                            left: 8px;
+                            max-width: 80px;
+                            border-radius: 50px;
+                            background-color: rgb(248, 65, 71); 
+                            /* background-color: #4CAF50; */
+                            color: rgb(255, 255, 255);
+                            text-align: center;
+                            height: 24px;
+                            padding-left: 8px;
+                            padding-right: 8px;
+                            font-size: 12px;
+                            line-height: 24px;
+                            text-transform: uppercase;
+                        }
+
+                        .card-image__container {
+                            margin-top: 20px;
+                            flex: 1 0 auto;
+                        }
+
+                        .card-image__container img {     
+                            max-width: 100%;
+                            height: auto;
+                        }
+
+                        .card__box a {
+                            text-decoration: none;
+                            color: #333;
+                            font-weight: 300;
+                            margin-top: 10px;
+                            display: block;
+                            text-align: left;
+                            flex: 0 1 auto;
+                        }
+
+                        .card__box a:hover {
+                            color: #4CAF50;
+                        }
+
+                        .goods__price {
+                            flex: 0 1 30px;
+                            text-align: left;
+                            font-weight: 300;
+                            color: #F84147;
+                            font-size: 24px;
+                        }
+
+                        .goods__price::after {
+                            content: ' ₴';
+                        }
+
+                        .card__box .top__sales  {
+                            background-color: rgb(255, 169, 0);
+                        }
+
+                        .card__box .already__use {
+                            background-color: rgb(226, 215, 194);
+                            color: #52567a;
+                        }
+                        
+                        .selected__card {
+                            border: 2px solid #469348;
+                        }
+                    </style>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

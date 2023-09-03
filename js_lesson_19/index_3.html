@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 19 - home task 3</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 19 - Домашнє завдання 3</h3>
+                <div class="task__condition">
+                    Задача 3. Дано 5 випадковим чином згенерованих нумерованих списків з рандомними числами (кількість елементів у списку випадкова від 1 до 10, елементи випадкові – від 1 до 100). 
+                    При натисненні на кнопку нумеровані списки з парною кількістю елементів зафарбувати у зелений колір, інші у червоний.
+                    <br>
+                    <br>
+                    Task 3. Given 5 randomly generated numbered lists with random numbers (number of elements in the list is random from 1 to 10, elements are random - from 1 to 100).
+                    When you click on the button, the numbered lists with an even number of elements will be painted in green, others in red.
+                </div>
+                <div class="task__computing">
+                    <script>
+                    function generateRandom (min, max) {
+                        return min + Math.floor(Math.random() * (max - min + 1))
+                    }
+
+                    function renderLists (listsNumber, minLi, maxLi, minNum, maxNum) {
+                        const taskComputing = document.querySelector('.task__computing')
+                        const taskContainer = document.createElement('div')
+                        taskContainer.className = 'task__container'
+                        taskComputing.appendChild(taskContainer)
+                        for (let i = 0; i < listsNumber; i++) {
+                            let newList = document.createElement('ol') 
+                            taskContainer.appendChild(newList)
+
+                            const numberOfLi = generateRandom(minLi, maxLi)
+                            for (let j = 0; j < numberOfLi; j++) {
+                                let newLi = document.createElement('li')  
+                                newLi.textContent = generateRandom(1, 100) 
+                                newList.appendChild(newLi)                             
+                            }
+                        }
+                        const listButton = document.createElement('button')
+                        listButton.className = 'find__odd-elements'
+                        listButton.innerText = 'Find odd elements'
+                        taskComputing.appendChild(listButton)
+
+                        taskComputing.addEventListener('click', (event) => {
+                            if (event.target.classList.contains('find__odd-elements')) {
+                                const lists = document.querySelectorAll('ol')
+                                lists.forEach(list => {
+                                const allLi = document.querySelectorAll('li')
+                                allLi.forEach(li => {
+                                    if (parseInt(li.textContent) % 2 === 0){
+                                        li.style.backgroundColor = 'rgb(179, 244, 177)'
+                                    } else {
+                                        li.style.backgroundColor = 'rgb(228, 169, 208)'
+                                    }
+                                });  
+                                });
+                            }
+                        })
+                    }
+                    renderLists(5, 1, 10, 1, 100)
+                    </script>
+
+                    <style>
+                        .task__computing {
+                            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+                            font-size: 14px;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                        }
+
+                        .task__container {
+                            display: flex;
+                            gap: 20px;
+                            font-weight: 300;
+                            justify-content: center;
+                        }
+
+                        .task__container ol {
+                            border-radius: 5px;
+                            width: 40px;
+                            padding-left: 20px;
+
+                        }
+
+                        .task__container li {
+                            color: rgb(165, 161, 107);
+                            line-height: 24px;
+                            padding-left: 10px;
+                        }
+
+                        .find__odd-elements {
+                            max-width: 140px;
+                            background-color: rgb(241, 246, 158);
+                            color: rgb(93, 84, 12);
+                            border-radius: 5px;
+                        }
+                    </style>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
