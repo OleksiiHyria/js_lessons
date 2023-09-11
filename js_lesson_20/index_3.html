@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 9 - home task 3</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 20 - Домашнє завдання 3</h3>
+                <div class="task__condition">
+                    Задача 3. На формі вводять 7 числових значень (вік, зріст, вага, заробітна плата, стаж, номер відділу, порядковий номер). 
+                    Додати подію обробки події click на форму і якщо клік на внутрішньому input, то автоматично замінювати значення його на 0. 
+                    Використати делегування.
+                    <br>
+                    <br>
+                    Task 3. Enter 7 numerical values ​​on the form (age, height, weight, salary, seniority, department number, serial number).
+                    Add the click event processing event to the form and if the click is on the internal input, then automatically replace its value with 0.
+                    Use delegation.
+                </div>
+                <div class="task__computing">
+                    <script>
+                        class HRForm {
+                            static fieldsNumber = 7;
+                            static fieldsName =  ['Age: ', 'Height: ', 'Weight: ', 'Salary: ', 'Seniority: ', 'Department number: ', 'SerialNumber: '] 
+
+                            renderForm () {
+                                const taskComputing = document.querySelector('.task__computing');
+                                const formContainer = document.createElement('div');
+                                formContainer.className = 'form__container';
+                                taskComputing.appendChild(formContainer);
+                                const inputForm = document.createElement('form');
+                                inputForm.className = 'form';
+                                formContainer.appendChild(inputForm);
+                                
+                                for (let i = 0; i < HRForm.fieldsNumber; i++) {
+                                    const inputContainer = document.createElement('div');
+                                    inputContainer.className = 'input__container';
+                                    inputForm.appendChild(inputContainer);
+                                    const inputLabel = document.createElement('label');
+                                    inputLabel.className = 'input__label';
+                                    inputLabel.innerText = HRForm.fieldsName[i]
+                                    inputContainer.appendChild(inputLabel);
+                                    const input = document.createElement('input');
+                                    input.type = 'text';
+                                    input.value = 0;
+                                    input.classList.add('input', 'input_' + i);
+                                    inputLabel.appendChild(input);
+                                }
+                                inputForm.addEventListener('focusin', (event) => {
+                                    if (event.target.classList.contains('input')) {
+                                        event.target.value = ''
+                                    } 
+                                })
+
+                                // add logic which clear input value if we add number and lose focus on the field
+                                inputForm.addEventListener('focusout', (event) => {
+                                    if (event.target.classList.contains('input')) {
+                                        event.target.value = 0
+                                    }
+                                })
+                            }
+                        }
+
+                        const hrForm = new HRForm();
+                        hrForm.renderForm()
+                    </script>
+                    <style>
+                        .task__computing {
+                            width: 350px;
+                            margin: 0 auto;
+                            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+                            font-size: 14px;
+                        }
+
+                        .form {
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: flex-end;
+                            align-items: flex-end;
+                            border-radius: 5px;
+                            background-color: rgb(138, 138, 96);
+                            margin-top: 50px;
+                            padding: 10px;
+                            box-shadow: 1px 1px 5px rgb(193, 153, 153);
+                        }
+
+                        .input__container {
+                            margin-bottom: 10px;
+                        }
+
+                        .input__label {
+                            color: #fff;
+                            font-weight: 700;
+                        }
+
+                        .input {
+                            margin-left: 20px;
+                            border-radius: 5px;
+                            border: none;
+                            padding-left: 10px;
+                            color: rgb(139, 131, 131);
+                            font-size: 13px;
+                        }
+                    </style>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

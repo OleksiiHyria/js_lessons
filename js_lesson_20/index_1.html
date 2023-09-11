@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 14 - home task</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 20 - Домашнє завдання 1</h3>
+                <div class="task__condition">
+                    Задача 1. Сяючі зорі. Вказана кількість зірочок повинна з’являтися у випадковій частині екрану. 
+                    Кожна зірка (це екземпляр класу Star) з певним кроком і інтервалом збільшується від мінімального до максимального розміру. 
+                    Як тільки досягнути максимального розміру зірочка повинна з’являтися у іншій випадковій позиції.
+                    <br>
+                    <br>
+                    Task 1. Shining stars. The specified number of stars should appear in a random part of the screen.
+                    Each star (this is an instance of the Star class) increases from the minimum to the maximum size with a certain step and interval.
+                    Once the maximum size is reached, the star should appear in another random position.
+                </div>
+                <div class="task__computing">
+                    <script>
+                        class Star {
+                            constructor(minInterval, maxInterval, minWidthStar, maxWidthStar) {
+                            this.star = document.createElement('div')
+                            this.star.className = 'star'
+                            this.minInterval = minInterval
+                            this.maxInterval = maxInterval
+                            this.minSize = minWidthStar
+                            this.maxSize = maxWidthStar
+                        }
+
+                        random(minValue, maxValue) {
+                            return minValue + Math.floor(Math.random() * (maxValue - minValue + 1))
+                        }
+                        
+                        setRandomPosition() {
+                            this.star.style.left = this.random(0, window.innerWidth) + 'px'
+                            this.star.style.top = this.random(0, window.innerHeight) + 'px'
+                            const starSize = this.random(this.minSize, this.maxSize) +'px'
+                            this.star.style.width = starSize
+                            this.star.style.height = starSize
+                        }
+
+                        firemament() {
+                            setInterval(() => {
+                            if (this.maxSize === parseInt(this.star.style.width)) {
+                                this.setRandomPosition();
+                            } else {
+                                let currentWidth = parseInt(this.star.style.width)
+                                this.star.style.width = (currentWidth + 1) + 'px'
+                            }
+                        }, this.random(this.minInterval, this.maxInterval));
+                        }
+
+                        render() {
+                            this.setRandomPosition()
+                            this.firemament()
+                            document.body.append(this.star)
+                        }
+                        }
+
+                        window.onload = function () {
+                            for (let i = 0; i < 100; i++) {
+                            const superNova = new Star(100, 2000, 1, 2)
+                            superNova.render()
+                            }
+                        }
+                    </script>
+                    <style>
+                        body {
+                            margin: 0;
+                            overflow: hidden;
+                            background-color: black;
+                        }
+
+                        .star {
+                            position: absolute;
+                            background-color: white;
+                            border-radius: 50%;
+                            animation-name: brightness;
+                            animation-duration: 5s;
+                            animation-timing-function: ease-in-out;
+                            animation-iteration-count: infinite;
+                        }
+
+                        @keyframes brightness {
+                            0% {
+                                opacity: 0;
+                                transform: scale(0.1);
+                            }
+                            50% {
+                                opacity: 1;
+                                transform: scale(1);
+                            }
+                            100% {
+                                opacity: 0;
+                                transform: scale(0.1);
+                            }
+                        }
+                    </style>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

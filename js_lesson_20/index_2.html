@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 20 - home task 2</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 20 - Домашнє завдання 2</h3>
+                <div class="task__condition">
+                    Задача 2. Байрактар. З верхньої частини екрану у випадковій позиції по горизонталі з’являються танки, які їдуть вниз. 
+                    При кліку на танк він вибухає і зникає з екрану. 
+                    <br>
+                    <br>
+                    Task 2. Bayraktar. Tanks appear from the top of the screen in a random horizontal position and roll down.
+                    When you click on a tank, it explodes and disappears from the screen.
+                </div>
+                <div class="task__computing">
+                    <script>
+                        class Bayraktar {
+
+                            constructor (selector, imgPath) {
+                                this.imgPath = imgPath
+                                this.selector = selector
+                                this.counter = 0                             
+                            }
+
+                            random(min, max) {
+                                return min + Math.floor(Math.random() * (max - min + 1))
+                            }
+
+                            renderTank () {
+                                let tank = document.createElement('div')
+                                document.querySelector(this.selector).appendChild(tank)
+                                let tankImage = document.createElement('img')
+                                tankImage.src = this.imgPath
+                                tank.appendChild(tankImage)
+                                tank.className = 'tank'
+                                return tank
+                            }
+
+                            battelStart(numberOfTanks) {
+                                let self = this;
+                                this.numberOfTanks = numberOfTanks;
+                                let tanksLeft = numberOfTanks;
+                                let tanksClicked = 0;
+                                let anyTankWasClicked = false
+
+                                for (let i = 0; i < numberOfTanks; i++) {
+                                    setTimeout(function () {
+                                        let tank = self.renderTank();
+                                        tank.style.top = 0 + 'px';
+                                        tank.style.left = self.random(0, window.innerWidth - 50) + 'px';
+                                        tank.style.animation = 'storm 5s linear forwards';
+                                        tank.addEventListener('animationend', () => {
+                                            tank.remove();
+                                            tanksLeft--;
+                                            if (tanksLeft === 0) {
+                                                self.gameOver();
+                                            }
+                                        });
+                                        tank.addEventListener('click', () => {
+                                            tank.remove();
+                                            self.counter++;
+                                            tanksClicked++;
+                                            anyTankWasClicked = true
+                                            if (tanksClicked === numberOfTanks || tanksLeft === 0) {
+                                                self.gameOver();
+                                            }
+                                        });
+                                    }, 2000 * i);
+                                }
+
+                                // CRUTCH - i can not write the rull which can show result - if as least one tank was clicked
+                                setTimeout(()=> {
+                                    if (anyTankWasClicked) {
+                                        self.gameOver();
+                                    }
+                                }, 14000)
+                            }
+
+                            gameOver () {
+                                const taskComputing = document.querySelector('.task__computing')
+                                const gameOver = document.createElement('div')
+                                gameOver.className = 'game__over'
+                                gameOver.innerText = `Game over!
+                                ${this.counter}`
+                                taskComputing.appendChild(gameOver)
+                            }
+                        }
+
+                        
+                        window.onload = function () {
+                        let battel = new Bayraktar('.wrapper', 'img/tank.jpeg') 
+                        battel.battelStart(5)
+                    }
+                        
+                    </script>
+                    <style>
+                        body {
+                            
+                            background-color: #fff;
+                        }
+                        .wrapper {
+                            width: 100vw;
+                            height: 100vh;
+                            position: relative;
+                        }
+                        .task__condition {
+                            color: rgb(157, 149, 149);
+                        }
+
+                        .tank {
+                            position: absolute;     
+                            cursor: pointer;
+                            border-radius: 5px;
+                        }
+
+                        .tank img {
+                            width: 50px;
+                            height: 50px;
+                        }
+
+                        .game__over {
+                            text-align: center;
+                            margin-top: 50px;
+                            font-weight: 700;
+                            color: rgb(232, 140, 140);
+                        }
+
+                        @keyframes storm {
+                            0% {
+                                transform: translateY(-100%);
+                                opacity: 1;
+                            }
+
+                            100% {
+                                transform: translateY(100vh);
+                                opacity: 0;
+                            }
+                        }
+                    </style>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

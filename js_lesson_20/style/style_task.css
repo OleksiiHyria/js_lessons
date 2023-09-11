@@ -1,0 +1,36 @@
+
+body {
+    font-family: Roboto, sans-serif ;
+    background-color: rgb(234, 231, 231);
+}
+
+.wrapper {
+    min-height: 100%;
+    overflow: clip;
+    position: relative;
+}
+
+.home__wrapper > main {
+    
+}
+
+.home {
+    flex-grow: 1;
+}
+.home__container {
+    min-width: 1230px;
+    padding: 30px 15px;
+    margin: 0 auto;
+    min-height: 100%;
+}
+.home__task {
+    background-color: rgb(198, 225, 241);
+}
+.task {
+}
+.task__title {
+}
+.task__condition {
+}
+.task__computing {
+}

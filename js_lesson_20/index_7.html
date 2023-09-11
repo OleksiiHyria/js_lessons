@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 20 - home task 7</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 20 - Домашнє завдання 7</h3>
+                <div class="task__condition">
+                    Задача. Перекладач. Користувачу виводять змішані картки з словами на англійській і українській мові. 
+                    Користувач поступово клікає на картки (виділяємо синьою рамкою). 
+                    Якщо знайдено правильні пари карток, що відповідають одному слову, то видаляємо ці картки. 
+                    Інакше - виділяємо червоною рамкою і через секунду забираємо рамку.
+                </div>
+                <div class="task__computing">
+                    <div id="container">                   
+                    </div>
+                    <script>
+                            class Translator {
+                                // properties 
+                                //      - wordsList
+                                //      - cardEn
+                                //      - card UA
+                                //      - waitInterval
+                                // methods
+                                //      - cardClick
+                                //      - render
+                                    constructor (wordsList) {
+                                        this.wordsList = wordsList
+                                        this.selectedWords = {}
+                                        this.correctAnswers = 0
+                                        this.wrongAnswers = 0
+                                    }
+
+                                    getRandomNumber (min, max) {
+                                        return Math.floor(min + Math.random() * (max- min + 1))
+                                    }
+
+                                    createWordsSectionDiv (lang) {
+                                         //create copy 
+                                        const wordsObject = [...this.wordsList]
+                                        // const wordsObject = JSON.parse(JSON.stringify(wordsList))
+
+                                        // create container
+                                        const container = document.createElement('div')
+                                        container.setAttribute('lang', lang)
+
+                                        // while copy is not empty
+                                        while(wordsObject.length > 0) {
+
+                                            // find random index
+                                            const randomWordIndex = this.getRandomNumber(0, wordsObject.length-1)
+
+                                            //create div and add words
+                                            const selectedWord = wordsObject[randomWordIndex]
+                                            const wordDiv = document.createElement('div')
+                                            wordDiv.setAttribute('word-id', selectedWord.id)
+                                            wordDiv.className = 'item'
+                                            wordDiv.innerText = selectedWord[lang]
+
+                                            // delete word from list (copy)
+                                            wordsObject.splice(randomWordIndex, 1)
+
+                                            // enter div in to container
+                                            container.append(wordDiv)
+                                        }
+                                        return container
+                                    }
+
+                                    checkSelectedWords () {
+                                        if (('en' in this.selectedWords) && ('ua' in this.selectedWords)) {
+                                            this.selectedWords['en'].targetDiv.classList.toggle('selected')
+                                            this.selectedWords['ua'].targetDiv.classList.toggle('selected')
+
+                                            if (this.selectedWords['en'].wordId === this.selectedWords['ua'].wordId) {
+                                                this.selectedWords['en'].targetDiv.remove()
+                                                this.selectedWords['ua'].targetDiv.remove()
+                                                this.selectedWords = {}
+                                                this.correctAnswers++
+                                            } else {
+                                                this.selectedWords['en'].targetDiv.classList.toggle('wrong')
+                                                this.selectedWords['ua'].targetDiv.classList.toggle('wrong')
+                                                this.wrongAnswers++
+                                                setTimeout(() => {
+                                                    this.selectedWords['en'].targetDiv.classList.toggle('wrong')
+                                                    this.selectedWords['ua'].targetDiv.classList.toggle('wrong')
+                                                    this.selectedWords = {}
+                                                }, 1000)
+                                            }
+                                            if (this.correctAnswers === this.wordsList) {
+                                                const completeEvent = new CustomEvent('testComplete', {
+                                                    detail: {
+                                                        wrongAnswers: this.wrongAnswers,
+                                                    }
+                                                })
+                                                this.container.dispatchEvent(completeEvent)
+                                            }
+                                        }
+                                    }
+
+                                    onWordListClick (lang, event) {
+                                        const targetDiv = event.target
+                                        const wordId = targetDiv.getAttribute('word-id')
+                                        if (wordId) {
+                                            if (this.selectedWords[lang]) 
+                                            this.selectedWords[lang].targetDiv.classList.toggle('selected')
+                                            this.selectedWords[lang] = {
+                                                wordId,
+                                                targetDiv,
+                                            }
+                                            this.selectedWords[lang].targetDiv.classList.toggle('selected')
+                                            this.checkSelectedWords()
+                                        }
+
+                                    }
+
+                                    render (targetContainerSelector) {
+                                        const container = document.createElement('div')
+                                        container.className = 'translator'
+
+                                        // create list (en) inside container
+                                        const enList = this.createWordsSectionDiv('en')
+                                        enList.className = 'words-list'
+                                        enList.onclick = (event) => this.onWordListClick('en', event)
+                                        container.append(enList)
+
+                                        // create list (en) inside container
+                                        const uaList = this.createWordsSectionDiv('ua')
+                                        uaList.className = 'words-list'
+                                        uaList.onclick = (event) => this.onWordListClick('ua', event)
+                                        container.append(uaList)
+
+                                        // check if selector exists ant than append container (? - undefin check)
+                                        if (targetContainerSelector) {
+                                            document.querySelector(targetContainerSelector)?.append(container)
+                                            this.container = container // container for disputching event
+                                            return container
+                                        }
+                                    }
+                            }
+
+                            function onComplete (e) {
+                                document.querySelector('#container').remove()
+                                alert(`Number of wrong answers: ${e.detail.wrongAnswers}`)
+                            }
+
+                    const words = [    
+                        { id: 0, en: 'table', ua: 'стіл' },
+                        { id: 1, en: 'car', ua: 'автомобіль' },
+                        { id: 2, en: 'bus', ua: 'автобус' },
+                        { id: 3, en: 'man', ua: 'людина' },
+                        { id: 4, en: 'boy', ua: 'хлопець' },]
+
+                        window.onload = function() {
+                            const t1 = new Translator(words)
+                            t1.render('#container')
+                            t1.container.addEventListener('testComplete', onComplete)
+                        }
+                    </script>
+                    <style>
+                        .translator {
+                            display: flex;
+                            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+                            line-height: 24px;
+                            width: 600px;
+                            margin: 0 auto;
+                            padding-top: 50px;
+                        }
+
+                        .words-list {
+                            border: 2px solid black;
+                            margin: 20px;
+                            width: 200px;
+                        }
+
+                        .item {
+                            border: 2px solid black;
+                            margin: 10px;
+                            cursor: pointer;
+                            text-align: center;
+                        }
+
+                        .selected {
+                            border: 2px solid blue !important;
+                        }
+
+                        .wrong {
+                            border: 2px solid red !important;
+                        }
+                    </style>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

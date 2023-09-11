@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 20 - home task 5</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 20 - Домашнє завдання 5</h3>
+                <div class="task__condition">
+                    Задача 5. Динамічний пошук. Є список працівників і поле пошуку. 
+                    При введенні відображаються усі, які містять вказаний фрагмент.
+
+                    Tasc 5. Dynamic search. There is a list of employees and a search field.
+                    When entered, all that contain the specified fragment are displayed.
+                </div>
+                <div class="task__computing">
+                    <script>
+                        class EmployeesSearch {
+
+                            constructor (employees) {
+                                this.employeesStorage = employees;
+                                this.renderForm()
+                                this.renderEmployeesList()
+                                this.searchInput = document.querySelector('input')
+                                this.employeesList = document.querySelector('.employees__list')
+                                this.searchInput.addEventListener('input', () => {
+                                    this.updateEmployesList()
+                                })
+                            }
+
+                            renderForm () {
+                                const taskComputing = document.querySelector('.task__computing');
+                                const searchContainer = document.createElement('div');
+                                searchContainer.className = 'search__container';
+                                taskComputing.appendChild(searchContainer)
+                                const searchForm = document.createElement('form')
+                                searchForm.className = 'search__form'
+                                searchContainer.appendChild(searchForm)
+
+                                const searchInputBox = document.createElement('div')
+                                searchInputBox.className = 'search__input-box'
+                                searchForm.appendChild(searchInputBox)
+
+                                const searchInputLabel = document.createElement('label')
+                                searchInputLabel.className = 'search__label'
+                                searchInputLabel.innerText = 'Enter search name: '
+                                searchInputLabel.setAttribute('for', 'input_id')
+                                searchInputBox.appendChild(searchInputLabel)
+
+                                const input = document.createElement('input')
+                                input.className = 'search__input'
+                                input.id = 'input_id'
+                                searchInputBox.appendChild(input)
+                                input.setAttribute('placeholder', 'Jack London')
+                            }
+
+                            renderEmployeesList () {
+                                const taskComputing = document.querySelector('.task__computing');
+                                const employeesListContainer = document.createElement('div')
+                                employeesListContainer.className = 'emloyees-list__container'
+                                taskComputing.appendChild(employeesListContainer)
+                                let employeesList = document.createElement('ol')
+                                employeesList.classList = 'employees__list'
+                                employeesListContainer.appendChild(employeesList)
+                            }
+
+                            updateEmployesList () {
+                                const searchValue = this.searchInput.value.trim().toLowerCase()
+                                const filteredEmployees = this.employeesStorage.filter(
+                                    (employee) => {
+                                        return employee.toLowerCase().includes(searchValue)
+                                    })
+
+                                    this.employeesList.innerHTML = '' // clear list
+
+                                    filteredEmployees.forEach((employee) => {
+                                        let listItem = document.createElement('li')
+                                        listItem.textContent = employee
+                                        this.employeesList.appendChild(listItem)
+                                    });
+                            }
+                        }
+
+                        let employees = ['Antonio Jons', 'Willisms Carlson', 'John Snow', 'Miya Calipso', 'Karina Anisimova', 'Jack London', 'Jack Sparrow']
+                        const employeesSearch = new EmployeesSearch(employees)
+                    </script>
+                    <style>
+                        .task__computing {
+                            width: 400px;
+                            margin: 0 auto;
+                            padding-top: 50px;
+                            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+                            font-size: 14px;
+                        }
+                    </style>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
