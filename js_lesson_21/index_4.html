@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 21 - home task 4</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 21 - Домашнє завдання 4</h3>
+                <div class="task__condition">
+                    Задача 4. Користувач задає місяць навчання учня (перевіряти чи є числом, чи від 1 до 12, чи не канікули) 
+                    та оцінку (перевіряти чи є числом, чи від 1 до 100). Вивести чи зможе він виправити оцінку 
+                    (якщо оцінка погана і це не останній місяць у семестрі) . 
+                    Обробку усіх помилок зробити з використанням відповідних класів.
+                    <br>
+                    <br>
+                    Task 4. The user sets the month of the student's education (check whether it is a number, whether it is from 1 to 12, whether it is not a holiday)
+                    and a rating (check whether it is a number or 1 to 100). Determine whether he can correct the assessment
+                    (if the grade is bad and this is not the last month of the semester) .
+                    All errors should be processed using the appropriate classes.
+                </div>
+                <div class="task__computing">
+                    <script>
+
+                        class CustomMonthError extends Error {
+                            constructor (message) {
+                                super(message);
+                                this.name = 'customMonthError';
+                            }
+                        }
+
+                        class CustomHolidaysError extends Error{
+                            constructor(message) {
+                                super(message);
+                                this.name = 'customHolidaysException';
+                            }
+                        }
+
+                        class CustomScoreError extends Error{
+                            constructor (message) {
+                                super(message);
+                                this.name = 'customScoreError';
+                            }
+                        }
+
+                        class InvalidValueError extends Error {
+                            constructor(message) {
+                                super(message);
+                                this.name = 'invalidValueError';
+                                this.styleClass = 'invalidValueError'
+                            }
+                        }
+
+                        class EmptyValueError extends Error{
+                            constructor(message) {
+                                super(message);
+                                this.name = 'emptyValueError';
+                                this.styleClass = 'emptyValueError';
+                            }
+                        }
+
+                        class ScoreOutOfRange extends Error {
+                            constructor(message) {
+                                super(message);
+                                this.name = 'ScoreOutOfRange';
+                                this.styleClass = 'scoreOutOfRange';
+                            }
+                        }
+
+                        class Student {
+                            renderForm () {
+                                try {
+                                    const taskComputing = document.querySelector('.task__computing');
+                                    const formContainer = document.createElement('form');
+                                    formContainer.className = 'form__container';
+                                    taskComputing.appendChild(formContainer);
+                                    for (let i = 0; i < 2; i++) {
+                                        const inputLabel = document.createElement('label');
+                                        inputLabel.className = 'label__input_' + i;
+                                        formContainer.appendChild(inputLabel);
+
+                                        if (i === 0) {
+                                            inputLabel.innerText = 'Enter month: ';
+                                        }  else if (i === 1)  {
+                                            inputLabel.innerText = 'Enter score: '
+                                        }
+
+                                        const input = document.createElement('input');
+                                        input.type = 'text';
+                                        input.placeholder = 0
+                                        input.classList.add('input_' + i, 'input' );
+                                        inputLabel.appendChild(input);
+                                    }
+
+                                    const buttonsContainer = document.createElement('div');
+                                    buttonsContainer.className = 'buttons__container';
+                                    formContainer.appendChild(buttonsContainer);
+                                    
+                                    const button = document.createElement('button');
+                                    button.classList.add('button', 'check__button');
+                                    button.innerText = 'Check';
+                                    buttonsContainer.appendChild(button);
+                                    
+                                    const clearButton = document.createElement('button');
+                                    clearButton.classList.add('button', 'clear__button');
+                                    clearButton.innerText = 'Clear';
+                                    buttonsContainer.appendChild(clearButton)
+
+                                    // display results 
+                                    const resultBlock = document.createElement('div');
+                                    resultBlock.className = 'result__block';
+                                    taskComputing.appendChild(resultBlock);
+                                } catch (error) {
+                                    throw new Error ('Accured problem with rendering form.')
+                                    error.message
+                                }
+                            }
+
+                            valuesCheck () {
+                                let month, score;
+                                try {
+                                    month = parseInt(document.querySelector('.input_0').value);
+                                    score = parseInt(document.querySelector('.input_1').value);
+
+                                    if (isNaN(month) || isNaN(score)) {
+                                        throw new InvalidValueError ('Not correct value was entered. Please enter number values.');
+                                    };
+
+                                    if (month === '' || score === '') {
+                                        throw new EmptyValueError ('Empti string was entered. Please enter number values.');
+                                    };
+
+                                    if (score < 1 || score > 100) {
+                                        throw new ScoreOutOfRange ('Score value can not be lover than 1 and higher than 100.');
+                                    };
+
+                                    if (month < 1 || month > 12) {
+                                        throw new CustomMonthError('Value month does not in diapazon from 1 to 12. Enter correct value. Exception monthes: 1 and from 6 to 8 (holidays monthes)');
+                                    } else if (month === 1 || month === 6 || month === 7 || month === 8) {
+                                        throw new CustomHolidaysError('It is a hollidays month.');
+                                    } 
+                                    else if (month === 12 && score < 60) {
+                                        throw new CustomScoreError('Student does not have time any more for changing his scores for better!');
+                                    }
+
+                                    const resultBlock = document.querySelector('.result__block');
+
+                                    if (score < 60) {
+                                        resultBlock.innerText = 'Student can increase his score.'
+                                    } else {
+                                        resultBlock.innerText = 'Student has not bad score.'
+                                    }
+
+                                    return {success: true, message: 'Values checked successfuly.'};
+                                } catch (err) {
+                                    return {success: false, error: err};
+                                } 
+                            }
+
+                            operationsManager () {
+                                const resultBlock = document.querySelector('.result__block');
+                                const formContainer = document.querySelector('.form__container');
+                                formContainer.addEventListener('click', (event) => {
+                                    if (event.target.classList.contains('check__button')) {
+                                            event.preventDefault();
+                                            let checkResult = this.valuesCheck();
+                                        
+                                            if (!checkResult.success) {
+                                                if (checkResult.error instanceof CustomMonthError) {
+                                                resultBlock.className = 'customMonthError';
+                                                resultBlock.innerText = checkResult.error.message;
+                                            } else if (checkResult.error instanceof CustomHolidaysError) {
+                                                resultBlock.className = 'customHolidaysError';
+                                                resultBlock.innerText = checkResult.error.message;
+                                            } else if (checkResult.error instanceof CustomScoreError) {
+                                                resultBlock.className = 'customScoreError';
+                                                resultBlock.innerText = checkResult.error.message;
+                                            } else if (checkResult.error instanceof InvalidValueError) {
+                                                resultBlock.className = checkResult.error.styleClass; 
+                                                resultBlock.innerText = checkResult.error.message;
+                                            } else if (checkResult.error instanceof EmptyValueError) {
+                                                resultBlock.className = checkResult.error.styleClass;
+                                                resultBlock.innerText = checkResult.error.message
+                                            } else if (checkResult.error instanceof ScoreOutOfRange){
+                                                resultBlock.className = checkResult.error.styleClass;
+                                                resultBlock.innerText = checkResult.error.message;
+                                            } else {
+                                                resultBlock.innerText = `Other type of error: ${checkResult.error.message}`;
+                                                resultBlock.className = 'otherTypeOfError';
+                                                console.log(checkResult.error.message);
+                                            }
+                                        }
+                                    };
+                                });
+
+                                formContainer.addEventListener('click', (event) => {
+                                    if (event.target.classList.contains('clear__button')) {
+                                        document.querySelector('input_0').value = '';
+                                        document.querySelector('input_1').value = '';
+                                    }  
+                                })
+                            }
+                        }
+
+                        window.onload = function() {
+                            const student = new Student;
+                            student.renderForm();
+                            student.operationsManager();
+                        }
+                    </script>
+                    <style>
+
+                        .task__computing {
+                        }
+                        .form__container {
+                            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+                            font-size: 14px;
+                            width: 160px;
+                            margin:  0 auto;
+                            margin-top: 50px;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 15px;
+                            padding: 20px 10px;
+                            border-radius: 5px;
+                            box-shadow: 1px 1px 1px #777;
+                            border: 1px solid #777;
+                            background-color: #fff;
+                        }
+
+                        label {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            color: #777;
+                        }
+
+                        .buttons__container {
+                            display: flex;
+                            justify-content: space-around;
+                        }
+
+                        .button {
+                            width: 60px;
+                            align-self: center;
+                            background-color: rgb(205, 189, 171);
+                            color: #fff;
+                            border: none;
+                            padding: 5px;
+                            border-radius: 5px;
+                            box-shadow: 1px 1px 1px #777;
+                            transition: all 0.4s;
+                            font-weight: 700;
+                        }
+                        .button:hover {
+                            background-color: rgb(194, 151, 106);
+                            transition: all 0.4s;
+                        }
+
+                        [class *= 'label__input_'] {
+
+                        }
+
+                        [class *= 'input_'] {
+
+                        }
+
+                        .input {
+                            width: 50px;
+                            background-color:  rgb(244, 222, 198);
+                            border-radius: 2px;
+                            box-shadow: 1px 1px 1px rgb(232, 223, 223);
+                            border: none;
+                            padding-left: 5px;
+                            color: rgb(75, 79, 198);
+                        }
+
+                        .result__block, 
+                        .customMonthError, 
+                        .customHolidaysError, 
+                        .customScoreError, 
+                        .otherTypeOfError,
+                        .invalidValueError,
+                        .emptyValueError,
+                        .scoreOutOfRange
+                        {
+                            width: 600px;
+                            margin: 0 auto;
+                            margin-top: 20px;
+                            text-align: center;
+                        }
+
+                         /* Style for CustomMonthError */
+                        .customMonthError {
+                            color: red;
+                        }
+
+                        /* Style for CustomHolidaysError */
+                        .customHolidaysError {
+                            color: orange;
+                        }
+
+                        /* Style for CustomScoreError */
+                        .customScoreError {
+                            color: rgb(218, 35, 148);
+                            font-weight: bold;
+                        }
+
+                        .invalidValueError {
+                            color: rgb(110, 22, 22);
+                        }
+
+                        .emptyValueError {
+                            color: rgb(159, 26, 59);
+                        }
+
+                        .scoreOutOfRange {
+                            color: rgb(246, 6, 6);
+                        }
+
+                        .otherTypeOfError {
+                            color: #777;
+                        }
+                    </style>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

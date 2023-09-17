@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 21 - home task</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 21 - Домашнє завдання 1 - 2 (test in console)</h3>
+                <div class="task__condition">
+                    Задача 1. Створити клас Client
+                    Властивості
+                        ID
+                        ПІБ
+                        Кількість грошей на рахунку
+                    Методи
+                        Додавання грошей
+                        Зняття грошей
+                        ToString
+                        
+                    На основі цього класу створити клас GoldenClient
+                    Властивості
+                        ID
+                        ПІБ
+                        Кількість грошей на рахунку
+                        Ліміт кредитних коштів
+                        Відсоток за використання кредитних коштів
+                    Методи
+                        Додавання грошей
+                        Зняття грошей
+                        Визначення пені за використання кредитних коштів
+                        ToString
+                        <br>
+                        <br>
+                    Task 1: Create a class Client
+                    Properties
+                        ID
+                        Full name
+                        Amount of money in the account
+                    Methods
+                        Adding money
+                        Cash withdrawal
+                        ToString
+
+                    Based on this class, create a Golden Client class
+                    Properties
+                        ID
+                        Full name
+                        Amount of money in the account
+                        Credit limit
+                        Percent for use of credit funds
+                    Methods
+                        Adding money
+                        Cash withdrawal
+                        Determination of penalties for using loan funds
+                        ToString
+                        <br>
+                        ===============================================================
+                        <br>
+
+                        Задача 2. Створити клас Bank, у якому зберігається масив клієнтів. Виконати такі операції
+                            Вивести усіх простих клієнтів;
+                            Вивести усіх клієнтів GoldenClient;
+                            Знати сумарну кількість грошей на рахунку;
+                            <br>
+                            <br>
+                        Task 2. Create a Bank class that stores an array of customers. Perform the following operations
+                            Remove all ordinary customers;
+                            Remove all GoldenClient clients;
+                            Know the total amount of money in the account;
+
+                </div>
+                <div class="task__computing">
+                    <script>
+
+                        class Bank {
+                            #bank = 'The Bank';
+                            #clients = [];
+
+                            get BankName () {
+                                return this.#bank;
+                            }
+
+                            set BankName (bankName) {
+                                this.#bank = bankName;
+                            }
+
+                            get Clients () {
+                                return this.#clients;
+                            }
+
+                            set Clients (newClient) {
+                                this.#clients.push(newClient);
+                            }
+
+                            showRegularClients () {
+                                try {
+                                    const regularClients = this.#clients.filter((client) => {
+                                    return client.typeOfClient === 'regular';
+                                })
+                                this.renderClientList(regularClients);
+                                return regularClients;
+                                } catch {
+                                    throw new Error ('Accured problem with rendering list of regular clients.')
+                                }                               
+                            }
+
+                            showGoldenClients () {
+                                try {
+                                    const goldenClients = this.#clients.filter((client) => {
+                                    return client.typeOfClient === 'golden';
+                                    })
+                                    this.renderClientList(goldenClients);
+                                    return goldenClients;
+                                } catch {
+                                    throw new Error ('Accured problemn with rendering list of Golden clients.')
+                                }
+                                
+                            }
+
+                            showAllClients () {
+                                try {
+                                    this.renderClientList(this.#clients)
+                                    return this.#clients;
+                                } catch {
+                                    throw new Error('Accured problem with rendering all clients list.')
+                                }
+                            }
+
+                            renderClientList(clients) {
+                                try {
+                                    const taskComputing = document.querySelector('.task__computing');
+                                    const clientListContainer = document.createElement('div');
+                                    clientListContainer.className = 'client-list__container';
+                                    taskComputing.appendChild(clientListContainer);
+                                    const clientList = document.createElement('ol');
+                                    clientList.className = 'client__list';
+                                    clientListContainer.appendChild(clientList);
+
+                                for (let i = 0; i < clients.length; i++) {
+                                    const clientItem = document.createElement('li');
+                                    clientItem.className = 'client__item';     
+                                    clientList.appendChild(clientItem);
+                                    clientItem.innerText = clients[i];                               
+                                }
+                                } catch {
+                                    throw new Error ('Problen with rendering form.');
+                                }
+                            }
+
+                            clientTotalAmountMoney (clientId) {
+                                const client = this.#clients.find(client => client.UserId === clientId);
+
+                                if (!client) throw new Error (`Client with ID ${clientId} not found`);
+
+                                if (client.typeOfClient === 'regular') {
+                                    return client.balance;
+                                } else if (client.typeOfClient === 'golden') {
+                                    return parseFloat(client.UserBalance) + parseFloat(client.CreditLimit) 
+                                } else {
+                                    throw new Error(`Unknown type of client ${clientId}`)
+                                }
+                            }
+                        }
+
+                        class Client {
+                            #balance;
+                            #id;
+                            #fullName;
+                            typeOfClient = 'regular';
+
+                            // constructor for simple inicialithation instance of class
+                            constructor (id, name, balance) {
+                                if (typeof id !== 'number' || id < 0) throw new Error ('ID should be a positive number.');
+                                if (typeof name !== 'string' || name.trim() === '') throw new Error ('Name should be anon-empty string.');
+                                if (typeof balance !== 'number' || balance < 0) throw new Error ('Balance should be a non-negative number.')
+                                this.#id = id;
+                                this.#fullName = name;
+                                this.#balance = balance;
+                            }
+
+                            get UserId () {
+                                return this.#id;
+                            }
+
+                            set UserId (userId) {
+                                this.#id = userId;
+                            }
+
+                            get UserName () {
+                                return this.#fullName;
+                            }
+
+                            set UserName (userName) {
+                                this.#fullName = userName;
+                            }
+
+                            get UserBalance () {
+                                return this.#balance;
+                            }
+
+                            set UserBalance (balance) {
+                                try {
+                                    if (this.#balance > 0 &&  typeof balance === 'number'){
+                                        this.#balance = balance;
+                                } else {
+                                    if (this.#balance === NaN) throw new Error ('You entered not a number value. Please, enter a number.');
+                                    if (this.#balance === '') throw new Error ('Empty value. Please, enter a number.');
+                                } 
+                                } catch {
+                                    throw new Error ('Accured problem with rendering form.')
+                                }
+                            }
+
+                            depositMoney (sumOfDeposit) {
+                                try {
+                                    if (sumOfDeposit > 100 && typeof sumOfDeposit === 'number') {
+                                        this.#balance +=sumOfDeposit;
+                                } else {
+                                    if (sumOfDeposit === NaN) throw new Error ('Please enter coorrect value of deposit sum of money.');
+                                    if (sumOfDeposit === '') throw new Error ('Empty value. Please, enter a number of sum which you want to deposit More than 100 uah.');
+                                    if (sumOfDeposit < 100) throw new Error ('Minimal sum of deposit 100 uah.');
+                                    if (sumOfDeposit < 0) throw new Error ('sum of deposit can not be minus value.');
+                                }
+                                } catch (err) {
+                                    console.log(err.message);
+                                };
+                                return this.#balance;
+                            };
+
+                            withdrawal (sumOfWithdrawal) {
+                                try {
+                                    if (sumOfWithdrawal > 50 && typeof sumOfWithdrawal === 'number' && sumOfWithdrawal <= this.#balance) {
+                                        this.#balance -=  sumOfWithdrawal;
+                                    } else {
+                                        if (sumOfWithdrawal === NaN) throw new Error ('Please enter coorrect value of withdrawal sum of money.');
+                                        if (sumOfWithdrawal  === '' )  throw new Error ('Empty value. Please, enter a number of sum which you want to withdrawal More than 50 uah.');
+                                        if (sumOfWithdrawal < 50) throw new Error ('Sum less than 50 uah. Please, enter minimal sum of withdrawal not less than 50 uah.');
+                                        if (sumOfWithdrawal < 0) throw new Error ('Sum of money for withdrawal operation can not be minus number.')
+                                    }
+                                } catch (err) {
+                                    console.log(err.message);
+                                };
+                                return this.#balance;
+                            };
+
+                            toString () {
+                                return `Client id: ${this.#id}
+                            Client full name: ${this.#fullName}
+                            Balance: ${this.#balance}`;
+                            }
+                        }
+
+                        class GoldenClient extends Client {
+                            #creditLimit;
+                            #percentForUseCredit;
+                            typeOfClient = 'golden';
+
+                            constructor(id, name, balance, creditLimit, percent) {
+                                super(id, name, balance,);
+                                if (typeof creditLimit !== 'number' || creditLimit < 0) throw new Error('Credit limit should be a positive number.')
+                                if (typeof percent !== 'number' || percent < 0) throw new Error('Percenr should be a positive number.')
+                                this.#creditLimit = creditLimit; 
+                                this.#percentForUseCredit = percent;
+                            }
+
+                            get CreditLimit () {
+                                return this.#creditLimit;
+                            }
+
+                            set CreditLimit (userCreditLimit) {
+                                try {                                   
+                                    if (userCreditLimit > 10000 && typeof userCreditLimit === 'number') {
+                                        this.#creditLimit = userCreditLimit;
+                                    } else {
+                                        if (userCreditLimit === NaN) throw new Error ('Not correct sum of credit limit.')
+                                        if (userCreditLimit === '') throw new Error ('Empty value was entered. Please enter number more than 1000.')
+                                        if (userCreditLimit < 10000) throw new Error ('Sum less than availabel sum of credit limit was entered.')
+                                        if (userCreditLimit < 0) throw new Error('% for usage credit limit can not be lower than 0.1% and not more 30$')
+                                    }
+                                } catch (err) {
+                                    console.log(err.message);
+                                }
+                            } 
+
+                            get PercentForUseCredit () {
+                                return this.#percentForUseCredit;
+                            }
+
+                            set PercentForUseCredit (percentForUseCredit) {
+                                try {
+                                    if (percentForUseCredit > 0 && (typeof percentForUseCredit === 'number')) {
+                                    this.#percentForUseCredit = percentForUseCredit
+                                } else {
+                                    if (percentForUseCredit === NaN) throw new Error ('It should be the number. Please, enter a correct value.')
+                                    if (percentForUseCredit === '') throw new Error ('Empty value was entered. Please enter value more then 0% and not more than 30%')
+                                    if (percentForUseCredit > 30) throw new Error ('Value more than 30% is not appropriate.')
+                                    if (percentForUseCredit < 0) throw new Error ('Minus value is not appropreate. Please, enter positive value.')
+                                }
+                                } catch (err) {
+                                    console.log(err.message);
+                                }
+                            }
+
+                            withdrawalGoldenClient (creditSum) {
+                                let withdrawalSum = creditSum
+                                let userBalance = this.UserBalance
+                                try {
+                                    if (creditSum > 0 && typeof creditSum === 'number') {
+                                        if (userBalance > withdrawalSum) {
+                                            super.withdrawal(withdrawalSum)
+                                        } else if (userBalance > 0 && userBalance < withdrawalSum && withdrawalSum - userBalance - (withdrawalSum * this.#percentForUseCredit) < this.#creditLimit) {
+                                            withdrawalSum = withdrawalSum - userBalance
+                                            this.UserBalance = 0
+                                            this.#creditLimit -= withdrawalSum
+                                        } else {
+                                            throw new Error ('You don have enougth money for withdrawal such sum of money.')
+                                        }
+                                } else {
+                                    if (withdrawalSum === NaN) throw new Error ('It should be the number. Please, enter a correct value.')
+                                    if (withdrawalSum === '') throw new Error ('Empty value was entered. Please enter value more than 0')
+                                    if (withdrawalSum < 0) throw new Error('Please, enter positive number')
+                                }
+                                } catch (err) {
+                                    console.log(err.message);
+                                }
+                                return this.#creditLimit;
+                            }
+
+                            toString() {
+                                return `Client id: ${this.UserId}
+                            Client full name: ${this.UserName}
+                            Balance: ${this.UserBalance}
+                            Credit limit: ${this.#creditLimit}
+                            Percent for using CL: ${this.#percentForUseCredit}`
+                            }
+                        }
+
+                        // ------------------------ test clients --------------------------------------
+                        let newClient = new Client(1, 'Oleksii Hyria', 38800)
+                        let newGoldClient = new GoldenClient(2, 'Lyudmila Hyria', 15000, 10000, 4.5)
+                        let newClient_1 = new Client(3, 'Anton Dechtyar', 25600)
+                        let newGoldClient_1 = new GoldenClient(4, 'Antonina Smirnova', 36700, 20000, 3)
+                        let newClient_2 = new Client(5, 'Alisa Kotova', 18000)
+                        let newGoldClient_2 = new GoldenClient(6, 'Olga Vetrova', 14300, 14000, 4)
+                        let newGoldClient_3 = new GoldenClient(7, 'Irina Magametova', 8000, 25000, 5)
+                        console.log(newClient);
+                        let newClientId = newClient.UserId;
+                        let newClientFullName = newClient.UserName;
+                        let newClientBalance = newClient.UserBalance;
+                        console.log(newClientId);
+                        console.log(newClientFullName);
+                        console.log(newClientBalance);
+                        console.log(newClient.withdrawal(15000)); 
+                        console.log(newClientBalance);
+
+                        console.log(newGoldClient.withdrawalGoldenClient(1200));
+                        console.log(newGoldClient.UserBalance);
+                        
+                        console.log(newGoldClient.withdrawalGoldenClient(22000));
+                        console.log(newGoldClient.UserBalance);
+                        console.log(newGoldClient.CreditLimit);
+                        console.log(newGoldClient.withdrawalGoldenClient(2000));
+                        console.log(newGoldClient.UserBalance);
+                        console.log(newGoldClient.CreditLimit);
+
+                        // -------------------------- Bank --------------------------------------------
+                        let theBank = new Bank();
+                        theBank.Clients = newClient;
+                        theBank.Clients = newGoldClient;
+                        theBank.Clients = newClient_1;
+                        theBank.Clients = newGoldClient_1;
+                        theBank.Clients = newClient_2;
+                        theBank.Clients = newGoldClient_2;
+                        theBank.Clients = newGoldClient_3;
+
+                        console.log(newGoldClient_3.toString());
+                        console.log(newClient.toString());
+                        
+                        theBank.showRegularClients()
+                        theBank.showGoldenClients()
+                        theBank.showAllClients()
+                        console.log(theBank.clientTotalAmountMoney(2));
+                        console.log(theBank.clientTotalAmountMoney(7));
+
+                        let newGoldClient_4 = new GoldenClient(-1, 'test', 100, 2000, 0)
+                        console.log(newGoldClient_4);   
+                    </script>
+                    <style>
+                        .task__computing {
+                            display: flex;
+                            justify-content: space-around;
+                            margin-top: 30px;
+                            background-color: #fff;
+                            border-radius: 5px;
+                            margin-top: 30px;
+                            padding: 20px;
+                            box-shadow: 1px 1px 1px rgb(208, 202, 202);
+                        }
+                        .client-list__container{
+                            border: 1px solid rgb(175, 167, 167);
+                            border-radius: 5px;
+                            background-color: rgb(200, 172, 172);
+                            color: rgb(249, 245, 245);
+                        }
+
+                        .client__list {
+
+                        }
+
+                        .client__item {
+                            margin-bottom: 20px;
+                            margin-right: 30px;
+                        }
+                    </style>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
