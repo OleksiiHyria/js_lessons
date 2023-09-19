@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Additional task 5</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Bubble sort for + do while</h3>
+                <div class="task__condition">
+                    
+                </div>
+                <div class="task__computing">
+                    <script>
+                        // Define a function called bubbleSort that takes an array arr as its parameter
+                    function bubbleSort(arr) {
+                        // Get the length of the array and store it in a variable n
+                        const n = arr.length;
+
+                        // Initialize a variable swapped to true to enter the loop
+                        let swapped;
+
+                        // Start a do-while loop that continues until no more swaps are needed
+                        do {
+                            // Set swapped to false at the beginning of each pass
+                            swapped = false;
+
+                            // Start a loop that iterates through the array and compares adjacent elements
+                            for (let i = 0; i < n - 1; i++) {
+                                // Compare the current element (arr[i]) with the next element (arr[i + 1])
+                                if (arr[i] > arr[i + 1]) {
+                                    // Swap the elements if the current element is greater than the next element
+                                    const temp = arr[i];
+                                    arr[i] = arr[i + 1];
+                                    arr[i + 1] = temp;
+
+                                    // Set swapped to true to indicate that a swap occurred
+                                    swapped = true;
+                                }
+                            }
+                        } while (swapped); // Continue the loop as long as at least one swap occurred in the previous pass
+
+                        // Return the sorted array
+                        return arr;
+                    }
+
+                    // Create an example unsorted array
+                    const unsortedArray = [5, 2, 9, 3, 4];
+
+                    // Call the bubbleSort function with the unsorted array
+                    const sortedArray = bubbleSort(unsortedArray);
+
+                    // Print the sorted array to the console
+                    console.log(sortedArray); // Output: [2, 3, 4, 5, 9]
+
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

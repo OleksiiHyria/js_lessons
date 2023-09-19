@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 22 - home task 10</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 22 - Домашнє завдання 10</h3>
+                <div class="task__condition">
+                    Задача 10. Сформувати масив з 1000 елементів від 1 до 800. Порівняти час сортування бульбашкою і  вставкою.
+                    <br>
+                    <br>
+                    Task 10. Form an array of 1000 elements from 1 to 800. Compare the time of sorting by bubble and insertion.
+                    <br>
+                </div>
+                <div class="task__computing">
+                    <script>
+                        class SortingComparison {
+                            constructor(size) {
+                                this.size = size;
+                                this.randomArray = this.generateRandomArray(size);
+                            }
+
+                            generateRandomArray (size) {
+                                const array = [];
+                                for (let i = 0; i < size; i++) {
+                                    array.push(Math.floor(Math.random() * 800) + 1);                                    
+                                }
+                                return array;
+                            }
+
+                            bubbleSort() {
+                                const startTime = new Date().getTime();
+                                const arr = [...this.randomArray];
+                                let n = arr.length;
+                                let swapped;
+                                do {
+                                    swapped = false;
+                                    for (let i = 0; i < n-1; i++) {
+                                        if (arr[i] > arr[i + 1]) {
+                                            let temp = arr[i];
+                                            arr[i] = arr[i + 1];
+                                            arr[i + 1] = temp;
+                                            swapped = true;
+                                        }
+                                    }
+                                } while (swapped)
+                                const endTime = new Date().getTime();
+                                return {sortedArray: arr, elapsedTime: endTime - startTime};
+                            }
+
+                            insertionSort() {
+                                const startTime = new Date().getTime();
+                                const arr = [...this.randomArray];
+                                const n = arr.length;
+
+                                for (let i = 1; i < n; i++) { // we started from 1 element because we assume that 0 element already sorted
+                                    const key = arr[i];
+                                    let j = i - 1;
+                                    while (j >= 0 && arr[j] > key) {
+                                        arr[j + 1] = arr[j];
+                                        j = j - 1;
+                                    }  
+                                    arr[j + 1] = key;                                  
+                                }
+                                const endTime = new Date().getTime();
+                                return {sortedArray: arr, elapsedTime: endTime - startTime};
+                            }
+                        }
+
+                        const comparison = new SortingComparison(1000);
+                        const bubleSortResult = comparison.bubbleSort();
+                        const insertSortResult = comparison.insertionSort();
+                        console.log(`Bubble sort elapsed time: ${bubleSortResult.elapsedTime}`);
+                        console.log(`Insert sort elapsed time: ${insertSortResult.elapsedTime}`);
+
+                        const taskComputing = document.querySelector('.task__computing');
+                        const resultBlock = document.createElement('div');
+                        taskComputing.appendChild(resultBlock);
+                        const bubleResult = document.createElement('p');
+                        resultBlock.appendChild(bubleResult);
+                        bubleResult.innerText = `Bubble sort elapsed time: ${bubleSortResult.elapsedTime}`;
+
+                        const insertResult = document.createElement('p');
+                        insertResult.innerText = `Insert sort elapsed time: ${insertSortResult.elapsedTime}`;
+                        resultBlock.appendChild(insertResult);
+                    </script>
+                    <style>
+                        .task__computing {
+                            color: rgb(27, 59, 155);
+                            padding-top: 50px;
+                            text-align: center;
+                            font-weight: 700;
+                        }
+                    </style>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

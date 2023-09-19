@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 22 - home task</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 14 - Домашнє завдання 1 - 9</h3>
+                <div class="task__condition">
+                    Задача 1. Визначити привітання у залежності від часу доби (Доброго дня, Доброго ранку, Доброго вечора).
+                    Задача 2. Вивести дату у форматі “місяць – рік – вихідний/робочий”.
+                    Задача 3. Визначити поточну пору року.
+                    Задача 4. Вивести назву дня.
+                    Задача 5. Користувач вводить дату народження. Визначити, скільки йому повних років.
+                    Задача 6. Користувач іде у відпустку на 56 днів. Визначити дату на момент його повернення.
+                    Задача 7. Користувач бере авто на вказану кількість годин. Визначити кінцевий час повернення.
+                    Задача 8. Задаємо користувачу задачу з додавання двох чисел. Визначити скільки секунд було використано для розв’язання задачі.
+                    Задача 9 . Дано дата виробництва йогурта (вводимо рік, місяць, день) та кількість днів придатності. Визначити чи є він придатним на даний момент.
+                    <br>
+                    <br>
+                    Task 1. Determine greetings depending on the time of day (Good afternoon, Good morning, Good evening).
+                    Task 2. Output the date in the format "month - year - holiday/working day".
+                    Task 3. Determine the current season.
+                    Task 4. Output the name of the day.
+                    Task 5. The user enters the date of birth. Determine how old he is.
+                    Task 6. The user goes on vacation for 56 days. Determine the date for his return.
+                    Task 7. The user takes the car for the specified number of hours. Determine the final return time.
+                    Task 8. We ask the user the problem of adding two numbers. Determine how many seconds were used to solve the problem.
+                    Task 9. Date of production of yogurt (enter year, month, day) and the number of expiration days are given. Determine whether it is suitable at the moment.
+                </div>
+                <div class="task__computing">
+                    <script>
+                        // Task 1 ------------------------------------------------------------------------
+                        // Задача 1. Визначити привітання у залежності від часу доби (Доброго дня, Доброго ранку, Доброго вечора).
+                        // Task 1. Determine greetings depending on the time of day (Good afternoon, Good morning, Good evening).
+
+                        function greeting () {
+                            let currentDay = new Date();
+                            const currentHour = currentDay.getHours();
+                            const taskComputing = document.querySelector('.task__computing');
+                            const taskContainer_1 = document.createElement('div');
+                            taskComputing.appendChild(taskContainer_1);
+
+                            if (currentHour > 6 && currentHour < 12) {
+                                taskContainer_1.innerText = 'Good morning!';
+                            } else if (currentHour >= 12 && currentHour < 18) {
+                                taskContainer_1.innerText = 'Good afternoon!';
+                            } else {
+                                taskContainer_1.innerText = 'Good evening!'
+                            };
+                        }
+
+                        greeting();
+
+                        // Task 2 ------------------------------------------------------------------------
+                        // Задача 2. Вивести дату у форматі “місяць – рік – вихідний/робочий”.
+                        // Task 2. Output the date in the format "month - year - holiday/working day".
+
+                        function dayOfTheWeek () {
+                            const taskComputing = document.querySelector('.task__computing');
+                            const taskContainer_2 = document.createElement('div');
+                            taskComputing.appendChild(taskContainer_2);
+
+                            const currentDate = new Date();
+                            const currentMonth = currentDate.getMonth();
+                            const currentYear = currentDate.getFullYear();
+                            const currentDayOfWeek = currentDate.getDay()
+                            let weekDay = '';
+                            if (currentDayOfWeek === 0 || currentDate === 6) {
+                                weekDay = 'weekend';
+                            } else {
+                                weekDay = 'workday';
+                            };
+
+                            taskContainer_2.innerText = `${currentMonth} - ${currentYear} - ${weekDay}`;
+                        }
+
+                        dayOfTheWeek();
+
+                        // Task 3 ------------------------------------------------------------------------
+                        // Задача 3. Визначити поточну пору року.
+                        // Task 3. Determine the current season.
+
+                        function currentSeason () {
+                            const taskComputing = document.querySelector('.task__computing');
+                            const taskContainer_3 = document.createElement('div');
+                            taskComputing.appendChild(taskContainer_3);
+
+                            let currentDate = new Date();
+                            let currentMonth = currentDate.getMonth() + 1;
+                            let season;
+
+                            switch (currentMonth) {
+                                case 1:
+                                case 2:
+                                case 12:
+                                    season = 'Winter';
+                                    break;
+                                case 3: 
+                                case 4: 
+                                case 5: 
+                                    season = 'Spring';
+                                    break
+                                case 6: 
+                                case 7:
+                                case 8: 
+                                    season = 'Summer';
+                                    break;
+                                case 9: 
+                                case 10: 
+                                case 11: 
+                                    season = 'Autumn'
+                                    break;
+                                default:
+                                    season = 'Invalid date.'
+                            }
+                            taskContainer_3.innerText = `Current season: ${season}`;
+                        }
+
+                        currentSeason();
+
+                        // Task 4 ------------------------------------------------------------------------
+                        // Задача 4. Вивести назву дня.
+                        // Task 4. Output the name of the day.
+
+                        function nameOfDay () {
+                            const taskComputing = document.querySelector('.task__computing');
+                            const taskContainer_4 = document.createElement('div');
+                            taskComputing.appendChild(taskContainer_4);
+
+                            const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+                            const currentDate = new Date();
+                            const dayNumber = currentDate.getDay();
+
+                            taskContainer_4.innerText = daysOfWeek[dayNumber];
+                        }
+
+                        nameOfDay();
+
+                        // Task 5 ------------------------------------------------------------------------
+                        // Задача 5. Користувач вводить дату народження. Визначити, скільки йому повних років.
+                        // Task 5. The user enters the date of birth. Determine how old he is.
+
+                        function renderInput () {
+                            const taskComputing = document.querySelector('.task__computing');
+                            const taskContainer_5 = document.createElement('div');
+                            taskContainer_5.className = 'task__container_5'
+                            taskComputing.appendChild(taskContainer_5);
+                            
+                            const label = document.createElement('label');
+                            label.setAttribute('for', 'birthdate');
+                            label.textContent = 'Enter date of your birth'
+                            taskContainer_5.appendChild(label);
+
+                            const input = document.createElement('input');
+                            input.type = 'date';
+                            input.id = 'birthdate';
+                            taskContainer_5.appendChild(input);
+
+                            const button = document.createElement('button');
+                            button.innerText = 'Check'
+                            taskContainer_5.appendChild(button);
+
+                            const ageResult = document.createElement('p');
+                            ageResult.className = 'age__result';
+                            taskContainer_5.append(ageResult);
+
+                            button.addEventListener('click', calculateYears);
+                        }
+
+                        function calculateYears() {
+                                const birthDateInput = document.getElementById('birthdate');
+                                const birthdate = new Date(birthDateInput.value);
+
+                                const currentDate = new Date();
+
+                                const differenceMilSecjnds = currentDate - birthdate;
+
+                                const ageMileSeconds = new Date(differenceMilSecjnds);
+                                const age = ageMileSeconds.getUTCFullYear() - 1970;
+
+                                const ageResult = document.querySelector('.age__result');
+                                ageResult.textContent = `Всього років: ${age}`;
+                            }
+
+                        renderInput();
+
+                        // Task 6  ------------------------------------------------------------------------
+                        // Задача 6. Користувач іде у відпустку на 56 днів. Визначити дату на момент його повернення.
+                        // Task 6. The user goes on vacation for 56 days. Determine the date for his return.
+
+                        function vacation (days) {
+                            const taskComputing = document.querySelector('.task__computing');
+                            const taskContainer_6 = document.createElement('div');
+                            taskComputing.appendChild(taskContainer_6);
+
+                            let currentDate = new Date();
+                            let dayWillBe = currentDate.setDate(days);
+                            let dateWillBe = new Date(dayWillBe)
+
+                            console.log(dateWillBe.toLocaleString());
+                            taskContainer_6.innerText = dateWillBe.toLocaleString();
+                            
+                            return dateWillBe;
+                        }
+
+                        vacation(56);
+
+                        // Task 7  ------------------------------------------------------------------------
+                        // Задача 7. Користувач бере авто на вказану кількість годин. Визначити кінцевий час повернення.
+                        // Task 7. The user takes the car for the specified number of hours. Determine the final return time.
+                        function carRent (hours) {
+                            const taskComputing = document.querySelector('.task__computing');
+                            const taskContainer_7 = document.createElement('div');
+                            taskComputing.appendChild(taskContainer_7);
+                            
+
+                            const currentDate = new Date();
+                            const addUserHours = currentDate.setHours(hours);
+                            const returnTime = new Date(addUserHours);
+                            taskContainer_7.innerText = returnTime.toLocaleString();
+                        }
+
+                        carRent(6);
+
+                        // Task 8  ------------------------------------------------------------------------
+                        // Задача 8. Задаємо користувачу задачу з додавання двох чисел. Визначити скільки секунд було використано для розв’язання задачі.
+                        // Task 8. We ask the user the problem of adding two numbers. Determine how many seconds were used to solve the problem.
+
+                        function addNumbers (min, max) {
+                            const taskComputing = document.querySelector('.task__computing');
+                            const taskContainer_8 = document.createElement('div');
+                            taskContainer_8.className = 'task__container_8'
+                            taskComputing.appendChild(taskContainer_8);
+
+                            let taskMessage = 'How much will be sum of: '
+                            let result = 0;
+                            for (let i = 0; i < 2; i++) {
+                                let random = min + Math.floor(Math.random() * (max - min + 1));
+                                taskMessage = taskMessage + `${random} `; 
+                                result += random;
+                            }
+
+                            const label = document.createElement('label');
+                            label.setAttribute('for', 'input_id');
+                            label.innerText = taskMessage;
+                            taskContainer_8.appendChild(label);
+                            const input = document.createElement('input');
+                            input.type = 'text';
+                            input.id = 'input_id';
+                            taskContainer_8.appendChild(input);
+                            const button = document.createElement('button');
+                            taskContainer_8.appendChild(button);
+                            button.innerText = 'check';
+
+                            const resultInfo = document.createElement('p');
+                            taskContainer_8.appendChild(resultInfo);
+
+                            let timeStart = new Date();
+
+
+                            button.addEventListener('click', () => {
+                                let userValue = parseInt(input.value);
+                                let timeEnd = new Date();
+                                let resultTime = timeEnd - timeStart;
+                                let timeSpend = new Date(resultTime).getSeconds();
+                                if (userValue === result) {
+                                    resultInfo.innerText = `Your answer is correct. Time spended for an answer: ${timeSpend} seconds.`
+                                } else {
+                                    resultInfo.innerText = `Wrong answer. Corret answer = ${result}. Time spended for an answer: ${timeSpend} seconds.`
+                                }
+                            })
+                        }
+
+                        addNumbers(1, 999);
+
+                        // Task 9 ------------------------------------------------------------------------
+                        // Задача 9 . Дано дата виробництва йогурта (вводимо рік, місяць, день) та кількість днів придатності. 
+                        // Визначити чи є він придатним на даний момент.
+                        // Date of production of yogurt (enter year, month, day) and the number of expiration days are given. Determine whether it is suitable at the moment.
+
+                        function expiryDateOfProduct (days) {
+                            const taskComputing = document.querySelector('.task__computing');
+                            const taskContainer_9 = document.createElement('div');
+                            taskContainer_9.className = 'task__container_9'
+                            taskComputing.appendChild(taskContainer_9);
+
+                            const label = document.createElement('label');
+                            label.setAttribute('for', 'production_date_id');
+                            label.innerText = 'Please enter date of production: ';
+                            taskContainer_9.appendChild(label);
+
+                            const input = document.createElement('input');
+                            input.type = 'date';
+                            input.id = 'production_date_id';
+                            taskContainer_9.appendChild(input);
+
+                            const label_2 = document.createElement('label');
+                            label_2.innerText = 'Enter a number of keeping days: ';
+                            label_2.setAttribute('for', 'production_date_id')
+                            taskContainer_9.appendChild(label_2);
+
+                            const input_2 = document.createElement('input');
+                            input_2.type = 'text';
+                            input_2.id = 'keeping_days_id';
+                            taskContainer_9.appendChild(input_2);
+
+                            const button = document.createElement('button');
+                            button.innerText = 'Check';
+                            taskContainer_9.appendChild(button);
+
+                            const result = document.createElement('p');
+                            taskContainer_9.appendChild(result);
+
+                            button.addEventListener('click', () => {
+                                const productionDate = new Date(input.value);
+                                const keepingDays = parseInt(input_2.value);
+
+                                const inDays = 1000 * 60 * 60 * 24
+
+                                const finishTermOfKeeping = new Date(productionDate.getTime() + keepingDays * inDays);
+                                const currentDate = new Date();
+                                
+                                if (finishTermOfKeeping > currentDate) {
+                                    const stayDays = Math.floor(new Date(finishTermOfKeeping - currentDate) / inDays);
+                                    result.innerText = `Date stamp (expiry date): ${finishTermOfKeeping.toLocaleDateString()}. Rest days: ${stayDays} `
+                                } else {
+                                    const daysLeft = Math.floor(new Date(currentDate - finishTermOfKeeping) / inDays);
+                                    result.innerText = `Expiry date left ${daysLeft} days ago. `
+                                }   
+                            })
+                        }
+
+                        expiryDateOfProduct();
+
+                        // Task 10  ------------------------------------------------------------------------
+                        // Задача 10. Сформувати масив з 1000 елементів від 1 до 800. Порівняти час сортування бульбашкою і  вставкою.
+                        // Task 10. Form an array of 1000 elements from 1 to 800. Compare the time of sorting by bubble and insertion.
+
+
+
+                    </script>
+                    <style>
+
+                        .task__condition {
+                            font-size: 12px;
+                        }
+
+                        .task__computing {
+                            margin-top: 50px;
+                            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+                            font-size: 14px;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+                            gap: 20px;
+                    }
+
+                    .task__computing div {
+                        width: 600px;
+                        min-height: 30px;
+                        border: 1px solid #777;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        padding: 10px;
+                        border-radius: 2px;
+                        background-color: rgb(237, 227, 227);
+
+                    }
+
+                    .task__container_5{
+                        display: flex;
+                        gap: 20px;
+                    }
+
+                    .task__container_8 {
+                        display: flex;
+                        gap: 20px;
+                    }
+
+                    .task__container_9 {
+                        display: flex;
+                        gap: 20px
+                        ;
+                    }
+                    </style>
+                        .
+                    </style>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
