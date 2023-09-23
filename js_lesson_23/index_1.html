@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 23 - home task</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 23 - Домашнє завдання 1 - 15 <mark>(Результати виведені в консоль.)</mark></h3>
+                <div class="task__condition">
+                    Усі задачі можете оформити у одному файлі (так, як ми робимо на лекції)
+                        Задача 1. Дано масив рядків. Вивести ті, у яких є цифри (використати метод test та регулярні вирази).
+                        Task 1. An array of lines is given. Output those that have numbers (use the test method and regular expressions).
+                        Задача 2. Дано масив рядків. Вивести ті, у яких немає цифр.
+                        Task 2. An array of lines is given. Display those that have no numbers.
+                        Задача 3. Дано масив рядків. Вивести ті, у яких є голосні літери.
+                        Task 3. Given an array of lines. Output those that have vowels.
+                        Задача 4. Дано масив рядків. Вивести ті, у яких немає голосних літер.
+                        Task 4. An array of lines is given. Display those that do not have vowels.
+                        Задача 5. Дано масив рядків. Вивести ті, у яких є або цифра 1 або цифра 3.
+                        Task 5. Given an array of lines. Display those that have either the number 1 or the number 3.
+                        Задача 6. Дано рядок тексту, вивести усі числа, які є у тексті.
+                        Task 6. Given a line of text, output all the numbers that are in the text.
+                        Задача 7. Дано рядок тексту. Знайти усі знаки пунктуації, які були використано.
+                        Task 7. A line of text is given. Find all punctuation marks that have been used.
+                        Задача 8. Дано рядок тексту. Вивести усі складові, які розділені розділовими знаками.
+                        Task 8. A line of text is given. Display all components that are separated by punctuation marks.
+                        Задача 9. Дано рядок тексту. Перевірити, чи містить він дату у форматі dd.mm.yyyy (dd- день, mm- місяць, yyyy- рік).
+                        Task 9. A line of text is given. Check whether it contains a date in the format dd.mm.yyyy (dd- day, mm- month, yyyy- year).
+                        Задача 10. Дано рядок тексту. Підрахувати кількість двоцифрових чисел у рядку.
+                        Task 10. A line of text is given. Count the number of two-digit numbers in a row.
+                        Задача 11. Визначити чи може бути рядок тексту номером банківської картки (приклад: «4142-3433-2323-3434»). Знайти усі такі номери.
+                        Task 11. Determine whether a line of text can be a bank card number (example: "4142-3433-2323-3434"). Find all such numbers.
+                        Задача 12. Дано адресу сайту. Визначити, чи є він урядовим (містить домен “gov”)
+                        Task 12. The website address is given. Determine if it is governmental (contains the domain “gov”).
+                        Задача 13. Вибрати усі роки після 2021 року з отриманого повідомлення
+                        Task 13. Select all years after 2021 from the received message.
+                        Задача 14. Дано номер телефону. Перевірити, чи є цей телефон телефоном з України (починаєтсья на «+38»)
+                        Task 14.  A phone number is given. Check whether this phone is a phone from Ukraine (begins with "+38").
+                        Задача 15. Користувач вводить прізвище та ім’я в одному рядку через пробіл.  Замінити пробіл на дефіс.
+                        Task 15. The user enters the last name and first name in one line separated by a space. Replace a space with a hyphen.
+                        Задача 16. Користувач вводить дату у форматі «день.місяць.рік». Отримати рядкове представлення дати у форматі «день/місяць/рік».
+                        Task 16. The user enters a date in the "day.month.year" format. Get a string representation of a date in "day/month/year" format.
+                        Задача 17. Користувач вводить день (номер дня (0-6) або «sun,mon,tue,wed,thu,fri,sat»). Визначити, чи  є це день вихідним.
+                        Task 17. The user enters the day (day number (0-6) or "sun,mon,tue,wed,thu,fri,sat"). Determine whether it is a holiday.
+
+                </div>
+                <div class="task__computing">
+                    <script>
+
+                        function showResult (result) {
+                            const taskComputing = document.querySelector('.task__computing');
+                            const resultDiv = document.createElement('div');
+                            taskComputing.appendChild(resultDiv);
+                            resultDiv.innerText = result
+                        }
+
+                        let arrayOfNames = ['Mykola', 'Antonio', 'Angelina', 'Jesica', 'Sara', 'Bob', 'Maya', 'Evangelina', 'Eva', 'Marta', 'Antonina', 'Laura', 'Anton', 'Myroslava'];
+                        let arrayOfNickNames = ['quadro','Artemon89', 'Galapagos19', 'Margenshtein', 'Magamet777', 'Onyx80', 'Tantrum', '', 'Kiska54', 'a80zoneX', 'aZone','747boing', '89uiop', '234jdksppw', 'Kudik', 'user567', 'yumi78yumi', '127_90', 'uhu_el', '6789_baget_16'];
+                        let arrayOfDifValues = ['12', 'gtgy5', 'gyyg56', '23yhyu', '90jkkoh', '567', '590rt', '355', 'typo', '123ot', 'fff34', 'gyt56', '967', 'miro'];
+                        let marsString = "Mars, the fourth planet from the Sun, has been a subject of intense fascination for scientists, astronomers, and space enthusiasts alike! Its distinctive red appearance—reminiscent of a glowing ember—captivates the imagination. Mars boasts a rugged, cratered surface, polar ice caps, and a thin atmosphere, laden with carbon dioxide. Recent missions, like NASA's Perseverance rover, have ventured to Mars, unraveling its mysteries. These missions aim - to search for signs of ancient life, collect rock samples, and pave the way for future human exploration! Mars, with its enigmatic allure, beckons us to explore its secrets!"
+                        let marsStringWithDates = `
+                                Mars, the fourth planet from the Sun, has been a subject of intense fascination for scientists, astronomers, and space enthusiasts alike! Its distinctive red appearance—reminiscent of a glowing ember—captivates the imagination. Mars boasts a rugged, cratered surface, polar ice caps, and a thin atmosphere, laden with carbon dioxide.
+                                    Important Dates in Mars Exploration:
+                                    - 1960s: The Mariner missions provided the first close-up images of Mars.
+                                    - 1976: NASA's Viking 1 and Viking 2 landers successfully touched down on Mars.
+                                    - 1997: The Sojourner rover explored the Martian surface as part of NASA's Pathfinder mission.
+                                    - 2004: The twin rovers, Spirit and Opportunity, began their missions, lasting for many years.
+                                    - 2012: NASA's Curiosity rover, the size of a car, arrived on Mars to investigate its geology and climate.
+                                    - 2021: NASA's Perseverance rover, along with the Ingenuity helicopter, landed on Mars, continuing the search for signs of ancient life and preparing for future human missions.
+                                Recent missions, like NASA's Perseverance rover, have ventured to Mars, unraveling its mysteries. These missions aim to search for signs of ancient life, collect rock samples, and pave the way for future human exploration! Mars, with its enigmatic allure, beckons us to explore its secrets!
+                                `;
+
+                                let venusString = `
+                                The Venera program was a series of Soviet space missions to Venus.
+                                    - Venera 7 successfully landed on Venus on 15.12.1970, becoming the first spacecraft to transmit data from the surface.
+                                    - Venera 9, on 08.06.1975, provided the first images from the surface of Venus.
+                                    - Venera 13 and Venera 14, on 01.03.1982, conducted detailed studies of the Venusian surface and atmosphere.
+                                    - The Venera program concluded in the late 1980s after multiple successful missions.
+                                `;
+
+                        let onlyNumbers = [23, 145, 531, 12, 980, 1, 75, 1024, 67, 908, 1754, 48, 1600, 3, 99, 754, 9, 65, 7, 1894, 77, 3405, 5, 69, 150, 6, 373, 34, 505, 99, 88];
+
+                        let cards = [
+                                    '4929-1234-5678-9012',
+                                    '601-2345-0-789-0123', 
+                                    '5555-1234-5678-4321',
+                                    '4111-1111-1111-1111',
+                                    '3782-8224-6310-005',
+                                    '6011-2345-6789-0123',
+                                    '981-1-2345-6789-0123',
+                                    '0117 2 345 6789 0123',
+                                    '60112345 67890123',
+                                    '6011-2345-6789-0123',
+                                ]
+
+                        let websiteAddresses = [
+                                    'example.com',
+                                    'randomsite.org',
+                                    'mywebsite.net',
+                                    'testpage.io',
+                                    'webdemo.com',
+                                    'techblog.net',
+                                    'designer.co',
+                                    'codinginfo.org',
+                                    'marketingbuzz.biz',
+                                    'digitalagency.us',
+                                    'engstudy.gov'
+                        ];
+
+                        // let years = ['12.07.2012', '03.02.1999', '15.12.1990', '24.03.2001', '17.07.2017', '12.05.1998', '23.02.2022', '11.12.2002', '19.04.2020', '10.09.2022', '06.07.2019', '14.07.2021'];
+
+                        // Group arrays 
+                        let bilibirda = arrayOfNames.concat(arrayOfNickNames).concat(arrayOfDifValues);
+                        let bilibirda2 = arrayOfNames.concat(arrayOfNickNames, arrayOfDifValues);
+                        let bilibirda3 = [...arrayOfNames, ...arrayOfNickNames, ...arrayOfDifValues];
+
+                        // --------------------------------------------------------------------------------------------------------------------
+                        // Task 1
+                        // Задача 1. Дано масив рядків. Вивести ті, у яких є цифри (використати метод test та регулярні вирази).
+                        // Task 1. An array of lines is given. Output those that have numbers (use the test method and regular expressions).
+                        console.log(bilibirda);
+                        let shallowCopyBilibirda = [...bilibirda].join(' ');
+                        console.log(shallowCopyBilibirda);
+
+                        let onlyDigits = shallowCopyBilibirda.match(/\d+/g); // only numbers
+                        console.log(onlyDigits);
+                        let wordWithDigits = shallowCopyBilibirda.match(/\w*\d+\w*/gi); // words with numbers
+                        console.log(wordWithDigits);
+
+                        // --------------------------------------------------------------------------------------------------------------------
+                        //Task 2
+                        // Задача 2. Дано масив рядків. Вивести ті, у яких немає цифр.
+                        //An array of lines is given. Display those that have no numbers.
+                        let shallowCoppyBilibirda_2 = [...bilibirda].join(' ');
+                        console.log(shallowCoppyBilibirda_2);
+
+                        let onlyWords = shallowCoppyBilibirda_2.match(/\D+/gi); // all words without numbers (for practice)
+                        console.log(onlyWords);
+
+                        let onlyWords_2 = shallowCoppyBilibirda_2.match(/\b[a-zA-Z]+\b/gi); // only words which do not include numbers
+                        console.log(onlyWords_2);
+
+                        let onlyWords_3 = shallowCoppyBilibirda_2.match(/\b[^0-9\s]+\b/gi); //  only words which do not include numbers
+                        console.log(onlyWords_3);
+
+                        // --------------------------------------------------------------------------------------------------------------------
+                        //Task 3.
+                        //Задача 3. Дано масив рядків. Вивести ті, у яких є голосні літери.
+                        //Task 3. Given an array of lines. Output those that have vowels.
+
+                        let shallowCoppyBilibirda_3 = Array.from(bilibirda).join(' ');
+
+                        let regExp_1 = new RegExp(/\b\w*[AEIOUY]\w*\b/gi);
+                        let wordswWithWolves = shallowCoppyBilibirda_3.match(regExp_1);
+                        console.log(wordswWithWolves);
+
+                        // --------------------------------------------------------------------------------------------------------------------
+                        // Task 4.
+                        // Задача 4. Дано масив рядків. Вивести ті, у яких немає голосних літер.
+                        // Task 4. An array of lines is given. Display those that do not have vowels.
+                        let shallowCoppyBilibirda_4 = bilibirda.slice().join(' ');
+                        let wordsWithoutWolves = shallowCoppyBilibirda_4.match(/\b[^aeiouy\s]+\b/gi);
+                        console.log(wordsWithoutWolves);
+
+                        // --------------------------------------------------------------------------------------------------------------------
+                        // Task 5.
+                        // Задача 5. Дано масив рядків. Вивести ті, у яких є або цифра 1 або цифра 3.
+                        // Task 5. Given an array of lines. Display those that have either the number 1 or the number 3.
+                        let shallowCoppyBilibirda_5 = Array.from(bilibirda).join(' ');
+                        let findWordWithNumbers = shallowCoppyBilibirda_5.match(/\b\w*[13]\w*\b/gi);
+                        console.log(findWordWithNumbers);
+
+                        // --------------------------------------------------------------------------------------------------------------------
+                        // Task 6 
+                        // Задача 6. Дано рядок тексту, вивести усі числа, які є у тексті.
+                        // Task 6. Given a line of text, output all the numbers that are in the text.
+
+                        let shallowCoppyBilibirda_6 = [...bilibirda].join(' ');
+                        let allNumbers = shallowCoppyBilibirda_6.match(/[^a-z]\d+/gi);
+                        console.log(allNumbers);
+
+                        // --------------------------------------------------------------------------------------------------------------------
+                        // Task 7
+                        // Задача 7. Дано рядок тексту. Знайти усі знаки пунктуації, які були використано.
+                        // A line of text is given. Find all punctuation marks that have been used.
+                        let shallowCoppyBilibirda_7 = marsString.slice();
+                        let allPunctuationMarks = shallowCoppyBilibirda_7.match(/[.,\-!?:_]\s+/g);
+                        console.log(allPunctuationMarks);
+
+                        // --------------------------------------------------------------------------------------------------------------------
+                        // Task 8.
+                        // Задача 8. Дано рядок тексту. Вивести усі складові, які розділені розділовими знаками.
+                        // Task 8. A line of text is given. Display all components that are separated by punctuation marks.
+
+                        let components = marsString.split(/[.,!?:_]+/);
+                        components = components.map(element => {
+                            return element.trim();
+                        });
+                        components.forEach(element => {
+                            console.log(element);
+                        });
+
+                        // --------------------------------------------------------------------------------------------------------------------
+                        // Task 9. 
+                        // Задача 9. Дано рядок тексту. Перевірити, чи містить він дату у форматі dd.mm.yyyy (dd- день, mm- місяць, yyyy- рік).
+                        // Task 9. A line of text is given. Check whether it contains a date in the format dd.mm.yyyy (dd- day, mm- month, yyyy- year).
+
+                        let shallowCoppyBilibirda_9 = marsStringWithDates.slice();
+                        let yearRegExp_1 = /\d{4}/
+                        let dateContains_1 = yearRegExp_1.test(shallowCoppyBilibirda_9);
+                        console.log(dateContains_1);
+
+                        let yearRegExp_2 = /\d{2}.\d{2}.\d{4}/;
+                        let dateContains_2 = yearRegExp_2.test(shallowCoppyBilibirda_9)
+                        console.log(dateContains_2);
+
+                        let dateContains_3 = yearRegExp_2.test(venusString)
+                        console.log(dateContains_3);
+
+                        let shallowCoppyBilibirda_9_1 = [...venusString].join('');
+
+                        function checkDatesInStrind(strinForChecking) {
+                            yearsRegExpTwoTypes = /\d{4}|\d{2}.\d{2}.\d{4}/g;
+                            let allDatesInString = [], valueOfExec;
+                            while((valueOfExec = yearsRegExpTwoTypes.exec(strinForChecking)) !== null) {
+                                allDatesInString.push(valueOfExec[0]);
+                        };
+                            console.log(allDatesInString);
+                        }
+
+                        checkDatesInStrind(shallowCoppyBilibirda_9);
+                        checkDatesInStrind(shallowCoppyBilibirda_9_1);
+                        let concatTwoStrings = shallowCoppyBilibirda_9.concat(shallowCoppyBilibirda_9_1);
+                        checkDatesInStrind(concatTwoStrings);
+
+                        // --------------------------------------------------------------------------------------------------------------------
+                        // Task 10.   
+                        // Задача 10. Дано рядок тексту. Підрахувати кількість двоцифрових чисел у рядку.
+                        // Task 10. A line of text is given. Count the number of two-digit numbers in a row.
+                        
+                        function countNumbers ( arrOfNumbers) {
+                            let shallowCoppyBilibirda_10 = arrOfNumbers.slice().join(' ');
+                            let findNumber, allTwoNumbers = [], counter = 0;
+                            let regExpTwoNumber = /\b\d{2}\b/g;
+                            while((findNumber = regExpTwoNumber.exec(shallowCoppyBilibirda_10)) !== null) {
+                                allTwoNumbers.push(findNumber[0]);
+                                counter++;
+                            }
+                            return {counter, allTwoNumbers};
+                        }
+                        
+                        console.log(countNumbers(onlyNumbers));
+
+                        // --------------------------------------------------------------------------------------------------------------------
+                        // Task 11.   
+                        // Задача 11. Визначити чи може бути рядок тексту номером банківської картки (приклад: «4142-3433-2323-3434»). Знайти усі такі номери.
+                        // Task 11. Determine whether a line of text can be a bank card number (example: "4142-3433-2323-3434"). Find all such numbers.
+                        function findCardsNumbers (cards) {
+                            let copyCards = [...cards].join(' ');
+                            let findCardsNumbers = copyCards.match(/\b\d{4}-\d{4}-\d{4}-\d{4}\b/g);
+                            return findCardsNumbers;
+                            // return findCardsNumbers || false // check
+                        }
+
+                        console.log(findCardsNumbers(cards));
+
+                        // --------------------------------------------------------------------------------------------------------------------
+                        // Task 12. 
+                        // Задача 12. Дано адресу сайту. Визначити, чи є він урядовим (містить домен “gov”).
+                        // Task 12. The website address is given. Determine if it is governmental (contains the domain “gov”).
+                        
+                        function findGovSites (websites) {
+                            let copyWebsites = Array.from(websites);
+                            let resultOfSearch = copyWebsites.map((site) => {
+                                return site.includes('gov');
+                            })
+                            return resultOfSearch;
+                        }
+
+                        function findGovSites_2 (websites) {
+                            let copyWebsites = [...websites];
+                            let regExpFindGov = /\bgov\b/i;
+                            resultOfSearch = copyWebsites.filter(site => regExpFindGov.test(site));
+                            return resultOfSearch.length > 0 ? resultOfSearch : false;
+                        }
+
+                        function findGovSites_3 (websites) {
+                            let copyWebsites = websites.slice();
+                            let resultOfSearch = [], regExp = /\bgov\b/
+                            for  (let site of websites) {
+                                if (regExp.test(site)){
+                                    resultOfSearch.push(site);
+                                }
+                            }
+                            return resultOfSearch.length > 0 ? resultOfSearch : false;
+                        }
+
+                        console.log(findGovSites(websiteAddresses));
+                        console.log(findGovSites_2(websiteAddresses));
+                        console.log(findGovSites_3(websiteAddresses));
+
+                        // --------------------------------------------------------------------------------------------------------------------
+                        // Task 13. 
+                        // Задача 13. Вибрати усі роки після 2021 року з отриманого повідомлення.
+                        // Task 13. Select all years after 2021 from the received message.
+                        let years = ['12.07.2012', '03.02.1999', '15.12.1990', '24.03.2001', '17.07.2017', '12.05.1998', '23.02.2022', '11.12.2002', '19.04.2020', '10.09.2022', '06.07.2019', '14.07.2021'];
+
+                        function findNewDate (message) {
+                            let copyYearsArray = message.slice().join(' ');
+                            let resultOfSearch, regExp = /(\d{2}\.\d{2}\.20[2-9][1-9])/g;
+                            resultOfSearch = copyYearsArray.match(regExp);
+                            return resultOfSearch
+                        }
+
+                        console.log(findNewDate(years));
+
+                        // --------------------------------------------------------------------------------------------------------------------
+                        // Task 14. 
+                        // Задача 14. Дано номер телефону. Перевірити, чи є цей телефон телефоном з України (починаєтсья на «+38»).
+                        // Task 14.  A phone number is given. Check whether this phone is a phone from Ukraine (begins with "+38").
+                        const phoneNumbers = [
+                            '+34 91 123 45 67',
+                            '+33 1 23 45 67 89',
+                            '+49 30 12345678',
+                            '+44 20 7123 4567',
+                            '+39 02 3456 7890',
+                            '+31 20 123 4567',
+                            '+38 099 747 54 32',
+                            '+46 8 123 45 67',
+                            '+30 210 123 4567',
+                            '+48 22 123 45 67',
+                            '+38 067 534 37 12',
+                            '+351 21 234 5678'
+                            ];
+
+                            function findUkrNumber (phoneNumbers) {
+                                let copyArrayOfPhoneNumbers = Array.from(phoneNumbers).join(' ');
+                                let resultArray = copyArrayOfPhoneNumbers.match(/\+38\s*(.{13})/g);
+                                return resultArray;
+                            }
+
+                            console.log(findUkrNumber(phoneNumbers));
+
+                        // --------------------------------------------------------------------------------------------------------------------
+                        // Task 15.
+                        // Задача 15. Користувач вводить прізвище та ім’я в одному рядку через пробіл.  Замінити пробіл на дефіс.
+                        // Task 15. The user enters the last name and first name in one line separated by a space. Replace a space with a hyphen.
+
+                        function renderTask_15() {
+                            const taskComputing = document.querySelector('.task__computing');
+                            const taskContainer_15 = document.createElement('div');
+                            taskContainer_15.className = 'task__container_15'
+                            taskComputing.appendChild(taskContainer_15);
+                            const label = document.createElement('label');
+                            label.setAttribute('for', 'user__name_id');
+                            label.innerText = 'Enter your full name';
+                            taskContainer_15.appendChild(label);
+                            const useNameInput = document.createElement('input');
+                            useNameInput.type = 'text';
+                            useNameInput.placeholder = 'John Doe';
+                            useNameInput.id = 'user__name_id';
+                            taskContainer_15.appendChild(useNameInput);
+                            const button = document.createElement('button');
+                            button.innerText = 'Save';
+                            taskContainer_15.appendChild(button);
+                            let userName = '';
+                            button.addEventListener('click', () => {
+                                userName = useNameInput.value.replace(/\s+/, '-');;
+                                console.log(userName);
+                            })
+                            return userName;
+                        }
+                    
+                        renderTask_15() 
+
+                        // --------------------------------------------------------------------------------------------------------------------
+                        // Task 16.
+                        // Задача 16. Користувач вводить дату у форматі «день.місяць.рік». Отримати рядкове представлення дати у форматі «день/місяць/рік». 
+                        // Task 16. The user enters a date in the "day.month.year" format. Get a string representation of a date in "day/month/year" format.
+                            
+                        function renderTask_16 () {
+                            const taskComputing = document.querySelector('.task__computing');
+                            const taskContainer_16 = document.createElement('div');
+                            taskContainer_16.className = 'task__container_16'
+                            taskComputing.appendChild(taskContainer_16);
+                            const label = document.createElement('label');
+                            label.setAttribute('for', 'user__name_id');
+                            label.innerText = 'Enter date';
+                            taskContainer_16.appendChild(label);
+                            const userDateInput = document.createElement('input');
+                            userDateInput.type = 'date';
+                            userDateInput.id = 'user__date_id';
+                            taskContainer_16.appendChild(userDateInput);
+                            const button = document.createElement('button');
+                            button.innerText = 'Save';
+                            taskContainer_16.appendChild(button);
+                            let userDate;
+                            button.addEventListener('click', () => {
+                                userDate = userDateInput.value.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3/$2/$1');
+                                console.log(userDate);
+                            });
+                            return userDate;
+                        }
+                            
+                            renderTask_16();
+
+                        // --------------------------------------------------------------------------------------------------------------------
+                        // Task 17.
+                        // Задача 17. Користувач вводить день (номер дня (0-6) або «sun,mon,tue,wed,thu,fri,sat»). Визначити, чи  є це день вихідним.
+                        // Task 17. The user enters the day (day number (0-6) or "sun,mon,tue,wed,thu,fri,sat"). Determine whether it is a holiday.
+
+                        function dayType () {
+                            const taskComputing = document.querySelector('.task__computing');
+                            const taskContainer_17 = document.createElement('div');
+                            taskContainer_17.className = 'task__container_17'
+                            taskComputing.appendChild(taskContainer_17);
+                            const label = document.createElement('label');
+                            label.setAttribute('for', 'user__day_id');
+                            label.innerText = 'Enter day';
+                            taskContainer_17.appendChild(label);
+                            const userDayInput = document.createElement('input');
+                            userDayInput.type = 'text';
+                            userDayInput.placeholder = '(0-6) or sun,mon,tue,wed,thu,fri,sat';
+                            userDayInput.id = 'user__date_id';
+                            taskContainer_17.appendChild(userDayInput);
+                            const button = document.createElement('button');
+                            button.innerText = 'Save';
+                            taskContainer_17.appendChild(button);
+
+                            regExpNumDays = /^[0-6]$/;
+                            regExpDaysName = /^(sun|mon|tue|wed|thu|fri|sat)$/i;
+                            let userDay = '', result = '';
+                            button.addEventListener('click', () => {
+                                userDay = userDayInput.value;
+                                if (regExpNumDays.test(userDay)){
+                                    if (parseInt(userDay)  === 0 || parseInt(userDay) === 6) {
+                                        result = 'weekend';
+                                    } else {
+                                        result = 'workday';
+                                    }
+                                } else if (regExpDaysName.test(userDay)) {
+                                    if (userDay.toLowerCase() === 'sat' || userDay.toLowerCase() === 'sun') {
+                                        result = 'weekend';
+                                    } else {
+                                        result = 'workday';
+                                    }
+                                } else {
+                                    result = 'Invalid day!';
+                                }
+                                console.log(result);
+                            });                
+                            return userDay;
+                        }
+                        dayType();
+                    </script>
+                    <style>
+                        .task__computing {
+                            margin-top: 50px;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 50px;
+                            width: 400px;
+                            margin: 0 auto;
+                            margin-top: 50px;
+                        }
+
+                        [class*='task__container_'] {
+                            display: flex;
+                            justify-content: flex-end;
+                            align-items: center;
+                            gap: 20px;
+                        }
+                        
+                        .task__container_17 input{
+                            width: 210px;
+                        } 
+                    </style>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
