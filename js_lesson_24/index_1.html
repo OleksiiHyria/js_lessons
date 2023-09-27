@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 24 - home task</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 24 - Домашнє завдання 1 - 6 <mark>(Результати виведені в консоль.)</mark></h3>
+                <div class="task__condition">
+                    Задача 1. Дано список з віком учнів. Підрахувати скільки разів кожне значення зустрічається у списку і максимальне.
+                    Задача 2. Дано масив книг (назва, рік видання, автор). Підрахувати кількість книг для кожного автора.
+                    Задача 3. Дано інформацію про відвідувачів деякого сайту (для кожного відвідувача зберігається логін). Підрахувати для кожного клієнта кількість відвідувань.
+                    Задача 4. Дано масив студентів (піб, курс, факультет). Підрахувати кількість різних факультетів, та кількість студентів кожного з курсів. 
+                    Задача 5. Дано масив показів температур. Підрахувати кількість входжень кожного із показів. Заокруглити вверх значення та підрахувати кількість різних показів.
+                    Задача 6. Дано два списки прізвищ студентів, що відвідують гуртки з математики і історії. Підрахувати скільки студентів з гуртка з історії також відвідують гурток з математики. Також підрахувати скільки всього студентів відвідують хоча б один гурток.
+                    Задача 7. Користувач може змінювати колір фону, що вибирає користувач з використанням.
+                    <!-- <input type="color">. -->
+                    Зберігати цей колір і відновлювати при наступному відкритті. Також зберігати і відображати кількість змін протягом одного сеансу.
+
+                </div>
+                <div class="task__computing">
+                    <script>
+                    // --------------------------------------------------------------------------------------------------------------------
+                    // Задача 1. Дано список з віком учнів. Підрахувати скільки разів кожне значення зустрічається у списку і максимальне.
+                    // Task 1: Task 1. A list with the ages of students is given. Count how many times each value occurs in the list and the maximum.
+                    let ages = [12, 13, 15, 12, 15, 12, 13, 12, 12, 15, 14];
+
+                    let studentAgesMap_1 = new Map();
+                        
+                    for (const age of ages) {
+                        let studenAge = studentAgesMap_1.get(age) ?? 0;
+                        studentAgesMap_1.set(age, studenAge + 1);
+                    }
+
+                    console.log(studentAgesMap_1);
+                    
+                    let studentAgesMap_2 = new Map();
+
+                    for (const age of ages) {
+                        studentAgesMap_2.set(age,(studentAgesMap_2.get(age) ?? 0) + 1);
+                    }
+
+                    console.log(studentAgesMap_2);
+
+                    // --------------------------------------------------------------------------------------------------------------------
+                    // Task 2. Given an array of books (title, year of publication, author). Count the number of books for each author.
+                    // Задача 2.  Дано масив книг (назва, рік видання, автор). Підрахувати кількість книг для кожного автора.
+
+                    let books = [
+                            { id: 1, title: 'Title1', author: 'Author1' },
+                            { id: 2, title: 'Title2', author: 'Author2' },
+                            { id: 3, title: 'Title3', author: 'Author3' },
+                            { id: 4, title: 'Title4', author: 'Author2' },
+                            { id: 5, title: 'Title5', author: 'Author1' },
+                            { id: 6, title: 'Title6', author: 'Author2' },
+                            { id: 7, title: 'Title7', author: 'Author1' },
+                            { id: 8, title: 'Title8', author: 'Author3' },
+                            { id: 9, title: 'Title9', author: 'Author1' },
+                            { id: 10, title: 'Title10', author: 'Author2' },
+                            { id: 11, title: 'Title11', author: 'Author1' },
+                            { id: 12, title: 'Title12', author: 'Author1' },
+                        ];
+
+                    let authorsBooks = new Map();
+
+                    for (const book of books) {
+                        authorsBooks.set(book.author, (authorsBooks.get(book.author) ?? 0) + 1);
+                    }
+                    console.log(authorsBooks);
+
+                    // --------------------------------------------------------------------------------------------------------------------
+                    // Задача 3. Дано інформацію про відвідувачів деякого сайту (для кожного відвідувача зберігається логін). Підрахувати для кожного клієнта кількість відвідувань.
+                    // Task 3. Information about visitors to a certain site is given (a login is stored for each visitor). Count the number of visits for each client.
+
+                    let visitors = [
+                        {id: 1, login: 'Kartoplya'},
+                        {id: 2, login: 'Pancho89'},
+                        {id: 1, login: 'Kartoplya'},
+                        {id: 3, login: 'Magamet11'},
+                        {id: 1, login: 'Kartoplya'},
+                        {id: 3, login: 'Magamet11'},
+                        {id: 2, login: 'Pancho89'},
+                        {id: 1, login: 'Kartoplya'},
+                        {id: 4, login: 'OlgaOlga'},
+                        {id: 5, login: 'Kateryna'},
+                        {id: 3, login: 'Magamet11'},
+                        {id: 5, login: 'Kateryna'},
+                        {id: 6, login: 'Mashka13'},
+                    ];
+
+                    function usersLogin(visitors) {
+                        let uniqUsers = new Map();
+
+                        visitors.forEach( visitor => {
+                            uniqUsers.set(visitor.login, (uniqUsers.get(visitor.login) ?? 0) + 1);
+                        });
+
+                        console.log(uniqUsers);
+                        return uniqUsers;
+                    };
+                    
+                    usersLogin(visitors);
+
+                    // --------------------------------------------------------------------------------------------------------------------
+                    // Задача 4. Дано масив студентів (піб, курс, факультет). Підрахувати кількість різних факультетів, та кількість студентів кожного з курсів. 
+                    // Task 4.  Given an array of students (pub, course, faculty). Count the number of different faculties and the number of students in each course.
+
+                    let studentsArr = [
+                    {fullName: 'Ivanov Ivan', course: 1, faсulty: 'law'},
+                    {fullName: 'Babikova Lesya', course: 2, faсulty: 'machine_learning'},
+                    {fullName: 'Banderas Stepan', course: 3, faсulty: 'computer_science'},
+                    {fullName: 'Ilyash Maryna', course: 2, faсulty: 'machine_learning'},
+                    {fullName: 'Gromova Kateryna', course: 3, faсulty: 'computer_science'},
+                    {fullName: 'Popova Inga', course: 2, faсulty: 'machine_learning'},
+                    {fullName: 'Navalov Artemiy', course: 3, faсulty: 'computer_science'},
+                    {fullName: 'Belova Kristina', course: 2, faсulty: 'machine_learning'},
+                    ];
+
+                    function facultiesNumber (studentsArr) {
+                        let faculties = new Set();
+                        studentsArr.forEach(student => {
+                            faculties.add(student.faсulty);
+                        });
+                        return faculties.size;
+                    };
+
+                    console.log(facultiesNumber(studentsArr));
+
+                    function facultyStudents (studentsArr) {
+                        let facultyStudentsNumber = new Map ();
+                        console.log(studentsArr);
+                        studentsArr.forEach(student => {
+                            facultyStudentsNumber.set(student.course, (facultyStudentsNumber.get(student.course) ?? 0) + 1);
+                        });
+                        return facultyStudentsNumber;
+                    };
+
+                    console.log(facultyStudents(studentsArr));
+
+                    // --------------------------------------------------------------------------------------------------------------------
+                    // Задача 5. Дано масив показів температур. Підрахувати кількість входжень кожного із показів. Заокруглити вверх значення та підрахувати кількість різних показів.
+                    // Task 5. An array of temperature displays is given. Calculate the number of occurrences of each of the shows. Round up the value and count the number of different impressions.
+                    let temperatures = [12.4, 24.9, 10.6, 12.4, 24.9, 12.4, 10.6, 11.9];
+
+                    function countEntriesTemprature (temperatures) {
+                        let tempratureEntry = new Map();
+                            temperatures.forEach(temp => {
+                                tempratureEntry.set(Math.round(temp), (tempratureEntry.get(Math.round(temp)) ?? 0) + 1);
+                                
+                        });
+                        return tempratureEntry;
+                    };
+
+                    console.log(countEntriesTemprature(temperatures));
+
+                    // --------------------------------------------------------------------------------------------------------------------
+                    // Задача 6. Дано два списки прізвищ студентів, що відвідують гуртки з математики і історії. 
+                    // Підрахувати скільки студентів з гуртка з історії також відвідують гурток з математики. 
+                    // Також підрахувати скільки всього студентів відвідують хоча б один гурток.
+                    // Task 6. Two lists of names of students attending mathematics and history circles are given. Count how many students from the history club also attend the math club. Also count how many students attend at least one circle.
+                    let mathStudents = ['Ivanov Ivan', 'Babikova Lesya', 'Ilyash Maryna', 'Banderas Stepan', 'Navalov Artemiy', 'Belova Kristina'];
+                    let historyStudents = ['Popova Inga', 'Navalov Artemiy', 'Gromova Kateryna', 'Ilyash Maryna', 'Belova Kristina'];
+
+                    function uniqStudents (mathStudents, historyStudents) {
+                        let allStudents = mathStudents.concat(historyStudents);
+                        allStudents = new Set(allStudents);
+                        return allStudents;
+                    }
+
+                    function studentsCourses (mathStudents, historyStudents) {
+                        let uniqueStudents = uniqStudents(mathStudents, historyStudents);
+                        let infoAboutStudents = new Map();
+                        
+                        uniqueStudents.forEach(uniqueStudent => {
+                                let inHistoryGroup = historyStudents.includes(uniqueStudent) ? 1 : 0;
+                                let inMathGroup = mathStudents.includes(uniqueStudent) ? 1 : 0;
+                                infoAboutStudents.set(uniqueStudent,  {inHistoryGroup, inMathGroup});
+                        })
+                        return infoAboutStudents
+                    }
+
+                    console.log(studentsCourses(mathStudents, historyStudents));
+
+                    function showStudentsCourses (mathStudents, historyStudents) {
+                        let studentCourses = studentsCourses(mathStudents, historyStudents);
+                        let historyCourseCounter = 0;
+
+                        for (const student of studentCourses) {
+                            console.log(`${student[0]} - math group: ${student[1].inMathGroup} - history group: ${student[1].inHistoryGroup}`);
+                            if (student[1].inHistoryGroup === 1 && student[1].inMathGroup === 1) {
+                                historyCourseCounter++
+                            }
+                        }
+                        return historyCourseCounter;
+                    }
+
+                    console.log(`Students from history group have visited math group to: ${showStudentsCourses(mathStudents, historyStudents)}`);
+
+                    
+
+                    // --------------------------------------------------------------------------------------------------------------------
+
+                    </script>
+
+                    <style></style>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 24 - home task 8</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 24 - Домашнє завдання 8</h3>
+                <div class="task__condition">
+                    Задача 8. Зберігати у пам’яті список справ, які користувачу треба виконати (зберігати у localStorage). 
+                    Періодично випадковим чином вибирати якусь з справ і виводити користувачу (з використанням confirm). 
+                    Якщо користувач натискає на «Ок», то видаляти цю задачу.
+                    Task 8. Store in memory a list of tasks that the user needs to complete (store in localStorage).
+                    Periodically randomly select one of the cases and display it to the user (using confirm).
+                    If the user clicks on "Ok", then delete this task.
+                </div>
+                <div class="task__computing">
+                    <script>
+                        // render block label - input - button / block list - button => clear 
+                        // save local storage 
+                        // random task => set tame out get from localstorage; / ok on task => done = delet (localstorage)
+                    
+                        class StorageManager {
+                            constructor(propertyKey) {
+                                this.propertyKey = propertyKey;
+                                this.itemsList = this.readDataList();
+                            }
+
+                            readDataList (){
+                                let list;
+                                if (localStorage.getItem(this.propertyKey)){
+                                    list = JSON.parse(localStorage.getItem(this.propertyKey));
+                                } else {
+                                    list = [];
+                                }
+                                return list;    
+                            }
+
+                            addItem (title, priority){
+                                const list = this.readDataList();
+                                list.push(
+                                    {
+                                        id: new Date().getTime(),
+                                        title,
+                                        priority
+                                    }
+                                );
+                                this.saveList(list);
+                            }
+
+                            saveList (list) {
+                                localStorage.setItem(this.propertyKey, JSON.stringify(list));
+                            }
+
+                            removeItem (itemIdToRemove) {
+                                let list = this.readDataList();
+                                const newList = list.filter(item => item.id !== itemIdToRemove);
+                                this.saveList(newList);
+                            }
+                        }
+
+                        class ToDoManager {
+                            constructor (propertyKey) {
+                                this.storageManager = new StorageManager(propertyKey);
+                            }
+
+                            createLabelWithInput (title, inputType) {
+                                const container = document.createElement('div');
+                                const label = document.createElement('div');
+                                container.appendChild(label);
+                                label.innerText = title;
+
+                                const input = document.createElement('input');
+                                input.setAttribute('type', inputType);
+                                label.appendChild(input);
+
+                                return {container, input}
+                            }
+
+                            renderForm () {
+                                const formContainer = document.createElement('div');
+                                formContainer.className = 'addForm';
+                                let {container, input} = this.createLabelWithInput('Title', 'text');
+                                formContainer.append(container);
+                                container.className = 'task__container';
+                                this.titleInput = input;
+                                this.titleInput.placeholder = 'Please, enter your task!'
+                                
+                                let {container: cnt2, input: imp2} = this.createLabelWithInput('Priority', 'number');
+                                cnt2.className = 'priority__container';
+                                formContainer.appendChild(cnt2);
+                                this.priorityInput = imp2;
+                                this.priorityInput.placeholder = 'Enter a priority of task.'
+
+                                const btn = document.createElement('button');
+                                btn.innerText = 'Add task';
+                                formContainer.append(btn);
+                                btn.onclick = this.addTask.bind(this)
+
+                                const sortButton = document.createElement('button');
+                                sortButton.innerText = 'Sort tasks by priority';
+                                formContainer.appendChild(sortButton);
+                                sortButton.onclick = () => this.sortTasksByPriority();
+
+                                const button_2 = document.createElement('button');
+                                button_2.id = 'clear_button_id';
+                                button_2.innerText = 'Clear all tasks';
+                                formContainer.append(button_2);
+                                button_2.onclick = () => this.clearAllTasks();
+
+                                return formContainer;
+                            }
+
+                            sortTasksByPriority () {
+                                const allTasks = this.storageManager.readDataList();
+                                allTasks.sort((a, b) => a.priority-b.priority);
+                                this.storageManager.saveList(allTasks);
+                                this.refresh();
+                            }
+
+                            clearAllTasks (){
+                                const confirmation = confirm('Are you sure that you want to delete all tasks?');
+                                if (confirmation) {
+                                    localStorage.clear();
+                                    this.refresh();
+                                }
+                            }
+
+                            onDelete (id) {
+                                this.storageManager.removeItem(id);
+                                this.refresh();
+                            }
+
+                            addTask () {
+                                const title = this.titleInput.value.trim();
+                                const priority = this.priorityInput.value.trim();
+
+                                if (!title || !priority) {
+                                    alert('Please enter titlle and priority (both)!');
+                                    throw new Error('Please enter titlle and priority (both)!');
+                                    return;
+                                }
+
+                                this.storageManager.addItem(title, priority);
+                                this.refresh();
+
+                                this.titleInput.value = '';
+                                this.priorityInput.value = ''
+                            }
+
+                            renderTaskItem (id, title, priority) {
+                                const container = document.createElement('div');
+                                container.className = 'item';
+
+                                let span = document.createElement('span');
+                                span.innerText = title;
+                                container.append(span);
+
+                                span = document.createElement('span');
+                                span.innerText = priority;
+                                container.append(span);
+
+                                const button = document.createElement('button');
+                                button.innerText = 'Delete';
+                                container.append(button);
+
+                                button.onclick = () => this.onDelete(id);
+
+                                return container;
+                            }
+
+                            renderList (listItem) {
+                                const container = document.createElement('div');
+                                container.className = 'tasks__list';
+                                for (const item of listItem) {
+                                    const itemDiv = this.renderTaskItem(item.id, item.title, item.priority);
+                                    container.append(itemDiv);
+                                }
+                                return container;
+                            }
+
+                            render (containerSelector) {
+                                const container = document.querySelector(containerSelector);
+                                container.append(this.renderForm());
+                                this.listContainer = this.renderList(this.storageManager.readDataList());
+                                container.append(this.listContainer);
+                                this.managerContainer = container;
+                            }
+
+                            refresh () {
+                                this.listContainer.remove();
+                                this.listContainer = this.renderList(this.storageManager.readDataList());
+                                this.managerContainer.append(this.listContainer);
+                            }
+                        }
+                        
+                        window.onload = function (){
+                            const manager = new ToDoManager('tasks');
+                            manager.render('.task__computing');
+                        }
+
+                    </script>
+
+                    <style>
+                        .task__computing {
+                            padding-top: 50px;
+                        }
+
+                        .addForm {
+                            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+                            font-size: 14px;
+                            width: 600px;
+                            border: 2px solid black;
+                            padding: 20px;
+                            margin: 0 auto;
+                            margin-bottom: 30px;
+                            border-radius: 5px;
+                            background-color: rgba(205, 243, 209, 0.552);
+                            box-shadow: 1px 1px 1px rgb(123, 104, 9);
+                        }
+
+                        .task__container, 
+                        .priority__container {
+                            margin-bottom: 20px;
+                            width: 600px;
+                            font-weight: 700;
+                            color: rgb(18, 59, 156);
+                        }
+
+                        input {
+                            width: 200px;
+                        }
+
+                        .priority__container {
+                            
+                        }
+
+                        .task__computing button {
+                            margin-right: 30px;
+                        }
+
+                        .task__computing input{
+                            margin-left: 30px;
+                        }
+
+                        .task__container input {
+                            margin-left: 50px;
+                            width: 400px;
+                        }
+
+                        .priority__container input {
+                            width: 145px;
+                        }
+
+                        .tasks__list {
+                            width: 600px;
+                            margin: 0 auto;
+                            padding: 20px;
+                            border: 1px solid #777;
+                            background-color: rgba(162, 222, 168, 0.117);
+                            border-radius: 5px;
+                        }
+
+                        .addForm button {
+                            background-color: rgb(184, 207, 236);
+                            border: 1px solid rgb(36, 31, 82);
+                            border-radius: 3px;
+                            padding: 5px;
+                            box-shadow: 1px 1px 4px rgb(188, 217, 248);
+                            transition: all 0.4s;
+                        }
+
+                        .addForm button:hover {
+                            background-color: rgb(248, 243, 243);
+                            box-shadow: 3px 3px 6px rgb(188, 217, 248);
+                            transform: translate(0.5px, 0.5px);
+                        }
+
+                        .item {
+                            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+                            font-size: 14px;
+                            width: 500px;
+                            border: 1px solid rgb(85, 57, 57);
+                            padding: 5px;
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            margin: 0 auto;
+                            margin-top: 20px;
+                            border-radius: 5px;
+                            color: rgb(82, 63, 63);
+                            height: 30px;
+                        }
+
+                        .item span:first-child {
+                            flex: 0 1 350px;
+                        }
+                      
+
+                        .tasks__list button{
+                            background-color: rgb(117, 126, 65);
+                            color: #fff;
+                            border-radius: 5px;
+                            transition: all 0.3s;
+                        }
+
+                        .item button:hover {
+                            background-color: rgb(167, 185, 63);
+
+                        }
+
+                        #clear_button_id {
+                            background-color: rgb(164, 135, 135);
+                            color: rgb(250, 245, 245);
+                            box-shadow: 2px 2px 4px rgb(226, 209, 209);
+                        }
+
+
+                        
+                    </style>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

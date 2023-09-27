@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Additional task 1</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Додаткове завдання 1</h3>
+                <div class="task__condition">
+                    Task 1. З клавіатури поступово вводить користувач числа. Підрахувати кількість різних введедних чисел. 
+                    Приняє введення тоді, коли введе 0.
+                    Task 2. Підрахувати кількість різних імен.
+                    Task 3. Дано масив книг (назва, рік видання, автор (ПІБ, рік народження). Підрахувати кількість різних авторів.
+                    Task 4. Підрахувати кількість входжень кожного із значень.
+                    Task 5. Дано список з віком учнів. Підрахувати скільки разів кожне значення зустрічається у списку і максимальне.
+
+                </div>
+                <div class="task__computing">
+                    <script>
+                        // -------------------------------------------------------------------------------
+                        // Task 1.
+
+                        function userNumbers_1 () {
+                            let  setOfNumbers = new Set();
+                            let newNumber;
+                            do {
+                                newNumber = parseInt(prompt('Enter number', 10));
+                                setOfNumbers.add(newNumber);
+                            } while (newNumber !== 0);
+                            console.log(setOfNumbers.size);
+                        }
+
+                        // userNumbers_1();
+
+                        // -------------------------------------------------------------------------------
+                        // Task 2.
+                        let studentsNames = ['Ivan', 'Olga', 'Antonina', 'Margarita', 'Ivanka', 'Petro', 'Ivan', 'Olga', 'Petro', 'Jack', 'Max', 'Petro', 'Angelina', 'Ivanka', 'Olga',];
+                        let studentsSet = new Set(studentsNames);
+                        console.log(studentsSet.size);
+
+                        // -------------------------------------------------------------------------------
+                        // Task 3.
+
+                        let books = [
+                            { id: 1, title: 'Title1', author: 'Author1' },
+                            { id: 2, title: 'Title2', author: 'Author2' },
+                            { id: 3, title: 'Title3', author: 'Author3' },
+                            { id: 4, title: 'Title4', author: 'Author2' },
+                            { id: 5, title: 'Title5', author: 'Author1' },
+                        ];
+
+                        let authorsSet = new Set(books.map((books) => books.author)).size;
+                        console.log(authorsSet);
+
+                        // --------------------------------------------------------------------------------
+                        // Task 4.
+                        let arr = [12, 'hello', '12', 45, true, 'false', 'true', '12'];
+                        let mapValuesIn = new Map();
+                        for (const element of arr) {
+                            let elementCount = mapValuesIn.get(element) ?? 0;
+                            mapValuesIn.set(element, elementCount + 1);
+                        };
+
+                        console.log(mapValuesIn);
+                        mapValuesIn.forEach((value, key) => {
+                            console.log(`${key} - ${value}`);
+                        });
+
+                        // --------------------------------------------------------------------------------
+                        // Task 5.
+                        let ages = [12, 13, 15, 12, 15, 12];
+
+                        let mapAges = new Map();
+                        for (const element of ages) {
+                            mapAges.set(element, (mapAges.get(element) ?? 0) + 1);
+                        };
+
+                        console.log(mapAges);
+
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
