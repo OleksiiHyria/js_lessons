@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 25 - home task</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 25 - Домашнє завдання 1 <mark>(Результати виведені в консоль.)</mark></h3>
+                <div class="task__condition">
+                    Задача 1. Дано клас PhoneNumber. Створити функцію перетворення до string, при якому на основі номера виводиться оператор (050….  🡪 MTC, 096… 🡪 Kyivstar, ….)
+                    Task 1. The PhoneNumber class is given. Create a conversion function to string, in which the operator is output based on the number (050.... 🡪 MTC, 096... 🡪 Kyivstar, ....).
+                </div>
+                <div class="task__computing">
+                    <script>
+
+                        // ------- Task 1 -------
+                        // Задача 1. Дано клас PhoneNumber. Створити функцію перетворення до string, при якому на основі номера виводиться оператор (050….  🡪 MTC, 096… 🡪 Kyivstar, ….)
+                        // Task 1. The PhoneNumber class is given. Create a conversion function to string, in which the operator is output based on the number (050.... 🡪 MTC, 096... 🡪 Kyivstar, ....).
+
+                        class PhoneNumberChecker {
+                            constructor (phone) {
+                                this.phone = phone.trim();
+                            }
+
+                            [Symbol.toPrimitive](hint){
+                                let mobileOperator = '';
+
+                                let numberString = String(this.phone).trim();
+                                let operatorCode =  numberString.substring(2, 5);
+                                let onlyPhoneNumber = numberString.slice(5);
+                                
+                                switch (operatorCode) {
+                                    case '050':
+                                    case '066': 
+                                    case '095':
+                                    case '099': 
+                                        mobileOperator = 'Vodafone';
+                                        break;
+                                    case '067':
+                                    case '096':
+                                    case '098':
+                                    case '068': 
+                                        mobileOperator = 'Kievstar';
+                                        break;
+                                    case '063': 
+                                    case '073':
+                                    case '093': 
+                                        mobileOperator = 'Lifecell';
+                                        break;
+                                    default: 
+                                        mobileOperator = 'Other mobile operator';
+                                        throw new Error('Other mobile operator.')
+                                        break;
+                                }
+
+                                if (hint === 'string') {
+                                    return `${mobileOperator} - ${operatorCode} - ${onlyPhoneNumber}`
+                                } else {
+                                    return mobileOperator;
+                                }
+                            }
+                        }
+
+                        const phone1 = new PhoneNumberChecker('   380993694390');
+                        console.log(phone1[Symbol.toPrimitive]('string'));
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

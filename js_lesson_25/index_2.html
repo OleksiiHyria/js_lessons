@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 25 - home task 2</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 25 - Домашнє завдання 2<mark>(Результати виведені в консоль.)</mark></h3>
+                <div class="task__condition">
+                    Задача 2. Дано Shop  -- клас, що містить список товарів (масив об’єктів класу Product (назва, ціна, кількість одиниць). 
+                    Додати можливість ітератора до класу Shop, щоб при ітеруванні для кожного елемента виводився рядок «товар-загальна вартість». <br>
+                    Task 2. Shop is given - a class containing a list of products (array of objects of the Product class (name, price, number of units).
+                    Add an iterator capability to the Shop class so that when iterating for each item, the "product-total cost" line is displayed.
+                </div>
+                <div class="task__computing">
+                    <script>
+                        class Product {
+                            constructor (name, price, number) {
+                                this.productName = name;
+                                this.productPrice = price;
+                                this.productNumber = number;
+                            }
+
+                            calculateTotalPrice () {
+                                return this.productPrice * this.productNumber;
+                            }
+                        }
+
+                        const productOne = new Product('Car1', 750000, 3);
+                        
+                        class Shop {
+                            constructor (products) {
+                                this.products = [];
+                            }
+
+                            addProduct (product) {
+                                this.products.push(product)
+                            }
+
+                            [Symbol.iterator](){
+                                let index = 0;
+                                const products = this.products
+
+                                return {
+                                    next: function () {
+                                        if (products.length > index) {
+                                            const product = products[index++];
+                                            const totalCost = product.calculateTotalPrice();
+                                            return {
+                                                value: `${product.productName} - ${totalCost}`,
+                                                done: false,
+                                            }
+                                        } else {
+                                            return {
+                                                done: true,
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        const newShop = new Shop();
+                        newShop.addProduct(new Product('Product 1', 10, 3));
+                        newShop.addProduct(new Product('Product 2', 50, 53));
+                        newShop.addProduct(new Product('Product 5', 100, 390));
+
+                        for(const product of newShop) {
+                            console.log(product);
+                        }
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

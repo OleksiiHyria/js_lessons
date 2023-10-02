@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Lesson 25 - home task 4</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Урок 25 - Домашнє завдання 4</h3>
+                <div class="task__condition">
+                    Задача 4. Використовуючи один з АРІ https://github.com/public-apis/public-apis#animals та функцію fetch організувати завантаження та відображення даних.
+                    Task 4. Using one of the ARPs https://github.com/public-apis/public-apis#animals and the fetch function to organize data loading and display
+                </div>
+                <div class="task__computing">
+                    <script>
+                        const taskComputing = document.querySelector('.task__computing');
+
+                        // v1 ----------------------------------------------------------- 
+                        // fetch('https://cat-fact.herokuapp.com/facts/random')
+                        //     .then((response) => response.json())
+                        //     .then((data) => taskComputing.innerHTML = `<div>${JSON.stringify(data.text)}</div>`);
+
+                        // v2 ----------------------------------------------------------- 
+                        // let xhr = new XMLHttpRequest();
+                        // xhr.open('GET', 'https://dog.ceo/api/breeds/image/random');
+                        // xhr.send();
+
+                        // xhr.onload = function(){
+                        //     if(xhr.status == 200) {
+                        //         taskComputing.innerHTML = `<img src="${JSON.parse(xhr.response).message}">`
+                        //     }
+                        // }
+
+                        // v3 ----------------------------------------------------------- 
+                        fetch('https://dog.ceo/api/breeds/image/random')
+                        .then((response) => response.json())
+                        .then((data) => taskComputing.innerHTML = `<div><img src="${data.message}" alt="Random dog picture."></div>`)
+                        .catch((error) => {
+                            console.error('Error: ', error);
+                            taskComputing.innerHTML = '<div>Error fetcying data from the API</div>'
+                        })
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Additional task 3</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Додаткове завдання 3</h3>
+                <div class="task__condition">
+                    Promise all
+                </div>
+                <div class="task__computing">
+                    <script>
+                        const firstPromise = Promise.resolve('One');
+                        const secondPromise = new Promise((resolve) =>{
+                            setTimeout(() => {
+                                resolve('Two');
+                            }, 2000);
+                        });
+                        const thirdPromise = fetch('https://jsonplaceholder.typicode.com/posts/1');
+
+                        Promise.all([firstPromise, secondPromise, thirdPromise])
+                        .then((results) => {
+                            console.log(results);
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

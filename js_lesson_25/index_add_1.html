@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style_task.css">
+    <title>Additional task 1</title>
+</head>
+<body>
+    <div class="wrapper">
+        <main class="home">
+            <div class="home__container">
+                <div class="home__task task"></div>
+                <h3 class="task__title">Додаткове завдання 1</h3>
+                <div class="task__condition">
+                    Task 1. Create a promise that resolves after 2 seconds with the message "Task 1 is complete." <br>
+                    Task 2. Create another promise that resolves after 3 seconds with the message "Task 2 is complete." <br>
+                    Task 3. Write a function that fetches data from an API using the fetch function and returns a promise. Use any publicly available API, like the JSONPlaceholder API, and fetch a specific resource. <br>
+                    Task 4. Create a promise that rejects immediately with the error message "Task 4 encountered an error." <br>
+                    Task 5. Write a function that takes a number as input and returns a promise that resolves with the square of that number after 1 second. <br>
+                </div>
+                <div class="task__computing">
+                    <script>
+                        // ----------------------------------------------------------------------------
+                        // Task 1
+                        const promeseOne = new Promise((resolve) => {
+                            setTimeout(() => {
+                                resolve("Task 1 is complete.")
+                            }, 2000);
+                        });
+                        promeseOne
+                        .then((result)=>{
+                            console.log(result);
+                        });
+
+                        // ----------------------------------------------------------------------------
+                        // Task 2
+                        const promiseTwo = promeseOne.then((result) => {
+                            return new Promise((resolve) => {
+                                setTimeout(() => {
+                                    console.log("Task 2 is complete.");
+                                    resolve();
+                                }, 3000);
+                            });
+                        });
+
+                        // ----------------------------------------------------------------------------
+                        // Task 3
+                        function returnFetchPromise () {
+                            return fetch('https://jsonplaceholder.typicode.com/posts/1');
+                        }
+
+                        returnFetchPromise()
+                        .then((response) => response.json())
+                        .then((data) => console.log(data))
+
+                        .catch((error) => {
+                            console.error(error)});
+
+                        // ----------------------------------------------------------------------------
+                        // Task 4
+                        const promise4 = new Promise((resolve, reject) => {
+                            reject(new Error('This is a new Error!'));
+                        });
+
+                        promise4
+                        .then((result) => {
+                            console.log(result);
+                        })
+                        .catch((error) => {
+                            console.error(error.message)});
+
+                        // ----------------------------------------------------------------------------
+                        // Task 5
+
+                        const taskComputing = document.querySelector('.task__computing');
+                        const input = document.createElement('input');
+                        input.type = 'text';
+                        input.value = 16;
+                        
+                        taskComputing.appendChild(input);
+
+                        function computingSqrt () {
+                            return new Promise((resolve, reject) => {
+                                if (value >= 0) {
+                                    resolve(Math.sqrt(value));
+                                } else {
+                                    reject(new Error('Something went wrong.'));
+                                }
+                            });
+                        }
+
+                        const value = parseInt(input.value);
+                        const resultSqrt = computingSqrt(value);
+
+                        resultSqrt
+                        .then((result) => {
+                            console.log(result);
+                        })
+                        .catch((error) => {
+                            console.error(error.message)
+                        });
+
+
+                    </script>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
